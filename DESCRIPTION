@@ -1,0 +1,25 @@
+Package: rpecanapi
+Title: R Library that interacts with the PEcAn API
+Version: 1.0.0
+Authors@R: 
+    person(given = "Tezan",
+           family = "Sahu",
+           role = c("aut", "cre"),
+           email = "tezansahu@gmail.com",
+           comment = c(ORCID = "0000-0003-1031-9683"))
+Description: The Predictive Ecosystem Carbon Analyzer (PEcAn) is a scientific
+    workflow management tool that is designed to simplify the management of
+    model parameterization, execution, and analysis. The goal of PECAn is to
+    streamline the interaction between data and models, and to improve the
+    efficacy of scientific investigation. This library allows users to connect 
+    to the PEcAn API server & interact with it.
+Imports:
+  httr,
+  jsonlite
+License: MIT
+Copyright: Authors
+LazyLoad: yes
+LazyData: FALSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.0.2

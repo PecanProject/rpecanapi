@@ -10,11 +10,11 @@ ping(server)
 \item{server}{Server object obtained using the connect() function}
 }
 \value{
-Response obtained from the /api/ping endpoint
+Response obtained from the \verb{/api/ping} endpoint
 }
 \description{
 Pings the PEcAn API server (using the URL passed in the server object)
-to see if it is live or not. Hits the /api/ping API endpoint
+to see if it is live or not. Hits the \verb{/api/ping} API endpoint
 }
 \examples{
 server <- connect(url="http://localhost:8000", username="carya", password="illinois")

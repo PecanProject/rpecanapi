@@ -18,5 +18,20 @@ get.workflow <- function(server, workflow_id){
     paste0(server$url, "/api/workflows/", workflow_id),
     httr::authenticate(server$username, server$password)
   )
-  return(res)
+  
+  if(res$status_code == 200){
+    return(jsonlite::fromJSON(rawToChar(res$content)))
+  }
+  else if(res$status_code == 401){
+    stop("Invalid credentials")
+  }
+  else if(res$status_code == 404){
+    stop("Workflow not found")
+  }
+  else if(res$status_code == 500){
+    stop("Internal server error")
+  }
+  else{
+    stop("Unidentified error")
+  }
 }

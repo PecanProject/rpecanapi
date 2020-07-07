@@ -11,7 +11,7 @@ This package allows users to get relevant information from the PEcAn database as
 You can install the development version of `rpecanapi` from GitHub as follows:
 ```R
 # install.packages("devtools")
-devtools::install_github("pecan/rpecanapi")
+devtools::install_github("PecanProject/rpecanapi")
 ```
 
 ## Usage

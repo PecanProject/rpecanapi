@@ -11,5 +11,21 @@
 ##' res <- get.status(server)
 
 get.status <- function(server){
-  return(httr::GET(paste0(server$url, "/api/status")))
+  res <- httr::GET(paste0(server$url, "/api/status"))
+  
+  if(res$status_code == 200){
+    return(jsonlite::fromJSON(rawToChar(res$content)))
+  }
+  else if(res$status_code == 401){
+    stop("Invalid credentials")
+  }
+  else if(res$status_code == 404){
+    stop("No runs found")
+  }
+  else if(res$status_code == 500){
+    stop("Internal server error")
+  }
+  else{
+    stop("Unidentified error")
+  }
 }

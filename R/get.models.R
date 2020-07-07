@@ -41,5 +41,16 @@ get.models <- function(server, model_name=NULL, revision=NULL){
     httr::authenticate(server$username, server$password)
   )
   
-  return(res)
+  if(res$status_code == 200){
+    return(jsonlite::fromJSON(rawToChar(res$content)))
+  }
+  else if(res$status_code == 401){
+    stop("Invalid credentials")
+  }
+  else if(res$status_code == 500){
+    stop("Internal server error")
+  }
+  else{
+    stop("Unidentified error")
+  }
 }

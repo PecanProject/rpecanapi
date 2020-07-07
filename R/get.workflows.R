@@ -24,19 +24,19 @@
 ##' # Get list of workflow(s) that use 'SIPNET-ssr' model & 'Willow Creek (US-WCr)' as site
 ##' res4 <- get.workflows(server, "1000000022", "676")
 
-get.workflows <- function(server, model_id=NULL, site_id=NULL){
+get.workflows <- function(server, model_id=NULL, site_id=NULL, offset=0, limit=50){
   url <- paste0(server$url, "/api/workflows/")
   if(!is.null(model_id) && !is.null(site_id)){
-    url <- paste0(url, "?model_id=", model_id, "&site_id=", site_id)
+    url <- paste0(url, "?model_id=", model_id, "&site_id=", site_id, "&offset=", offset, "&limit=", limit)
   }
   else if(!is.null(model_id) && is.null(site_id)){
-    url <- paste0(url, "?model_id=", model_id)
+    url <- paste0(url, "?model_id=", model_id, "&offset=", offset, "&limit=", limit)
   }
   else if(is.null(model_id) && !is.null(site_id)){
-    url <- paste0(url, "?site_id=", site_id)
+    url <- paste0(url, "?site_id=", site_id, "&offset=", offset, "&limit=", limit)
   }
   else{
-    # Do nothing
+    url <- paste0(url, "?offset=", offset, "&limit=", limit)
   }
   
   res <- httr::GET(
@@ -44,5 +44,19 @@ get.workflows <- function(server, model_id=NULL, site_id=NULL){
     httr::authenticate(server$username, server$password)
   )
   
-  return(res)
+  if(res$status_code == 200){
+    return(jsonlite::fromJSON(rawToChar(res$content)))
+  }
+  else if(res$status_code == 401){
+    stop("Invalid credentials")
+  }
+  else if(res$status_code == 404){
+    stop("No workflows found")
+  }
+  else if(res$status_code == 500){
+    stop("Internal server error")
+  }
+  else{
+    stop("Unidentified error")
+  }
 }

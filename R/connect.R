@@ -15,6 +15,6 @@
 ##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 
 connect <- function(url, username=NULL, password=NULL){
-  res <- list(base_url=url, username=username, password=password)
+  res <- list(url=url, username=username, password=password)
   return(res)
 }

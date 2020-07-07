@@ -12,13 +12,27 @@
 ##' # Get details of all runs for the workflow with ID '1000009172'
 ##' res <- get.runs(server, "1000009172")
 
-get.runs <- function(server, workflow_id){
-  url <- paste0(server$url, "/api/runs/?workflow_id=", workflow_id)
+get.runs <- function(server, workflow_id, offset=0, limit=50){
+  url <- paste0(server$url, "/api/runs/?workflow_id=", workflow_id, "&offset=", offset, "&limit=", limit)
   
   res <- httr::GET(
     url,
     httr::authenticate(server$username, server$password)
   )
   
-  return(res)
+  if(res$status_code == 200){
+    return(jsonlite::fromJSON(rawToChar(res$content)))
+  }
+  else if(res$status_code == 401){
+    stop("Invalid credentials")
+  }
+  else if(res$status_code == 404){
+    stop("No runs found")
+  }
+  else if(res$status_code == 500){
+    stop("Internal server error")
+  }
+  else{
+    stop("Unidentified error")
+  }
 }

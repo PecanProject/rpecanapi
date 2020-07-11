@@ -4,7 +4,7 @@
 \alias{get.workflows}
 \title{Get list of PEcAn Workflows from the database}
 \usage{
-get.workflows(server, model_id = NULL, site_id = NULL)
+get.workflows(server, model_id = NULL, site_id = NULL, offset = 0, limit = 50)
 }
 \arguments{
 \item{server}{Server object obtained using the connect() function}

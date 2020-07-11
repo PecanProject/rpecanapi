@@ -4,7 +4,7 @@
 \alias{get.runs}
 \title{Get list of PEcAn Runs that belong to a specific workflow}
 \usage{
-get.runs(server, workflow_id)
+get.runs(server, workflow_id, offset = 0, limit = 50)
 }
 \arguments{
 \item{server}{Server object obtained using the connect() function}

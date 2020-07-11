@@ -68,13 +68,51 @@ get.status(server)
 #> [1] ""
 ```
 
-### Get information about PEcAn Model(s):
+### Search for PEcAn Model(s):
 ```R
-get.models(server, model_name='SIPNET', revision='ssr')
+search.models(server, model_name='sip', revision='r')
 
 #> $models
-#>     model_id model_name revision modeltype_id model_type
-#> 1 1000000022     SIPNET      ssr            3     SIPNET
+#>     model_id model_name revision
+#> 1 1000000014     SIPNET     r136
+#> 2 1000000022     SIPNET      ssr
+
+#> $count
+#> [1] 2
+```
+
+### Get the details of a PEcAn Model:
+```R
+get.model(server, model_id='1000000014')
+
+#>     model_id model_name revision modeltype_id modeltype
+#> 1 1000000014     SIPNET     r136           3     SIPNET
+```
+
+### Search for PEcAn Site(s):
+```R
+search.sites(server, sitename='willow')
+
+#> $sites
+#>           id                                      sitename
+#> 1        676                         Willow Creek (US-WCr)
+#> 2       1108 Willow Creek (WC)-Chequamegon National Forest
+#> 3       1202                                  Tully_willow
+#> 4       1223                   Saare SRF willow plantation
+#> 5 1000005151                         Willow Creek (US-WCr)
+
+#> $count
+#> [1] 5
+```
+
+### Get the details of a PEcAn Site:
+```R
+get.site(server, site_id='676')
+
+#>    id                       city     state country mat map soil notes soilnotes              sitename
+#> 1 676 Park Falls Ranger District Wisconsin      US   4 815         MF           Willow Creek (US-WCr)
+#>   greenhouse sand_pct clay_pct       time_zone
+#> 1      FALSE    42.52    20.17 America/Chicago
 ```
 
 ### Get list of PEcAn Workflows:

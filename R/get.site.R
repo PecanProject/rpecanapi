@@ -26,6 +26,9 @@ get.site <- function(server, site_id){
   else if(res$status_code == 401){
     stop("Invalid credentials")
   }
+  else if(res$status_code == 404){
+    stop("Site not found")
+  }
   else if(res$status_code == 500){
     stop("Internal server error")
   }

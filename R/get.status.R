@@ -19,9 +19,6 @@ get.status <- function(server){
   else if(res$status_code == 401){
     stop("Invalid credentials")
   }
-  else if(res$status_code == 404){
-    stop("No runs found")
-  }
   else if(res$status_code == 500){
     stop("Internal server error")
   }

@@ -25,12 +25,18 @@
 ##' res4 <- search.models(server, model_name="SIPNET", ignore_case=FALSE)
 
 search.models <- function(server, model_name="", revision="", ignore_case=TRUE){
-  url <- paste0(server$url, "/api/models/?model_name=", model_name, "&revision=", revision, "&ignore_case", ignore_case)
+  url <- paste0(server$url, "/api/models/?model_name=", model_name, "&revision=", revision, "&ignore_case=", ignore_case)
   
-  res <- httr::GET(
-    url,
-    httr::authenticate(server$username, server$password)
-  )
+  if(! is.null(server$username) && ! is.null(server$password)){
+    res <- httr::GET(
+      url,
+      httr::authenticate(server$username, server$password)
+    )
+  }
+  else{
+    res <- httr::GET(url)
+  }
+  
   
   if(res$status_code == 200){
     return(jsonlite::fromJSON(rawToChar(res$content)))

@@ -11,13 +11,21 @@
 ##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 ##' 
 ##' # Get details of workflow with id = '1000009172'
-##' res <- get.workflow(server, "1000009172")
+##' res <- get.workflow(server, workflow_id=1000009172)
 
 get.workflow <- function(server, workflow_id){
-  res <- httr::GET(
-    paste0(server$url, "/api/workflows/", workflow_id),
-    httr::authenticate(server$username, server$password)
-  )
+  url <- paste0(server$url, "/api/workflows/", workflow_id)
+    
+  
+  if(! is.null(server$username) && ! is.null(server$password)){
+    res <- httr::GET(
+      url,
+      httr::authenticate(server$username, server$password)
+    )
+  }
+  else{
+    res <- httr::GET(url)
+  }
   
   if(res$status_code == 200){
     return(jsonlite::fromJSON(rawToChar(res$content)))

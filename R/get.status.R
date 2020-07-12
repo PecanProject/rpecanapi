@@ -16,9 +16,6 @@ get.status <- function(server){
   if(res$status_code == 200){
     return(jsonlite::fromJSON(rawToChar(res$content)))
   }
-  else if(res$status_code == 401){
-    stop("Invalid credentials")
-  }
   else if(res$status_code == 500){
     stop("Internal server error")
   }

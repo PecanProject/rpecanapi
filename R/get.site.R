@@ -10,15 +10,20 @@
 ##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 ##' 
 ##' # Get details of the WillowCreek(US-WCr) site (id = 676)
-##' res <- get.site(server, site_id="676")
+##' res <- get.site(server, site_id=676)
 
 get.site <- function(server, site_id){
   url <- paste0(server$url, "/api/sites/", site_id)
   
-  res <- httr::GET(
-    url,
-    httr::authenticate(server$username, server$password)
-  )
+  if(! is.null(server$username) && ! is.null(server$password)){
+    res <- httr::GET(
+      url,
+      httr::authenticate(server$username, server$password)
+    )
+  }
+  else{
+    res <- httr::GET(url)
+  }
   
   if(res$status_code == 200){
     return(jsonlite::fromJSON(rawToChar(res$content)))

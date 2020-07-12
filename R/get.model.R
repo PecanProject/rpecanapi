@@ -10,21 +10,29 @@
 ##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 ##' 
 ##' # Get details of the SIPNET ssr model (id = 1000000022)
-##' res <- get.model(server, model_id="1000000022")
+##' res <- get.model(server, model_id=1000000022)
 
 get.model <- function(server, model_id){
   url <- paste0(server$url, "/api/models/", model_id)
   
-  res <- httr::GET(
-    url,
-    httr::authenticate(server$username, server$password)
-  )
+  if(! is.null(server$username) && ! is.null(server$password)){
+    res <- httr::GET(
+      url,
+      httr::authenticate(server$username, server$password)
+    )
+  }
+  else{
+    res <- httr::GET(url)
+  }
   
   if(res$status_code == 200){
     return(jsonlite::fromJSON(rawToChar(res$content)))
   }
   else if(res$status_code == 401){
     stop("Invalid credentials")
+  }
+  else if(res$status_code == 404){
+    stop("Model not found")
   }
   else if(res$status_code == 500){
     stop("Internal server error")

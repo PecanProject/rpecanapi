@@ -16,15 +16,19 @@
 ##' res1 <- get.workflows(server)
 ##' 
 ##' # Get list of all workflows using 'SIPNET-ssr' model
-##' res2 <- get.workflows(server, model_id="1000000022")
+##' res2 <- get.workflows(server, model_id=1000000022)
 ##' 
 ##' ##' # Get list of all workflows using 'Willow Creek (US-WCr)' as site
-##' res3 <- get.workflows(server, site_id="676")
+##' res3 <- get.workflows(server, site_id=676)
 ##' 
 ##' # Get list of workflow(s) that use 'SIPNET-ssr' model & 'Willow Creek (US-WCr)' as site
-##' res4 <- get.workflows(server, "1000000022", "676")
+##' res4 <- get.workflows(server, 1000000022, 676)
 
 get.workflows <- function(server, model_id=NULL, site_id=NULL, offset=0, limit=50){
+  if(! is.element(limit, c(10, 20, 50, 100, 500))) {
+    stop("limit can be only one of 10, 20, 50, 100 or 500")
+  }
+  
   url <- paste0(server$url, "/api/workflows/")
   if(!is.null(model_id) && !is.null(site_id)){
     url <- paste0(url, "?model_id=", model_id, "&site_id=", site_id, "&offset=", offset, "&limit=", limit)
@@ -39,10 +43,15 @@ get.workflows <- function(server, model_id=NULL, site_id=NULL, offset=0, limit=5
     url <- paste0(url, "?offset=", offset, "&limit=", limit)
   }
   
-  res <- httr::GET(
-    url,
-    httr::authenticate(server$username, server$password)
-  )
+  if(! is.null(server$username) && ! is.null(server$password)){
+    res <- httr::GET(
+      url,
+      httr::authenticate(server$username, server$password)
+    )
+  }
+  else{
+    res <- httr::GET(url)
+  }
   
   if(res$status_code == 200){
     return(jsonlite::fromJSON(rawToChar(res$content)))

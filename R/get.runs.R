@@ -4,10 +4,13 @@
 ##' @title Get list of PEcAn Runs that belong to a specific workflow
 ##' @param server Server object obtained using the connect() function 
 ##' @param workflow_id ID of the PEcAn workflow for which all runs are to be retrieved
+##' @param offset The number of workflows to skip before starting to collect the result set.
+##' @param limit The number of workflows to return (Available values : 10, 20, 50, 100, 500)
 ##' @return Response obtained from the `/api/runs/` endpoint with relevant query parameters
+##' @author Tezan Sahu
 ##' @export
 ##' @examples
-##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
+##' server <- connect(url="https://pecan-tezan.ncsa.illinois.edu", username="carya", password="illinois")
 ##' 
 ##' # Get details of all runs for the workflow with ID '1000009172'
 ##' res <- get.runs(server, workflow_id=1000009172)

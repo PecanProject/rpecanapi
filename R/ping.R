@@ -5,9 +5,10 @@
 ##' @title Pings the PEcAn API server to see if it is live
 ##' @param server Server object obtained using the connect() function 
 ##' @return Response obtained from the `/api/ping` endpoint
+##' @author Tezan Sahu
 ##' @export
 ##' @examples
-##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
+##' server <- connect(url="https://pecan-tezan.ncsa.illinois.edu", username="carya", password="illinois")
 ##' res <- ping(server)
 
 ping <- function(server){

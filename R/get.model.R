@@ -5,9 +5,10 @@
 ##' @param server Server object obtained using the connect() function 
 ##' @param model_id ID of the model to retrieve
 ##' @return Response obtained from the `/api/models/{model_id}` endpoint
+##' @author Tezan Sahu
 ##' @export
 ##' @examples
-##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
+##' server <- connect(url="https://pecan-tezan.ncsa.illinois.edu", username="carya", password="illinois")
 ##' 
 ##' # Get details of the SIPNET ssr model (id = 1000000022)
 ##' res <- get.model(server, model_id=1000000022)

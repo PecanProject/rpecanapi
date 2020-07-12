@@ -7,10 +7,13 @@
 ##' @param server Server object obtained using the connect() function 
 ##' @param model_id ID of the specific model being used in workflows to be retrieved. Default: NULL (Returns workflows using any model)
 ##' @param site_id ID of the specific site being used in workflows to be retrieved. Default: NULL (Returns workflows using any site)
+##' @param offset The number of workflows to skip before starting to collect the result set.
+##' @param limit The number of workflows to return (Available values : 10, 20, 50, 100, 500)
 ##' @return Response obtained from the `/api/workflows/` endpoint with relevant query parameters
+##' @author Tezan Sahu
 ##' @export
 ##' @examples
-##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
+##' server <- connect(url="https://pecan-tezan.ncsa.illinois.edu", username="carya", password="illinois")
 ##' 
 ##' # Get list of all workflows
 ##' res1 <- get.workflows(server)

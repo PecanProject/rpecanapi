@@ -7,9 +7,10 @@
 ##' @param sitename Search string for site name Default: "" (Returns all sites)
 ##' @param ignore_case Indicator of case sensitive or case insensitive search
 ##' @return Response obtained from the `/api/sites/` endpoint with relevant query parameters
+##' @author Tezan Sahu
 ##' @export
 ##' @examples
-##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
+##' server <- connect(url="https://pecan-tezan.ncsa.illinois.edu", username="carya", password="illinois")
 ##' 
 ##' # Get details of all sites
 ##' res1 <- search.sites(server)

@@ -5,9 +5,10 @@
 ##' @param server Server object obtained using the connect() function 
 ##' @param site_id ID of the model to retrieve
 ##' @return Response obtained from the `/api/sites/{site_id}` endpoint
+##' @author Tezan Sahu
 ##' @export
 ##' @examples
-##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
+##' server <- connect(url="https://pecan-tezan.ncsa.illinois.edu", username="carya", password="illinois")
 ##' 
 ##' # Get details of the WillowCreek(US-WCr) site (id = 676)
 ##' res <- get.site(server, site_id=676)

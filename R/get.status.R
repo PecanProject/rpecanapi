@@ -5,9 +5,10 @@
 ##' @title Gets general information about PEcAn & the details of the database host
 ##' @param server Server object obtained using the connect() function 
 ##' @return Response obtained from the `/api/status` endpoint
+##' @author Tezan Sahu
 ##' @export
 ##' @examples
-##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
+##' server <- connect(url="https://pecan-tezan.ncsa.illinois.edu", username="carya", password="illinois")
 ##' res <- get.status(server)
 
 get.status <- function(server){

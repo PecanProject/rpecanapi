@@ -6,9 +6,10 @@
 ##' @param server Server object obtained using the connect() function
 ##' @param workflow_id ID of the PEcAn workflow whose details are needed
 ##' @return Response obtained from the `/api/workflow/{id}` endpoint
+##' @author Tezan Sahu
 ##' @export
 ##' @examples
-##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
+##' server <- connect(url="https://pecan-tezan.ncsa.illinois.edu", username="carya", password="illinois")
 ##' 
 ##' # Get details of workflow with id = '1000009172'
 ##' res <- get.workflow(server, workflow_id=1000009172)

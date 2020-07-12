@@ -8,9 +8,10 @@
 ##' @param revision Search string for revision. Default: "" (Returns all revisions for a model)
 ##' @param ignore_case Indicator of case sensitive or case insensitive search
 ##' @return Response obtained from the `/api/models/` endpoint with relevant query parameters
+##' @author Tezan Sahu
 ##' @export
 ##' @examples
-##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
+##' server <- connect(url="https://pecan-tezan.ncsa.illinois.edu", username="carya", password="illinois")
 ##' 
 ##' # Get details of all models
 ##' res1 <- search.models(server)

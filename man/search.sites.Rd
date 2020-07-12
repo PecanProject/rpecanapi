@@ -22,7 +22,7 @@ sitename. Hits the \verb{/api/sites/} API endpoint with
 relevant query parameters
 }
 \examples{
-server <- connect(url="http://localhost:8000", username="carya", password="illinois")
+server <- connect(url="https://pecan-tezan.ncsa.illinois.edu", username="carya", password="illinois")
 
 # Get details of all sites
 res1 <- search.sites(server)
@@ -33,4 +33,7 @@ res2 <- search.sites(server, sitename="willow")
 
 # Get details of sites where name contains "Willow" (case sensitive)
 res4 <- search.sites(server, sitename="Willow", ignore_case=FALSE)
+}
+\author{
+Tezan Sahu
 }

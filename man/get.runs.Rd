@@ -10,6 +10,10 @@ get.runs(server, workflow_id, offset = 0, limit = 50)
 \item{server}{Server object obtained using the connect() function}
 
 \item{workflow_id}{ID of the PEcAn workflow for which all runs are to be retrieved}
+
+\item{offset}{The number of workflows to skip before starting to collect the result set.}
+
+\item{limit}{The number of workflows to return (Available values : 10, 20, 50, 100, 500)}
 }
 \value{
 Response obtained from the \verb{/api/runs/} endpoint with relevant query parameters
@@ -19,8 +23,11 @@ Retrive a list of all PEcAn runs from the database that belong to a
 specific workflow
 }
 \examples{
-server <- connect(url="http://localhost:8000", username="carya", password="illinois")
+server <- connect(url="https://pecan-tezan.ncsa.illinois.edu", username="carya", password="illinois")
 
 # Get details of all runs for the workflow with ID '1000009172'
-res <- get.runs(server, "1000009172")
+res <- get.runs(server, workflow_id=1000009172)
+}
+\author{
+Tezan Sahu
 }

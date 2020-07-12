@@ -12,6 +12,10 @@ get.workflows(server, model_id = NULL, site_id = NULL, offset = 0, limit = 50)
 \item{model_id}{ID of the specific model being used in workflows to be retrieved. Default: NULL (Returns workflows using any model)}
 
 \item{site_id}{ID of the specific site being used in workflows to be retrieved. Default: NULL (Returns workflows using any site)}
+
+\item{offset}{The number of workflows to skip before starting to collect the result set.}
+
+\item{limit}{The number of workflows to return (Available values : 10, 20, 50, 100, 500)}
 }
 \value{
 Response obtained from the \verb{/api/workflows/} endpoint with relevant query parameters
@@ -23,17 +27,20 @@ about specific workflows. Hits the \verb{/api/workflows/} API endpoint with
 relevant query parameters
 }
 \examples{
-server <- connect(url="http://localhost:8000", username="carya", password="illinois")
+server <- connect(url="https://pecan-tezan.ncsa.illinois.edu", username="carya", password="illinois")
 
 # Get list of all workflows
 res1 <- get.workflows(server)
 
 # Get list of all workflows using 'SIPNET-ssr' model
-res2 <- get.workflows(server, model_id="1000000022")
+res2 <- get.workflows(server, model_id=1000000022)
 
 ##' # Get list of all workflows using 'Willow Creek (US-WCr)' as site
-res3 <- get.workflows(server, site_id="676")
+res3 <- get.workflows(server, site_id=676)
 
 # Get list of workflow(s) that use 'SIPNET-ssr' model & 'Willow Creek (US-WCr)' as site
-res4 <- get.workflows(server, "1000000022", "676")
+res4 <- get.workflows(server, 1000000022, 676)
+}
+\author{
+Tezan Sahu
 }

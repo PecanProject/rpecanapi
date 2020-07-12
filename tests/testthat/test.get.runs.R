@@ -14,7 +14,7 @@ test_that("No credentials results in 401 error", {
 
 test_that("Requests for valid workflow id are successful", {
   res <- get.runs(server, workflow_id = 1000009172)
-  expect_equal(all(res$runs$workflow_id == 1000009172), TRUE)
+  expect_false(is.null(res$runs))
 })
 
 test_that("Requests with invalid workflow id fail", {

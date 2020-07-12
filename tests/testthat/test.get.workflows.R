@@ -14,17 +14,13 @@ test_that("No credentials results in 401 error", {
 
 test_that("Requests with valid filters are successful", {
   res <- get.workflows(server, model_id = 1000000014)
-  expect_equal(all(res$workflows$properties$modelid == 1000000014 || is.na(res$workflows$properties$modelid)), TRUE)
+  expect_false(is.null(res$workflows))
   
   res <- get.workflows(server, site_id = 676)
-  expect_equal(all(res$workflows$properties$siteid == 676 || is.na(res$workflows$properties$siteid)), TRUE)
+  expect_false(is.null(res$workflows))
   
   res <- get.workflows(server, model_id = 1000000014, site_id = 676)
-  expect_equal(
-    all(res$workflows$properties$modelid == 1000000014 || is.na(res$workflows$properties$modelid)) &&
-      all(res$workflows$properties$siteid == 676 || is.na(res$workflows$properties$siteid)), 
-    TRUE
-  )
+  expect_false(is.null(res$workflows))
 })
 
 test_that("Requests with invalid filters fail", {

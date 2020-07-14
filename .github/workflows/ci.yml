@@ -22,14 +22,34 @@ jobs:
           - {os: macOS-latest, r: 'release'}
           - {os: macOS-latest, r: 'devel'}
           - {os: ubuntu-16.04, r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
-          - {os: ubuntu-18.04, r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
-          - {os: ubuntu-20.04, r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
-
+          - {os: ubuntu-18.04, r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
+    
+    container: pecan/depends:develop
+    services:
+      postgres:
+        image: mdillon/postgis:9.5
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+      api:
+        image: pecan/api:develop
+        ports:
+          - 8000:8000
+        
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       RSPM: ${{ matrix.config.rspm }}
+      NCPUS: 2
+      PGHOST: postgres
+      CI: true
 
     steps:
+      - uses: actions/checkout@v2
+      
+      - name: install utils
+        run: apt-get update && apt-get install -y openssh-client postgresql-client curl
+        
+      - name: db setup
+        uses: docker://pecan/db:ci
+        
       - uses: actions/checkout@v2
 
       - uses: r-lib/actions/setup-r@master

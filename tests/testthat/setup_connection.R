@@ -1,3 +1,3 @@
 set.server <- function(username="carya", password="illinois"){
-  return(connect("https://pecan-tezan.ncsa.illinois.edu", username, password))
+  return(connect("http://localhost:8000", username, password))
 }

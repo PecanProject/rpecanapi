@@ -23,7 +23,7 @@ Retrive a list of all PEcAn runs from the database that belong to a
 specific workflow
 }
 \examples{
-server <- connect(url="https://pecan-tezan.ncsa.illinois.edu", username="carya", password="illinois")
+server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 
 # Get details of all runs for the workflow with ID '1000009172'
 res <- get.runs(server, workflow_id=1000009172)

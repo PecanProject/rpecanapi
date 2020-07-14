@@ -24,7 +24,7 @@ model_name & revision. Hits the \verb{/api/models/} API endpoint with
 relevant query parameters
 }
 \examples{
-server <- connect(url="https://pecan-tezan.ncsa.illinois.edu", username="carya", password="illinois")
+server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 
 # Get details of all models
 res1 <- search.models(server)

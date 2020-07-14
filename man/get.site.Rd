@@ -19,7 +19,7 @@ Get details of PEcAn Site from the database using site id.
 Hits the \verb{/api/sites/\{site_id\}} API endpoint.
 }
 \examples{
-server <- connect(url="https://pecan-tezan.ncsa.illinois.edu", username="carya", password="illinois")
+server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 
 # Get details of the WillowCreek(US-WCr) site (id = 676)
 res <- get.site(server, site_id=676)

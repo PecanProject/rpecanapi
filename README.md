@@ -1,5 +1,8 @@
 # rpecanapi <a href='https://dplyr.tidyverse.org'><img src='man/figures/logo.png' align="right" height="139" /></a>
 
+[![Build Status](https://travis-ci.org/PecanProject/rpecanapi.svg?branch=master)](https://travis-ci.org/PecanProject/rpecanapi)
+![GitHub](https://img.shields.io/github/license/PecanProject/rpecanapi?color=blue)
+
 ## Overview
 
 `rpecanapi` is an open source R package to interact with the PEcAn Project Server(s) & leverage the functionality of the PEcAn bioinformatics toolbox. The Predictive Ecosystem Analyser (PEcAn) Project is an open source framework initiated to meet the demands for more accessible, transparent & repeatable modeling of ecosystems. To know more about the PEcAn Project, check out the [PEcAn Github Repository](https://github.com/PecanProject/pecan)

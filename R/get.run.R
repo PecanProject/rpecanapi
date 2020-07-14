@@ -9,7 +9,7 @@
 ##' @author Tezan Sahu
 ##' @export
 ##' @examples
-##' server <- connect(url="https://pecan-tezan.ncsa.illinois.edu", username="carya", password="illinois")
+##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 ##' 
 ##' # Get details of run with id = '1002042201'
 ##' res <- get.run(server, 1002042201)

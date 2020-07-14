@@ -10,7 +10,7 @@
 ##' @author Tezan Sahu
 ##' @export
 ##' @examples
-##' server <- connect(url="https://pecan-tezan.ncsa.illinois.edu", username="carya", password="illinois")
+##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 ##' 
 ##' # Get details of all sites
 ##' res1 <- search.sites(server)

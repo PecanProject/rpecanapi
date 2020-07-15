@@ -41,16 +41,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - name: Check running containers
-        run: docker ps -a
-      
       - name: install utils
         run: apt-get update && apt-get install -y openssh-client postgresql-client curl
         
+      - name: try curl
+        run: curl http://localhost:8000/api/ping
+        
       - name: db setup
         uses: docker://pecan/db:ci
-        
-      - uses: actions/checkout@v2
 
       - uses: r-lib/actions/setup-r@master
         with:

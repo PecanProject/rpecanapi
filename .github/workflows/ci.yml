@@ -41,6 +41,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
+      - name: Check running containers
+        run: docker ps -a
+      
       - name: install utils
         run: apt-get update && apt-get install -y openssh-client postgresql-client curl
         

@@ -2,9 +2,9 @@ on:
   push:
     branches:
       - master
+      - "*"
   pull_request:
-    branches:
-      - master
+      
 
 name: R-CMD-check
 
@@ -18,9 +18,6 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: windows-latest, r: 'release'}
-          - {os: macOS-latest, r: 'release'}
-          - {os: macOS-latest, r: 'devel'}
           - {os: ubuntu-16.04, r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
           - {os: ubuntu-18.04, r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/bionic/latest"}
     
@@ -31,6 +28,14 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
       api:
         image: pecan/api:develop
+        env:
+          PGHOST: postgres
+          PECAN_VERSION: 1.7.0
+          PECAN_GIT_BRANCH: develop
+          PECAN_GIT_CHECKSUM: unknown
+          PECAN_GIT_DATE: unknown
+          HOST_ONLY: FALSE
+          AUTH_REQ: TRUE
         ports:
           - 8000:8000
         
@@ -38,7 +43,6 @@ jobs:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       RSPM: ${{ matrix.config.rspm }}
       NCPUS: 2
-      PGHOST: postgres
       CI: true
 
     steps:
@@ -49,8 +53,6 @@ jobs:
         
       - name: db setup
         uses: docker://pecan/db:ci
-        
-      - uses: actions/checkout@v2
 
       - uses: r-lib/actions/setup-r@master
         with:

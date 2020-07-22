@@ -226,6 +226,18 @@ get.run(server, run_id='1002042202')
 #>             created_at          updated_at          started_at         finished_at
 #>  1 2018-04-11 22:20:31 2018-04-11 22:22:20 2018-04-11 18:22:08 2018-04-11 18:22:20
 ```
+
+### Submit a PEcAn Workflow in XML format
+_This assumes the presence of an XML file `test.xml` containing the specifications of the workflow._
+
+```R
+submit.workflow.xml(server, xmlFile='test.xml')
+#> $workflow_id
+#> [1] 99000000001
+
+#> $status
+#> [1] "Submitted successfully"
+```
 ***
 
 _Please note that this package is under active development & some functionality may not be ready to use._

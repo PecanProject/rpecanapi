@@ -18,9 +18,8 @@
 ##' # Get details of all sites containing 'willow' in their name
 ##' res2 <- search.sites(server, sitename="willow")
 ##' 
-##' 
 ##' # Get details of sites where name contains "Willow" (case sensitive)
-##' res4 <- search.sites(server, sitename="Willow", ignore_case=FALSE)
+##' res3 <- search.sites(server, sitename="Willow", ignore_case=FALSE)
 
 search.sites <- function(server, sitename="", ignore_case=TRUE){
   url <- paste0(server$url, "/api/sites/?sitename=", sitename, "&ignore_case=", ignore_case)

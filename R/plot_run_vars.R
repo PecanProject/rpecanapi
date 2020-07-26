@@ -38,7 +38,6 @@ plot_run_vars <- function(server, run_id, year, y_var, x_var="time", width=800, 
   
   if(res$status_code == 200){
     writeBin(res$content, filename)
-    print(paste0("Successfully saved image to ", filename))
     if(display){
       img <- png::readPNG(filename)
       grid::grid.raster(img)

@@ -12,12 +12,12 @@ test_that("No credentials results in 401 error", {
   expect_error(get.site(server_invalid, site_id = 676), "Invalid credentials")
 })
 
-test_that("Requesting details for valid Model ID is successful", {
+test_that("Requesting details for valid Site ID is successful", {
   res <- get.site(server, site_id = 676)
   expect_equal(res$id, 676)
   expect_equal(res$sitename, "Willow Creek (US-WCr)")
 })
 
-test_that("Requesting details for invalid Model ID fails", {
+test_that("Requesting details for invalid Site ID fails", {
   expect_error(get.site(server, site_id = 0), "Site not found")
 })

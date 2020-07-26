@@ -88,8 +88,25 @@ search.models(server, model_name='sip', revision='r')
 ```R
 get.model(server, model_id='1000000014')
 
-#>     model_id model_name revision modeltype_id modeltype
-#> 1 1000000014     SIPNET     r136           3     SIPNET
+#> $modeltype_id
+#> [1] 3
+
+#> $model_type
+#> [1] "SIPNET"
+
+#> $model_id
+#> [1] 1000000014
+
+#> $model_name
+#> [1] "SIPNET"
+
+#> $revision
+#> [1] "r136"
+
+#> $inputs
+#>          input required
+#> 1          met     TRUE
+#> 2 poolinitcond    FALSE
 ```
 
 ### Search for PEcAn Site(s):
@@ -112,10 +129,88 @@ search.sites(server, sitename='willow')
 ```R
 get.site(server, site_id='676')
 
-#>    id                       city     state country mat map soil notes soilnotes              sitename
-#> 1 676 Park Falls Ranger District Wisconsin      US   4 815         MF           Willow Creek (US-WCr)
-#>   greenhouse sand_pct clay_pct       time_zone
-#> 1      FALSE    42.52    20.17 America/Chicago
+#> $id
+#> [1] 676
+
+#> $city
+#> [1] "Park Falls Ranger District"
+
+#> $state
+#> [1] "Wisconsin"
+
+#> $country
+#> [1] "US"
+
+#> $mat
+#> [1] 4
+
+#> $map
+#> [1] 815
+
+#> $soil
+#> [1] ""
+
+#> $som
+#> [1] "NA"
+
+#> $notes
+#> [1] "MF"
+
+#> $soilnotes
+#> [1] ""
+
+#> $sitename
+#> [1] "Willow Creek (US-WCr)"
+
+#> $greenhouse
+#> [1] FALSE
+
+#> $sand_pct
+#> [1] 42.52
+
+#> $clay_pct
+#> [1] 20.17
+
+#> $time_zone
+#> [1] "America/Chicago"
+```
+
+### Search for PEcAn PFT(s):
+```R
+search.pfts(server, pft_name='deciduous', model_type='sipnet')
+
+#> $pfts
+#>   model_type     pft_id                       pft_name pft_type
+#> 1     SIPNET         41            temperate.deciduous    plant
+#> 2     SIPNET 1000000105         temperate.deciduous.IF    plant
+#> 3     SIPNET 1000000107        temperate.deciduous_SDA    plant
+#> 4     SIPNET 1000000115        temperate.deciduous.ALL    plant
+#> 5     SIPNET 1000000118 temperate.deciduous.ALL.NORMAL    plant
+#> 6     SIPNET 2000000017   tundra.deciduous.NGEE_Arctic    plant
+#> 7     SIPNET 2000000045  temperate.broadleaf.deciduous    plant
+
+#> $count
+#> [1] 7
+```
+
+### Get the details of a PEcAn PFT:
+```R
+get.pft(server, pft_id='2000000045')
+
+#> $model_type
+#> [1] "SIPNET"
+
+#> $pft_id
+#> [1] 2000000045
+
+#> $pft_name
+#> [1] "temperate.broadleaf.deciduous"
+
+#> $definition
+#> [1] "SIPNET Temperate Deciduous PFT with priors on all parameters"
+
+#> $pft_type
+#> [1] "plant"
 ```
 
 ### Get list of PEcAn Workflows:
@@ -197,6 +292,18 @@ get.workflow(server, workflow_id='1000010213')
 #> [1] "-1"
 ```
 
+### Submit a PEcAn Workflow in XML format
+_This assumes the presence of an XML file `test.xml` containing the specifications of the workflow._
+
+```R
+submit.workflow.xml(server, xmlFile='test.xml')
+#> $workflow_id
+#> [1] 99000000001
+
+#> $status
+#> [1] "Submitted successfully"
+```
+
 ### Get list of Runs belonging to a PEcAn Workflow
 ```R
 get.runs(server, workflow_id='1000009172')
@@ -220,24 +327,75 @@ get.runs(server, workflow_id='1000009172')
 ### Get details about a PEcAn Run
 
 ```R
-get.run(server, run_id='1002042202')
-#>     runtype ensemble_id workflow_id         id   model_id site_id start_time finish_time parameter_list
-#>  1 ensemble  1000017624  1000009172 1002042202 1000000022     796 2005-01-01  2011-12-31     ensemble=2
-#>             created_at          updated_at          started_at         finished_at
-#>  1 2018-04-11 22:20:31 2018-04-11 22:22:20 2018-04-11 18:22:08 2018-04-11 18:22:20
+get.run(server, run_id='99000000282')
+#> $runtype
+#> [1] "sensitivity analysis"
+
+#> $ensemble_id
+#> [1] 99000000002
+
+#> $workflow_id
+#> [1] 99000000031
+
+#> $id
+#> [1] 99000000282
+
+#> $model_id
+#> [1] 1000000014
+
+#> $site_id
+#> [1] 772
+
+#> $start_time
+#> [1] "2002-01-01"
+
+#> $finish_time
+#> [1] "2005-12-31"
+
+#> $parameter_list
+#> [1] "quantile=15.866,trait=dVPDSlope,pft=temperate.coniferous"
+
+#> $started_at
+#> [1] "2020-07-21 21:42:09"
+
+#> $finished_at
+#> [1] "2020-07-21 21:43:11"
+
+#> $outputs
+#> $outputs$logfile
+#> [1] "logfile.txt"
+
+#> $outputs$info
+#> [1] "README.txt"
+
+#> $outputs$years
+#> $outputs$years$`2002`
+#> $outputs$years$`2002`$data
+#> [1] "2002.nc"
+
+#> $outputs$years$`2002`$variables
+#> $outputs$years$`2002`$variables$GPP
+#> [1] "Gross Primary Productivity"
+
+#> $outputs$years$`2002`$variables$NPP
+#> [1] "Net Primary Productivity"
+
+#> ...
 ```
 
-### Submit a PEcAn Workflow in XML format
-_This assumes the presence of an XML file `test.xml` containing the specifications of the workflow._
+### Plot the desired variables from the results of a PEcAn run
 
 ```R
-submit.workflow.xml(server, xmlFile='test.xml')
-#> $workflow_id
-#> [1] 99000000001
-
-#> $status
-#> [1] "Submitted successfully"
+plot_run_vars(
+      server_invalid, 
+      run_id=99000000283, 
+      year=2002, 
+      y_var="TotalResp", 
+      x_var="SoilResp"
+    )
 ```
+_This will produce a `plot.png` file containing the requested plot_
+
 ***
 
 _Please note that this package is under active development & some functionality may not be ready to use._

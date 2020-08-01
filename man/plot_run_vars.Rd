@@ -12,8 +12,7 @@ plot_run_vars(
   x_var = "time",
   width = 800,
   height = 600,
-  filename = "plot.png",
-  display = TRUE
+  filename = "plot.png"
 )
 }
 \arguments{
@@ -28,8 +27,6 @@ plot_run_vars(
 \item{height}{the height of the image generated, default is 600 pixels.}
 
 \item{filename}{File name to save the generated plot, default is 'plot.png'.}
-
-\item{display}{Boolean to indicate if the generated pot should be displayed}
 
 \item{yvar}{the variable to plot along the y-axis.}
 

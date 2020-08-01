@@ -10,7 +10,6 @@
 ##' @param width the width of the image generated, default is 800 pixels.
 ##' @param height the height of the image generated, default is 600 pixels.
 ##' @param filename File name to save the generated plot, default is 'plot.png'.
-##' @param display Boolean to indicate if the generated pot should be displayed
 ##' @return Response obtained from the `/api/run/{run_id}/graph/{year}/{y_var}` endpoint
 ##' @author Tezan Sahu
 ##' @export
@@ -23,7 +22,7 @@
 ##' # Plot the Total Respiration vs Soil Respiration for the run with ID '99000000283' for the year 2002 of custom size
 ##' plot_run_vars(server, run_id=99000000283, year=2002, y_var="TotalResp", x_var="SoilResp", width=500, height=400)
 
-plot_run_vars <- function(server, run_id, year, y_var, x_var="time", width=800, height=600, filename="plot.png", display=TRUE){
+plot_run_vars <- function(server, run_id, year, y_var, x_var="time", width=800, height=600, filename="plot.png"){
   url <- paste0(server$url, "/api/runs/", run_id, "/graph/", year, "/", y_var, "?x_var=", x_var, "&width=", width, "&height=", height)
   
   if(! is.null(server$username) && ! is.null(server$password)){
@@ -38,10 +37,6 @@ plot_run_vars <- function(server, run_id, year, y_var, x_var="time", width=800, 
   
   if(res$status_code == 200){
     writeBin(res$content, filename)
-    if(display){
-      img <- png::readPNG(filename)
-      grid::grid.raster(img)
-    }
   }
   else if(res$status_code == 401){
     stop("Invalid credentials")

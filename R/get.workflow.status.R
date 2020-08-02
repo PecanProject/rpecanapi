@@ -15,7 +15,7 @@
 ##' res <- get.workflow.status(server, workflow_id=1000009172)
 
 get.workflow.status <- function(server, workflow_id){
-  
+  res <- NULL
   tryCatch(
     expr = {
       url <- paste0(server$url, "/api/workflows/", workflow_id, "/status")
@@ -30,26 +30,27 @@ get.workflow.status <- function(server, workflow_id){
       else{
         res <- httr::GET(url)
       }
-      
-      if(res$status_code == 200){
-        return(jsonlite::fromJSON(rawToChar(res$content)))
-      }
-      else if(res$status_code == 401){
-        stop("Invalid credentials")
-      }
-      else if(res$status_code == 404){
-        stop("Workflow not found")
-      }
-      else if(res$status_code == 500){
-        stop("Internal server error")
-      }
-      else{
-        stop("Unidentified error")
-      }
     },
     error = function(e) {
       message("Sorry! Server not responding.")
     }
   )
   
+  if(! is.null(res)) {
+    if(res$status_code == 200){
+      return(jsonlite::fromJSON(rawToChar(res$content)))
+    }
+    else if(res$status_code == 401){
+      stop("Invalid credentials")
+    }
+    else if(res$status_code == 404){
+      stop("Workflow not found")
+    }
+    else if(res$status_code == 500){
+      stop("Internal server error")
+    }
+    else{
+      stop("Unidentified error")
+    }
+  }
 }

@@ -32,31 +32,41 @@ search.pfts <- function(server, pft_name="", pft_type="", model_type="", ignore_
     stop("pft_type can be only one of '', 'plant' or 'cultivar'")
   }
   
-  url <- paste0(server$url, "/api/pfts/?pft_name=", pft_name, "&pft_type=", pft_type, "&model_type=", model_type, "&ignore_case=", ignore_case)
+  res <- NULL
+  tryCatch(
+    expr = {
+      url <- paste0(server$url, "/api/pfts/?pft_name=", pft_name, "&pft_type=", pft_type, "&model_type=", model_type, "&ignore_case=", ignore_case)
+      
+      if(! is.null(server$username) && ! is.null(server$password)){
+        res <- httr::GET(
+          url,
+          httr::authenticate(server$username, server$password)
+        )
+      }
+      else{
+        res <- httr::GET(url)
+      }
+    },
+    error = function(e) {
+      message("Sorry! Server not responding.")
+    }
+  )
   
-  if(! is.null(server$username) && ! is.null(server$password)){
-    res <- httr::GET(
-      url,
-      httr::authenticate(server$username, server$password)
-    )
-  }
-  else{
-    res <- httr::GET(url)
-  }
-  
-  if(res$status_code == 200){
-    return(jsonlite::fromJSON(rawToChar(res$content)))
-  }
-  else if(res$status_code == 401){
-    stop("Invalid credentials")
-  }
-  else if(res$status_code == 404){
-    stop("PFTs not found")
-  }
-  else if(res$status_code == 500){
-    stop("Internal server error")
-  }
-  else{
-    stop("Unidentified error")
+  if(! is.null(res)) {
+    if(res$status_code == 200){
+      return(jsonlite::fromJSON(rawToChar(res$content)))
+    }
+    else if(res$status_code == 401){
+      stop("Invalid credentials")
+    }
+    else if(res$status_code == 404){
+      stop("PFTs not found")
+    }
+    else if(res$status_code == 500){
+      stop("Internal server error")
+    }
+    else{
+      stop("Unidentified error")
+    }
   }
 }

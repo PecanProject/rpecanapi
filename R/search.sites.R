@@ -22,31 +22,41 @@
 ##' res3 <- search.sites(server, sitename="Willow", ignore_case=FALSE)
 
 search.sites <- function(server, sitename="", ignore_case=TRUE){
-  url <- paste0(server$url, "/api/sites/?sitename=", sitename, "&ignore_case=", ignore_case)
+  res <- NULL
+  tryCatch(
+    expr = {
+      url <- paste0(server$url, "/api/sites/?sitename=", sitename, "&ignore_case=", ignore_case)
+      
+      if(! is.null(server$username) && ! is.null(server$password)){
+        res <- httr::GET(
+          url,
+          httr::authenticate(server$username, server$password)
+        )
+      }
+      else{
+        res <- httr::GET(url)
+      }
+    },
+    error = function(e) {
+      message("Sorry! Server not responding.")
+    }
+  )
   
-  if(! is.null(server$username) && ! is.null(server$password)){
-    res <- httr::GET(
-      url,
-      httr::authenticate(server$username, server$password)
-    )
-  }
-  else{
-    res <- httr::GET(url)
-  }
-  
-  if(res$status_code == 200){
-    return(jsonlite::fromJSON(rawToChar(res$content)))
-  }
-  else if(res$status_code == 401){
-    stop("Invalid credentials")
-  }
-  else if(res$status_code == 404){
-    stop("Sites not found")
-  }
-  else if(res$status_code == 500){
-    stop("Internal server error")
-  }
-  else{
-    stop("Unidentified error")
+  if(! is.null(res)) {
+    if(res$status_code == 200){
+      return(jsonlite::fromJSON(rawToChar(res$content)))
+    }
+    else if(res$status_code == 401){
+      stop("Invalid credentials")
+    }
+    else if(res$status_code == 404){
+      stop("Sites not found")
+    }
+    else if(res$status_code == 500){
+      stop("Internal server error")
+    }
+    else{
+      stop("Unidentified error")
+    }
   }
 }

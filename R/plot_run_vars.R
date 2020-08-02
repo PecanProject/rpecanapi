@@ -23,31 +23,41 @@
 ##' plot_run_vars(server, run_id=99000000283, year=2002, y_var="TotalResp", x_var="SoilResp", width=500, height=400)
 
 plot_run_vars <- function(server, run_id, year, y_var, x_var="time", width=800, height=600, filename="plot.png"){
-  url <- paste0(server$url, "/api/runs/", run_id, "/graph/", year, "/", y_var, "?x_var=", x_var, "&width=", width, "&height=", height)
+  res <- NULL
+  tryCatch(
+    expr = {
+      url <- paste0(server$url, "/api/runs/", run_id, "/graph/", year, "/", y_var, "?x_var=", x_var, "&width=", width, "&height=", height)
+      
+      if(! is.null(server$username) && ! is.null(server$password)){
+        res <- httr::GET(
+          url,
+          httr::authenticate(server$username, server$password)
+        )
+      }
+      else{
+        res <- httr::GET(url)
+      }
+    },
+    error = function(e) {
+      message("Sorry! Server not responding.")
+    }
+  )
   
-  if(! is.null(server$username) && ! is.null(server$password)){
-    res <- httr::GET(
-      url,
-      httr::authenticate(server$username, server$password)
-    )
-  }
-  else{
-    res <- httr::GET(url)
-  }
-  
-  if(res$status_code == 200){
-    writeBin(res$content, filename)
-  }
-  else if(res$status_code == 401){
-    stop("Invalid credentials")
-  }
-  else if(res$status_code == 404){
-    stop("Run details not found")
-  }
-  else if(res$status_code == 500){
-    stop("Internal server error")
-  }
-  else{
-    stop("Unidentified error")
+  if(! is.null(res)) {
+    if(res$status_code == 200){
+      writeBin(res$content, filename)
+    }
+    else if(res$status_code == 401){
+      stop("Invalid credentials")
+    }
+    else if(res$status_code == 404){
+      stop("Run details not found")
+    }
+    else if(res$status_code == 500){
+      stop("Internal server error")
+    }
+    else{
+      stop("Unidentified error")
+    }
   }
 }

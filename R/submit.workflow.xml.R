@@ -14,36 +14,44 @@
 
 submit.workflow.xml <- function(server, xmlFile){
   xml_string <- paste0(xml2::read_xml(xmlFile))
+  res <- NULL
+  tryCatch(
+    expr = {
+      url <- paste0(server$url, "/api/workflows/")
+      
+      if(! is.null(server$username) && ! is.null(server$password)){
+        res <- httr::POST(
+          url,
+          httr::authenticate(server$username, server$password),
+          httr::content_type("application/xml"),
+          body = xml_string
+        )
+      }
+      else{
+        res <- httr::POST(
+          url,
+          httr::content_type("application/xml"),
+          body = xml_string
+        )
+      }
+    },
+    error = function(e) {
+      message("Sorry! Server not responding.")
+    }
+  )
   
-  url <- paste0(server$url, "/api/workflows/")
-  
-  if(! is.null(server$username) && ! is.null(server$password)){
-    res <- httr::POST(
-      url,
-      httr::authenticate(server$username, server$password),
-      httr::content_type("application/xml"),
-      body = xml_string
-    )
+  if(! is.null(res)) {
+    if(res$status_code == 201){
+      return(jsonlite::fromJSON(rawToChar(res$content)))
+    }
+    else if(res$status_code == 401){
+      stop("Invalid credentials")
+    }
+    else if(res$status_code == 500){
+      stop("Internal server error")
+    }
+    else{
+      stop("Unidentified error")
+    }
   }
-  else{
-    res <- httr::POST(
-      url,
-      httr::content_type("application/xml"),
-      body = xml_string
-    )
-  }
-  
-  if(res$status_code == 201){
-    return(jsonlite::fromJSON(rawToChar(res$content)))
-  }
-  else if(res$status_code == 401){
-    stop("Invalid credentials")
-  }
-  else if(res$status_code == 500){
-    stop("Internal server error")
-  }
-  else{
-    stop("Unidentified error")
-  }
-  
 }

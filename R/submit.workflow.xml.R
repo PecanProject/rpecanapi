@@ -1,8 +1,8 @@
-##' Submit a PEcAn workflow as an XML file.
+##' Submit an XML file as a PEcAn workflow.
 ##' Hits the `POST /api/workflows/` API endpoint
 ##'
 ##' @name submit.workflow.xml
-##' @title Submit a PEcAn workflow as an XML file & obtain the workflow_id
+##' @title Submit an XML file as a PEcAn workflow & obtain the workflow_id
 ##' @param server Server object obtained using the connect() function
 ##' @param xmlFile XML file containing the workflow configurations
 ##' @return Response obtained from the `POST /api/workflow/` endpoint

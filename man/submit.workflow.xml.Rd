@@ -2,7 +2,7 @@
 % Please edit documentation in R/submit.workflow.xml.R
 \name{submit.workflow.xml}
 \alias{submit.workflow.xml}
-\title{Submit a PEcAn workflow as an XML file & obtain the workflow_id}
+\title{Submit an XML file as a PEcAn workflow & obtain the workflow_id}
 \usage{
 submit.workflow.xml(server, xmlFile)
 }
@@ -15,7 +15,7 @@ submit.workflow.xml(server, xmlFile)
 Response obtained from the \verb{POST /api/workflow/} endpoint
 }
 \description{
-Submit a PEcAn workflow as an XML file.
+Submit an XML file as a PEcAn workflow.
 Hits the \verb{POST /api/workflows/} API endpoint
 }
 \examples{

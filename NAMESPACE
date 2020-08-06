@@ -3,6 +3,7 @@
 export(connect)
 export(download.run.input)
 export(download.run.output)
+export(download.workflow.file)
 export(get.model)
 export(get.pft)
 export(get.run)

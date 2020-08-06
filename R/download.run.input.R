@@ -1,7 +1,7 @@
 ##' Downloads & saves the desired input file for a run.
 ##' Hits the `/api/run/{run_id}/input/{filename}` API endpoint
 ##' @name download.run.input
-##' @title Plot the desired variables from the results of a PEcAn run
+##' @title Download & save the desired input file for a run
 ##' @param server Server object obtained using the connect() function
 ##' @param run_id ID of the PEcAn run whose input is needed
 ##' @param filename Name of the input file to be downloaded

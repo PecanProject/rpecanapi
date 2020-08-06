@@ -2,7 +2,7 @@
 % Please edit documentation in R/download.run.output.R
 \name{download.run.output}
 \alias{download.run.output}
-\title{Plot the desired variables from the results of a PEcAn run}
+\title{Download & save the desired output file for a run}
 \usage{
 download.run.output(server, run_id, filename, save_as = NULL)
 }

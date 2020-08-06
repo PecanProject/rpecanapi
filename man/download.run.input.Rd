@@ -2,7 +2,7 @@
 % Please edit documentation in R/download.run.input.R
 \name{download.run.input}
 \alias{download.run.input}
-\title{Plot the desired variables from the results of a PEcAn run}
+\title{Download & save the desired input file for a run}
 \usage{
 download.run.input(server, run_id, filename, save_as = NULL)
 }

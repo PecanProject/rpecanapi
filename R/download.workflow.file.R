@@ -1,26 +1,26 @@
-##' Downloads & saves the desired output file for a run.
-##' Hits the `/api/run/{run_id}/output/{filename}` API endpoint
-##' @name download.run.output
-##' @title Download & save the desired output file for a run
+##' Downloads & saves the desired file for a workflow.
+##' Hits the `/api/workflows/{id}/file/{filename}` API endpoint
+##' @name download.workflow.file
+##' @title Download & save the desired file for a workflow
 ##' @param server Server object obtained using the connect() function
-##' @param run_id ID of the PEcAn run whose output is needed
-##' @param filename Name of the output file to be downloaded
+##' @param workflow_id ID of the PEcAn workflow whose file is needed
+##' @param filename Name of the file to be downloaded
 ##' @param save_as File name to save the downloaded file as. Default: NULL (same
 ##' name as `filename` would be used)
-##' @return Response obtained from the `/api/run/{run_id}/output/{filename}` endpoint
+##' @return Response obtained from the `/api/workflows/{id}/file/{filename}` endpoint
 ##' @author Tezan Sahu
 ##' @export
 ##' @examples
 ##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 ##' 
-##' # Download the 'README.txt' output for the run with id = '99000000282'
-##' download.run.output(server, run_id=99000000282, filename='README.txt', save_as='test.README.txt')
+##' # Download the 'ensemble.ts.99000000017.NPP.2002.2002.Rdata' output file for the workflow with id = 99000000031
+##' download.workflow.file(server, workflow_id=99000000031, filename='ensemble.ts.99000000017.NPP.2002.2002.Rdata')
 
-download.run.output <- function(server, run_id, filename, save_as=NULL){
+download.workflow.file <- function(server, workflow_id, filename, save_as=NULL){
   res <- NULL
   tryCatch(
     expr = {
-      url <- paste0(server$url, "/api/runs/", run_id, "/output/", filename)
+      url <- paste0(server$url, "/api/workflows/", workflow_id, "/file/", filename)
       
       if(! is.null(server$username) && ! is.null(server$password)){
         res <- httr::GET(
@@ -51,7 +51,7 @@ download.run.output <- function(server, run_id, filename, save_as=NULL){
       stop("Access forbidden")
     }
     else if(res$status_code == 404){
-      stop("Output file not found")
+      stop("File not found")
     }
     else if(res$status_code == 500){
       stop("Internal server error")

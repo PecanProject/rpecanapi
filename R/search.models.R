@@ -29,7 +29,7 @@ search.models <- function(server, model_name="", revision="", ignore_case=TRUE){
   res <- NULL
   tryCatch(
     expr = {
-      url <- paste0(server$url, "/api/models/?model_name=", model_name, "&revision=", revision, "&ignore_case=", ignore_case)
+      url <- URLencode(paste0(server$url, "/api/models/?model_name=", model_name, "&revision=", revision, "&ignore_case=", ignore_case))
       
       if(! is.null(server$username) && ! is.null(server$password)){
         res <- httr::GET(

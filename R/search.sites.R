@@ -25,7 +25,7 @@ search.sites <- function(server, sitename="", ignore_case=TRUE){
   res <- NULL
   tryCatch(
     expr = {
-      url <- paste0(server$url, "/api/sites/?sitename=", sitename, "&ignore_case=", ignore_case)
+      url <- URLencode(paste0(server$url, "/api/sites/?sitename=", sitename, "&ignore_case=", ignore_case))
       
       if(! is.null(server$username) && ! is.null(server$password)){
         res <- httr::GET(

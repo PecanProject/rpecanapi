@@ -35,7 +35,7 @@ search.pfts <- function(server, pft_name="", pft_type="", model_type="", ignore_
   res <- NULL
   tryCatch(
     expr = {
-      url <- paste0(server$url, "/api/pfts/?pft_name=", pft_name, "&pft_type=", pft_type, "&model_type=", model_type, "&ignore_case=", ignore_case)
+      url <- URLencode(paste0(server$url, "/api/pfts/?pft_name=", pft_name, "&pft_type=", pft_type, "&model_type=", model_type, "&ignore_case=", ignore_case))
       
       if(! is.null(server$username) && ! is.null(server$password)){
         res <- httr::GET(

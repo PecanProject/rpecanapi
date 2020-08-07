@@ -22,14 +22,27 @@ devtools::install_github("PecanProject/rpecanapi")
 _The following snippets assume that the PEcAn RESTful API Server is running on `http://localhost:8000`. This can be replaced with any
 other appropriate PEcAn Server URL._
 
-### Load `rpecanapi` & Create the Server Object
+- [Getting Started](#getting-started)
+- [Get Information about PEcAn Models](#get-information-about-pecan-models)
+- [Get Information about PEcAn Sites](#get-information-about-pecan-sites)
+- [Get Information about PEcAn PFTs (Plant Functional Types)](#get-information-about-pecan-pfts-plant-functional-types)
+- [Get Information about PEcAn Formats](#get-information-about-pecan-formats)
+- [Get Information about PEcAn Inputs](#get-information-about-pecan-inputs)
+- [Get Information about PEcAn Workflows](#get-information-about-pecan-workflows)
+- [Submit a PEcAn Workflow for Execution](#submit-a-pecan-workflow-for-execution)
+- [Get Information about PEcAn Runs](#get-information-about-pecan-runs)
+- [Plots & File Downloads for Workflows & Runs](#plots-file-downloads-for-workflows-runs)
+
+### Getting Started
+
+#### Load `rpecanapi` & Create the Server Object
 ```R
 library(rpecanapi)
 
 server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 ```
 
-### Ping the PEcAn API Server
+#### Ping the PEcAn API Server
 ```R
 ping(server)
 
@@ -39,7 +52,7 @@ ping(server)
 #> $response
 #> [1] "pong"
 ```
-### Get Genaral Information about the Server & PEcAn Version
+#### Get General Information about the Server & PEcAn Version
 ```R
 get.status(server)
 
@@ -69,9 +82,14 @@ get.status(server)
 
 #> $host_details$sync_contact
 #> [1] ""
+
+#> $host_details$authentication_required
+#> "TRUE"
 ```
 
-### Search for PEcAn Model(s):
+### Get Information about PEcAn Models
+
+#### Search for PEcAn Model(s):
 ```R
 search.models(server, model_name='sip', revision='r')
 
@@ -84,7 +102,7 @@ search.models(server, model_name='sip', revision='r')
 #> [1] 2
 ```
 
-### Get the details of a PEcAn Model:
+#### Get the details of a PEcAn Model:
 ```R
 get.model(server, model_id='1000000014')
 
@@ -108,8 +126,9 @@ get.model(server, model_id='1000000014')
 #> 1          met     TRUE
 #> 2 poolinitcond    FALSE
 ```
+### Get Information about PEcAn Sites
 
-### Search for PEcAn Site(s):
+#### Search for PEcAn Site(s):
 ```R
 search.sites(server, sitename='willow')
 
@@ -125,7 +144,7 @@ search.sites(server, sitename='willow')
 #> [1] 5
 ```
 
-### Get the details of a PEcAn Site:
+#### Get the details of a PEcAn Site:
 ```R
 get.site(server, site_id='676')
 
@@ -174,8 +193,9 @@ get.site(server, site_id='676')
 #> $time_zone
 #> [1] "America/Chicago"
 ```
+### Get Information about PEcAn PFTs (Plant Functional Types)
 
-### Search for PEcAn PFT(s):
+#### Search for PEcAn PFT(s):
 ```R
 search.pfts(server, pft_name='deciduous', model_type='sipnet')
 
@@ -193,7 +213,7 @@ search.pfts(server, pft_name='deciduous', model_type='sipnet')
 #> [1] 7
 ```
 
-### Get the details of a PEcAn PFT:
+#### Get the details of a PEcAn PFT:
 ```R
 get.pft(server, pft_id='2000000045')
 
@@ -212,41 +232,104 @@ get.pft(server, pft_id='2000000045')
 #> $pft_type
 #> [1] "plant"
 ```
+### Get Information about PEcAn Formats
 
-### Get list of PEcAn Workflows:
+#### Search for PEcAn Formats:
+```R
+search.formats(server, format_name="ameriflux", mimetype="netcdf")
+
+#> $formats
+#>               mimetype  format_id           format_name
+#> 1 application/x-netcdf         38 AmeriFlux.level2.h.nc
+#> 2 application/x-netcdf 1000000005             Ameriflux
+
+#> $count
+#> [1] 2
+```
+
+#### Get details about a PEcAn Format:
+```R
+get.format(server, format_id=38)
+
+#> $mimetype
+#> [1] "application/x-netcdf"
+
+#> $format_id
+#> [1] 38
+
+#> $name
+#> [1] "AmeriFlux.level2.h.nc"
+
+#> $notes
+#> [1] "Ameriflux Level 2 data files (in netCDF format) ..."
+
+#> $header
+#> [1] ""
+
+#> $format_variables
+#>       description  name               unit
+#> 1 air temperature    TA          degrees C
+#> 2      Wind speed                    m s-1
+#> ...
+```
+
+### Get Information about PEcAn Inputs
+
+#### Search for PEcAn Inputs:
+```R
+search.inputs(server, model_id=1000000014, site_id=772, host_id=99000000001)
+
+#> $inputs
+#>                                sitename model_name revision mimetype   format_name tag hostname   file_name         
+#> 1 Niwot Ridge Forest/LTER NWT1 (US-NR1)     SIPNET     r136 text/csv Sipnet.climna met   docker  niwot.clim 
+#> 2 Niwot Ridge Forest/LTER NWT1 (US-NR1)     SIPNET     r136 text/csv Sipnet.climna met   docker US-NR1.clim 
+#>           file_path          id input_name start_date   end_date
+#> 1 /data/sites/niwot 99000000003            2002-01-01 2005-12-31
+#> 2 /data/sites/niwot 99000000004            1999-01-01 2003-12-31
+
+#> $count
+#> [1] 2
+```
+
+#### Download a PEcAn Input File:
+```R
+download.input(server, input_id=99000000003, save_as="niwot.clim.local")
+```
+_This will download the requested input file & save it as `niwot.clim.local`_
+
+### Get Information about PEcAn Workflows
+
+#### Get list of PEcAn Workflows:
 ```R
 get.workflows(server, model_id='1000000022', site_id='676')
 
 #> $workflows
-#>           id properties.end                    properties.pft properties.email properties.notes properties.start
-#> 1 1000009172     2004/12/31   soil.IF, temperate.deciduous.IF                                         2004/01/01
-#> 2 1000009900     2004/12/31 soil.ALL, temperate.deciduous.ALL                                         2004/01/01
-#> 3 1000010079     2004/12/31 soil.ALL, temperate.deciduous.ALL                                         2004/01/01
-#> 4 1000010172     2004/12/31 soil.ALL, temperate.deciduous.ALL                                         2004/01/01
-#> 5 1000010213     2004/12/31                 boreal.coniferous                                         2004/01/01
-#>   properties.siteid properties.modelid properties.hostname properties.sitename properties.input_met properties.pecan_edit
-#> 1               676         1000000022   test-pecan.bu.edu WillowCreek(US-WCr)  AmerifluxLBL.SIPNET                    on
-#> 2               676         1000000022          geo.bu.edu WillowCreek(US-WCr)  AmerifluxLBL.SIPNET                    on
-#> 3               676         1000000022          geo.bu.edu WillowCreek(US-WCr)  AmerifluxLBL.SIPNET                    on
-#> 4               676         1000000022          geo.bu.edu WillowCreek(US-WCr)  AmerifluxLBL.SIPNET                    on
-#> 5               676         1000000022          geo.bu.edu WillowCreek(US-WCr)       CRUNCEP.SIPNET                  <NA>
-#>   properties.sitegroupid properties.fluxusername properties.input_poolinitcond properties.lat properties.lon
-#> 1             1000000022                   pecan                            -1           <NA>           <NA>
-#> 2                      1                   pecan                            -1           <NA>           <NA>
-#> 3                      1                   pecan                            -1           <NA>           <NA>
-#> 4                      1                   pecan                            -1                              
-#> 5                      1                    <NA>                            -1                              
+#>           id                             folder          started_at site_id   model_id          hostname start_date   end_date
+#> 1 1000009900 /fs/data2/output//PEcAn_1000009900 2018-11-09 08:56:37     676 1000000022        geo.bu.edu 2004-01-01 2004-12-31
+#> 2 1000009172 /fs/data2/output//PEcAn_1000009172 2018-04-11 18:14:52     676 1000000022 test-pecan.bu.edu 2004-01-01 2004-12-31
+#> 3 1000010079 /fs/data2/output//PEcAn_1000010079 2018-12-15 12:32:26     676 1000000022        geo.bu.edu 2004-01-01 2004-12-31
+#> 4 1000010213 /fs/data2/output//PEcAn_1000010213 2019-02-08 14:38:45     676 1000000022        geo.bu.edu 2004-01-01 2004-12-31
+#> 5 1000010172 /fs/data2/output//PEcAn_1000010172 2019-01-13 09:30:18     676 1000000022        geo.bu.edu 2004-01-01 2004-12-31
 
 #> $count
 #> [1] 5
 ```
 
-### Get details about a PEcAn Workflow:
+#### Get details about a PEcAn Workflow:
 ```R
-get.workflow(server, workflow_id='1000010213')
+get.workflow(server, workflow_id='99000000031')
 
 #> $id
 #> [1] "1000010213"
+
+#> $folder
+#> [1] "/fs/data2/output//PEcAn_1000010213"
+
+#> $hostname
+#> [1] "geo.bu.edu"
+
+#> $user_id
+#> [1] "NA"
 
 #> $properties
 #> $properties$end
@@ -290,13 +373,28 @@ get.workflow(server, workflow_id='1000010213')
 
 #> $properties$input_poolinitcond
 #> [1] "-1"
+
+#> $files
+#> [1] "pecan.CHECKED.xml"                                    "pecan.CONFIGS.xml"
+#> ...
 ```
 
-### Submit a PEcAn Workflow in XML format
-_This assumes the presence of an XML file `test.xml` containing the specifications of the workflow._
+### Submit a PEcAn Workflow for Execution
 
+#### Submit a workflow directly using user-specified parameters
 ```R
-submit.workflow.xml(server, xmlFile='test.xml')
+submit.workflow(
+  server, 
+  model_id=1000000014, 
+  site_id=772, 
+  pfts=c("temperate.coniferous"), 
+  start_date="2002-01-01", 
+  end_date="2003-12-31", 
+  inputs=list(
+    met=list(id=99000000003)
+  )
+)
+
 #> $workflow_id
 #> [1] 99000000001
 
@@ -304,7 +402,32 @@ submit.workflow.xml(server, xmlFile='test.xml')
 #> [1] "Submitted successfully"
 ```
 
-### Get list of Runs belonging to a PEcAn Workflow
+#### Submit a workflow as an XML file
+_This assumes the presence of an XML file `test.xml` containing the specifications of the workflow._
+
+```R
+submit.workflow.xml(server, xmlFile='test.xml')
+#> $workflow_id
+#> [1] 99000000002
+
+#> $status
+#> [1] "Submitted successfully"
+```
+
+#### Submit a workflow as a JSON file
+_This assumes the presence of a JSON file `test.json` containing the specifications of the workflow._
+```R
+submit.workflow.json(server, xmlFile='test.json')
+#> $workflow_id
+#> [1] 99000000003
+
+#> $status
+#> [1] "Submitted successfully"
+```
+
+### Get Information about PEcAn Runs
+
+#### Get list of Runs belonging to a PEcAn Workflow
 ```R
 get.runs(server, workflow_id='1000009172')
 
@@ -324,7 +447,7 @@ get.runs(server, workflow_id='1000009172')
 #> [1] "http://localhost:8000/api/runs/?workflow_id=1000009172&offset=50&limit=50"
 ```
 
-### Get details about a PEcAn Run
+#### Get details about a PEcAn Run
 
 ```R
 get.run(server, run_id='99000000282')
@@ -361,6 +484,13 @@ get.run(server, run_id='99000000282')
 #> $finished_at
 #> [1] "2020-07-21 21:43:11"
 
+#> $inputs
+#> $inputs$info
+#> [1] "README.txt"
+
+#> $inputs$others
+#> [1] "sipnet.clim"          "sipnet.in"            "sipnet.param"         "sipnet.param-spatial"
+
 #> $outputs
 #> $outputs$logfile
 #> [1] "logfile.txt"
@@ -382,8 +512,9 @@ get.run(server, run_id='99000000282')
 
 #> ...
 ```
+### Plots & File Downloads for Workflows & Runs
 
-### Plot the desired variables from the results of a PEcAn run
+#### Plot the desired variables from the results of a PEcAn Run:
 
 ```R
 plot_run_vars(
@@ -396,6 +527,23 @@ plot_run_vars(
 ```
 _This will produce a `plot.png` file containing the requested plot_
 
+#### Download an Input File for a Run:
+```R
+download.run.input(server, run_id=99000000283, filename="sipnet.in", save_as="sipnet.in.local")
+```
+_This will download the requested input file & save it as `sipnet.in.local`_
+
+#### Download an Output File for a Run:
+```R
+download.run.output(server, run_id=99000000283, filename="2002.nc", save_as="local.2002.nc")
+```
+_This will download the requested output file & save it as `local.2002.nc`_
+
+#### Download a File for a Workflow:
+```R
+download.workflow.file(server, filename="pecan.xml", save_as="local.pecan.xml")
+```
+_This will download the requested file & save it as `local.pecan.xml`_
 ***
 
 _Please note that this package is under active development & some functionality may not be ready to use._

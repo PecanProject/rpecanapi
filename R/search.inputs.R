@@ -48,8 +48,6 @@ search.inputs <- function(server, model_id=NULL, site_id=NULL, format_id=NULL, h
   url <- paste0(url, "&offset=", offset, "&limit=", limit)
   url <- stringr::str_replace(url, "\\?&", "\\?")
   
-  print(url)
-  
   res <- NULL
   tryCatch(
     expr = {

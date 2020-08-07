@@ -31,7 +31,7 @@ other appropriate PEcAn Server URL._
 - [Get Information about PEcAn Workflows](#get-information-about-pecan-workflows)
 - [Submit a PEcAn Workflow for Execution](#submit-a-pecan-workflow-for-execution)
 - [Get Information about PEcAn Runs](#get-information-about-pecan-runs)
-- [Plots & File Downloads for Workflows & Runs](#plots-file-downloads-for-workflows-runs)
+- [Plots & File Downloads for Workflows & Runs](#plots--file-downloads-for-workflows--runs)
 
 ### Getting Started
 
@@ -541,7 +541,7 @@ _This will download the requested output file & save it as `local.2002.nc`_
 
 #### Download a File for a Workflow:
 ```R
-download.workflow.file(server, filename="pecan.xml", save_as="local.pecan.xml")
+download.workflow.file(server, workflow_id=99000000031, filename="pecan.xml", save_as="local.pecan.xml")
 ```
 _This will download the requested file & save it as `local.pecan.xml`_
 ***

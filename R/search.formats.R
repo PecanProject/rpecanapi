@@ -13,17 +13,14 @@
 ##' @examples
 ##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 ##' 
-##' # Get details of all models
+##' # Get details of all formats
 ##' res1 <- search.formats(server)
 ##' 
-##' # Get details of all models containing 'ameriflux' in their name
+##' # Get details of all formats containing 'ameriflux' in their name
 ##' res2 <- search.formats(server, format_name="ameriflux")
 ##' 
-##' # Get details of the 'ssr' revision of the 'ameriflux' model
+##' # Get details of the 'ameriflux' formats of 'csv' mimetype
 ##' res3 <- search.formats(server, format_name="ameriflux", mimetype="csv")
-##' 
-##' # Get details of models where name contains "SIP" (case sensitive)
-##' res4 <- search.formats(server, format_name="SIPNET", ignore_case=FALSE)
 
 search.formats <- function(server, format_name="", mimetype="", ignore_case=TRUE){
   res <- NULL

@@ -4,7 +4,15 @@
 \alias{search.inputs}
 \title{Search for PEcAn Models from the database}
 \usage{
-search.inputs(server, model_id = NULL, site_id = NULL, offset = 0, limit = 50)
+search.inputs(
+  server,
+  model_id = NULL,
+  site_id = NULL,
+  format_id = NULL,
+  host_id = NULL,
+  offset = 0,
+  limit = 50
+)
 }
 \arguments{
 \item{server}{Server object obtained using the connect() function}
@@ -12,6 +20,10 @@ search.inputs(server, model_id = NULL, site_id = NULL, offset = 0, limit = 50)
 \item{model_id}{ID of the model associated with the input, Default: NULL (Returns all models)}
 
 \item{site_id}{ID of the model associated with the input, Default: NULL (Returns all sites)}
+
+\item{format_id}{ID of the format associated with the input, Default: NULL (Returns all formats)}
+
+\item{host_id}{ID of the host containing the input, Default: NULL (Returns all hosts)}
 
 \item{offset}{The number of workflows to skip before starting to collect the result set.}
 

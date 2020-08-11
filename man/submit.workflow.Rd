@@ -14,7 +14,8 @@ submit.workflow(
   inputs,
   ensemble = NULL,
   meta.analysis = NULL,
-  sensitivity.analysis = NULL
+  sensitivity.analysis = NULL,
+  notes = NULL
 )
 }
 \arguments{
@@ -37,6 +38,8 @@ submit.workflow(
 \item{meta.analysis}{Meta-analysis settings object for the workflow. Default: NULL (uses default parameters)}
 
 \item{sensitivity.analysis}{Sensitivity Analysis settings object. Default: NULL (No sensitivity analysis)}
+
+\item{notes}{Additional notes that the user need to specify for the submitted workflow. Default: NULL}
 }
 \value{
 Response obtained from the \verb{POST /api/workflows/} endpoint

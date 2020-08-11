@@ -12,6 +12,7 @@
 ##' @param ensemble Ensemble settings object for the workflow. Default: NULL (uses NPP & runs for 1 iteration)
 ##' @param meta.analysis Meta-analysis settings object for the workflow. Default: NULL (uses default parameters)
 ##' @param sensitivity.analysis Sensitivity Analysis settings object. Default: NULL (No sensitivity analysis)
+##' @param notes Additional notes that the user need to specify for the submitted workflow. Default: NULL
 ##' @return Response obtained from the `POST /api/workflows/` endpoint
 ##' @author Tezan Sahu
 ##' @export
@@ -24,14 +25,13 @@
 ##' res <- submit.workflow(server, model_id=1000000014, site_id=772, pfts=c("temperate.coniferous"), start_date="2002-01-01", 
 ##'   end_date="2003-12-31", inputs=list(met=list(id=99000000003)))
 
-submit.workflow <- function(server, model_id, site_id, pfts, start_date, end_date, inputs, ensemble=NULL, meta.analysis=NULL, sensitivity.analysis = NULL) {
+submit.workflow <- function(server, model_id, site_id, pfts, start_date, end_date, inputs, ensemble=NULL, meta.analysis=NULL, sensitivity.analysis = NULL, notes=NULL) {
   # Prepare the workflow based on the parameters set by user
   workflow <- list()
   for(i in 1:length(pfts)) {
     workflow$pfts <- c(workflow$pfts, pft=list())
     workflow$pfts$pft[i]$pft$name <- pfts[i]
   }
-  print(workflow)
   
   workflow$model <- list(id = model_id)
   
@@ -64,10 +64,7 @@ submit.workflow <- function(server, model_id, site_id, pfts, start_date, end_dat
     # Set the default meta.analysis settings
     workflow$meta.analysis <- list(
       iter = 3000,
-      random.effects = list(
-        on = "FALSE",
-        use_ghs = "TRUE"
-      )
+      random.effects = FALSE
     )
   }
   else {
@@ -76,6 +73,10 @@ submit.workflow <- function(server, model_id, site_id, pfts, start_date, end_dat
   
   if(! is.null(sensitivity.analysis) && sensitivity.analysis != FALSE) {
     workflow$sensitivity.analysis <- sensitivity.analysis
+  }
+  
+  if(! is.null(notes)) {
+    workflowList$info$notes <- notes
   }
   
   # Submit the prepared workflow to the PEcAn API in JSON format

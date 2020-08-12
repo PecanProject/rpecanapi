@@ -19,3 +19,16 @@ test_that("Desired input file is downloaded on passing correct input_id", {
 test_that("Invalid input_id results in 404 Error", {
   expect_error(download.input(server, input_id = 0, save_as = "temp.file"), "Input file not found")
 })
+
+test_that("Desired input file is downloaded on passing input_id pointing to a folder along with correct filename", {
+  download.input(server, input_id = 295, filename = "fraction.plantation", save_as = "temp.file")
+  expect_equal(file.exists("temp.file"), TRUE)
+  file.remove("temp.file")
+})
+
+test_that("input_id pointing to folder & no filename results in 400 Error", {
+  expect_error(
+    download.input(server, input_id = 295, save_as = "temp.file"), 
+    "Bad request. Input ID points to directory & filename is not specified"
+  )
+})

@@ -4,6 +4,7 @@
 ##' @title Download & save the desired input file
 ##' @param server Server object obtained using the connect() function
 ##' @param input_id ID of the PEcAn input to be downloaded
+##' @param filename Optional filename specified if the id points to a folder instead of file
 ##' @param save_as File name to save the downloaded file as. Default: "pecan_input_file"
 ##' @return Response obtained from the `/api/inputs/{input_id}` endpoint
 ##' @author Tezan Sahu
@@ -14,11 +15,14 @@
 ##' # Download the 'niwot.clim' file (id = 99000000003)
 ##' download.input(server, input_id='99000000003', save_as='local.niwot.clim')
 
-download.input <- function(server, input_id, save_as="pecan_input_file"){
+download.input <- function(server, input_id, filename=NULL, save_as="pecan_input_file"){
   res <- NULL
   tryCatch(
     expr = {
       url <- paste0(server$url, "/api/inputs/", input_id)
+      if(! is.null(filename)) {
+        url <- paste0(url, "?filename=", filename)
+      }
       
       if(! is.null(server$username) && ! is.null(server$password)){
         res <- httr::GET(
@@ -38,6 +42,9 @@ download.input <- function(server, input_id, save_as="pecan_input_file"){
   if(! is.null(res)) {
     if(res$status_code == 200){
       writeBin(res$content, save_as)
+    }
+    else if(res$status_code == 400){
+      stop("Bad request. Input ID points to directory & filename is not specified")
     }
     else if(res$status_code == 401){
       stop("Invalid credentials")

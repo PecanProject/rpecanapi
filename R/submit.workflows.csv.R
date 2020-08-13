@@ -14,32 +14,44 @@
 ##' res <- submit.workflows.csv(server, "default_tests.csv")
 
 submit.workflows.csv <- function(server, csvFile) {
-  workflows_configs <- read.csv(csvFile, stringsAsFactors = FALSE)
+  data <- read.csv(csvFile, stringsAsFactors = FALSE)
   
-  # The following is a very primitive & sequential implementation.
-  # We plan to submit these workflows & track their progress asynchronously 
-  # in a multithreaded way
+  # Submit these workflows & track their progress (currently only submission is implemented)
   for(i in 1:nrow(data)) {
     # Get the model id using the helper function
-    model_id <- get.model.id(server, data[i, ]["model"], data[i, ]["revision"])
+    model_id <- get.model.id(server, as.character(data[i, ]["model"]), as.character(data[i, ]["revision"]))
+    if(is.null(model_id)) {
+      stop(paste0("Invalid model specifications for Row ", i))
+    }
     
     # Submit the workflow using the configs mentioned in the row
-    workflow_details <- submit.workflow(
-      server, 
-      model_id = model_id,
-      site_id = data[i, ]["site_id"],
-      pfts = c(data[i, ]["pft"]),
-      start_date = data[i, ]["start_date"],
-      end_date = data[i, ]["end_date"],
-      inputs = list(
-        met = list(source = data[i, ]["met"])
-      ),
-      ensemble_size = data[i, ]["ensemble_size"],
-      sensitivity.analysis = data[i, ]["sensitivity"],
-      notes = data[i, ]["comment"]
+    tryCatch(
+      expr = {
+        workflow_details <- submit.workflow(
+          server, 
+          model_id = model_id,
+          site_id = as.character(data[i, ]["site_id"]),
+          pfts = c(as.character(data[i, ]["pft"])),
+          start_date = as.character(data[i, ]["start_date"]),
+          end_date = as.character(data[i, ]["end_date"]),
+          inputs = list(
+            met = list(source = as.character(data[i, ]["met"]))
+          ),
+          ensemble_size = as.integer(data[i, ]["ensemble_size"]),
+          sensitivity.analysis = as.logical(data[i, ]["sensitivity"]),
+          notes = as.character(data[i, ]["comment"])
+        )
+        
+        print(workflow_details)
+        print("=======================================")
+      },
+      error = function(e) {
+        message("Sorry! Server not responding.")
+      }
     )
     
-    print(workflow_details)
+    
+    
   }
 }
 
@@ -79,8 +91,8 @@ get.model.id <- function(server, model_name, revision) {
   models <- search.models(server, model_name = model_name, revision = revision)
   model_id <- as.character(
     models$models %>% 
-    filter(model_name == "SIPNET") %>% 
-    filter(revision == "r136") %>% 
+    filter(model_name == !!model_name) %>% 
+    filter(revision == !!revision) %>% 
     pull(model_id)
   )
   

@@ -39,7 +39,11 @@ submit.workflow <- function(server, model_id, site_id, pfts, start_date, end_dat
   workflow$model <- list(id = model_id)
   
   workflow$run <- list()
-  workflow$run$site <- list(id = site_id)
+  workflow$run$site <- list(
+    id = site_id,
+    met.start = start_date,
+    met.end = end_date
+  )
   workflow$run$start.date <- start_date
   workflow$run$end.date <- end_date
   workflow$run$inputs <- inputs
@@ -86,8 +90,9 @@ submit.workflow <- function(server, model_id, site_id, pfts, start_date, end_dat
   
   
   if(! is.null(notes)) {
-    workflowList$info$notes <- notes
+    workflow$info$notes <- notes
   }
+  
   
   # Submit the prepared workflow to the PEcAn API in JSON format
   res <- NULL

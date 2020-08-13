@@ -12,9 +12,10 @@ submit.workflow(
   start_date,
   end_date,
   inputs,
-  ensemble = NULL,
   meta.analysis = NULL,
-  sensitivity.analysis = NULL,
+  ensemble_size = 1,
+  sensitivity_variable = "NPP",
+  sensitivity.analysis = FALSE,
   notes = NULL
 )
 }
@@ -33,11 +34,14 @@ submit.workflow(
 
 \item{inputs}{Inputs to the workflow (including meteorological data, etc.) (object)}
 
-\item{ensemble}{Ensemble settings object for the workflow. Default: NULL (uses NPP & runs for 1 iteration)}
-
 \item{meta.analysis}{Meta-analysis settings object for the workflow. Default: NULL (uses default parameters)}
 
-\item{sensitivity.analysis}{Sensitivity Analysis settings object. Default: NULL (No sensitivity analysis)}
+\item{ensemble_size}{Ensemble size for the workflow. Default: 1}
+
+\item{sensitivity_variable}{Variable for performing sensitivity. Default: NPP}
+
+\item{sensitivity.analysis}{Whether or not to perform a sensitivity analysis. Can also take
+a sensitivity setting object as input. Default: FALSE (logical or list)}
 
 \item{notes}{Additional notes that the user need to specify for the submitted workflow. Default: NULL}
 }

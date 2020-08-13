@@ -4,7 +4,7 @@
 \alias{download.input}
 \title{Download & save the desired input file}
 \usage{
-download.input(server, input_id, filename = NULL, save_as = "pecan_input_file")
+download.input(server, input_id, filename = NULL, save_as = NULL)
 }
 \arguments{
 \item{server}{Server object obtained using the connect() function}
@@ -13,7 +13,8 @@ download.input(server, input_id, filename = NULL, save_as = "pecan_input_file")
 
 \item{filename}{Optional filename specified if the id points to a folder instead of file}
 
-\item{save_as}{File name to save the downloaded file as. Default: "pecan_input_file"}
+\item{save_as}{File name to save the downloaded file as. Default: NULL (same as 'filename' if specified,
+else defaults to 'pecan_input_file')}
 }
 \value{
 Response obtained from the \verb{/api/inputs/\{input_id\}} endpoint

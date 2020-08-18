@@ -56,7 +56,8 @@ jobs:
 
       - name: create account
         uses: docker://pecan/bety:latest
-        args: user carya illinois "Carya Demo User" carya@example.com 1 1
+        with:
+          args: user carya illinois "Carya Demo User" carya@example.com 1 1
 
       - uses: r-lib/actions/setup-r@master
         with:

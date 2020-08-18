@@ -2,7 +2,6 @@ on:
   push:
     branches:
       - master
-      - "*"
   pull_request:
       
 
@@ -48,7 +47,9 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: install utils
-        run: apt-get update && apt-get install -y openssh-client postgresql-client curl
+        run: 
+          - sudo apt-get update
+          - sudo apt-get install -y openssh-client postgresql-client curl
         
       - name: db setup
         uses: docker://pecan/db:ci

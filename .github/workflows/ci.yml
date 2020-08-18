@@ -55,7 +55,7 @@ jobs:
         uses: docker://pecan/db:ci
 
       - name: create account
-        uses: docker://pecan/bety:latest
+        uses: docker://pecan/bety:develop
         with:
           args: user carya illinois "Carya Demo User" carya@example.com 1 1
 

@@ -12,15 +12,25 @@
 ##' res <- get.status(server)
 
 get.status <- function(server){
-  res <- httr::GET(paste0(server$url, "/api/status"))
+  res <- NULL
+  tryCatch(
+    expr = {
+      res <- httr::GET(paste0(server$url, "/api/status"))
+    },
+    error = function(e) {
+      message("Sorry! Server not responding.")
+    }
+  )
   
-  if(res$status_code == 200){
-    return(jsonlite::fromJSON(rawToChar(res$content)))
-  }
-  else if(res$status_code == 500){
-    stop("Internal server error")
-  }
-  else{
-    stop("Unidentified error")
+  if(! is.null(res)) {
+    if(res$status_code == 200){
+      return(jsonlite::fromJSON(rawToChar(res$content)))
+    }
+    else if(res$status_code == 500){
+      stop("Internal server error")
+    }
+    else{
+      stop("Unidentified error")
+    }
   }
 }

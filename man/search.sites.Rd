@@ -30,9 +30,8 @@ res1 <- search.sites(server)
 # Get details of all sites containing 'willow' in their name
 res2 <- search.sites(server, sitename="willow")
 
-
 # Get details of sites where name contains "Willow" (case sensitive)
-res4 <- search.sites(server, sitename="Willow", ignore_case=FALSE)
+res3 <- search.sites(server, sitename="Willow", ignore_case=FALSE)
 }
 \author{
 Tezan Sahu

@@ -1,35 +1,32 @@
-##' Search PEcAn Models from the database using search string based on
-##' model_name & revision. Hits the `/api/models/` API endpoint with 
+##' Search PEcAn Formats from the database using search string based on
+##' format_name & mimetype Hits the `/api/formats/` API endpoint with 
 ##' relevant query parameters
-##' @name search.models
+##' @name search.formats
 ##' @title Search for PEcAn Models from the database
 ##' @param server Server object obtained using the connect() function 
-##' @param model_name Search string for model name Default: "" (Returns all models)
+##' @param format_name Search string for format name. Default: "" (Returns all models)
 ##' @param revision Search string for revision. Default: "" (Returns all revisions for a model)
 ##' @param ignore_case Indicator of case sensitive or case insensitive search
-##' @return Response obtained from the `/api/models/` endpoint with relevant query parameters
+##' @return Response obtained from the `/api/formats/` endpoint with relevant query parameters
 ##' @author Tezan Sahu
 ##' @export
 ##' @examples
 ##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 ##' 
-##' # Get details of all models
-##' res1 <- search.models(server)
+##' # Get details of all formats
+##' res1 <- search.formats(server)
 ##' 
-##' # Get details of all models containing 'sip' in their name
-##' res2 <- search.models(server, model_name="sip")
+##' # Get details of all formats containing 'ameriflux' in their name
+##' res2 <- search.formats(server, format_name="ameriflux")
 ##' 
-##' # Get details of the 'ssr' revision of the 'SIPNET' model
-##' res3 <- search.models(server, model_name="SIPNET", revision="ssr")
-##' 
-##' # Get details of models where name contains "SIP" (case sensitive)
-##' res4 <- search.models(server, model_name="SIPNET", ignore_case=FALSE)
+##' # Get details of the 'ameriflux' formats of 'csv' mimetype
+##' res3 <- search.formats(server, format_name="ameriflux", mimetype="csv")
 
-search.models <- function(server, model_name="", revision="", ignore_case=TRUE){
+search.formats <- function(server, format_name="", mimetype="", ignore_case=TRUE){
   res <- NULL
   tryCatch(
     expr = {
-      url <- URLencode(paste0(server$url, "/api/models/?model_name=", model_name, "&revision=", revision, "&ignore_case=", ignore_case))
+      url <- URLencode(paste0(server$url, "/api/formats/?format_name=", format_name, "&mimetype=", mimetype, "&ignore_case=", ignore_case))
       
       if(! is.null(server$username) && ! is.null(server$password)){
         res <- httr::GET(
@@ -54,7 +51,7 @@ search.models <- function(server, model_name="", revision="", ignore_case=TRUE){
       stop("Invalid credentials")
     }
     else if(res$status_code == 404){
-      stop("Models not found")
+      stop("Formats not found")
     }
     else if(res$status_code == 500){
       stop("Internal server error")

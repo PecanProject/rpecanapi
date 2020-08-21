@@ -12,12 +12,18 @@
 ##' res <- ping(server)
 
 ping <- function(server){
-  res <- httr::GET(paste0(server$url, "/api/ping"))
-  
-  if(res$status_code == 200){
-    return(jsonlite::fromJSON(rawToChar(res$content)))
-  }
-  else{
-    stop("Sorry! Server not responding.")
-  }
+  tryCatch(
+    expr = {
+      res <- httr::GET(paste0(server$url, "/api/ping"))
+      if(res$status_code == 200){
+        return(jsonlite::fromJSON(rawToChar(res$content)))
+      }
+      else{
+        stop("Sorry! Server not responding.")
+      }
+    },
+    error = function(e) {
+      message('Sorry! Server not responding.')
+    }
+  )
 }

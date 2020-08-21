@@ -1,23 +1,23 @@
-##' Get details of PEcAn Model from the database using model id.
-##' Hits the `/api/models/{model_id}` API endpoint.
-##' @name get.model
+##' Get details of PEcAn Format from the database using format id.
+##' Hits the `/api/formats/{format_id}` API endpoint.
+##' @name get.format
 ##' @title Get details of PEcAn Model from the database using model id
 ##' @param server Server object obtained using the connect() function 
-##' @param model_id ID of the model to retrieve
-##' @return Response obtained from the `/api/models/{model_id}` endpoint
+##' @param format_id ID of the model to retrieve
+##' @return Response obtained from the `/api/formats/{format_id}` endpoint
 ##' @author Tezan Sahu
 ##' @export
 ##' @examples
 ##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 ##' 
-##' # Get details of the SIPNET ssr model (id = 1000000022)
-##' res <- get.model(server, model_id=1000000022)
+##' # Get details of the Ameriflux.level4.h format (id = 19)
+##' res <- get.format(server, format_id=19)
 
-get.model <- function(server, model_id){
+get.format <- function(server, format_id){
   res <- NULL
   tryCatch(
     expr = {
-      url <- paste0(server$url, "/api/models/", model_id)
+      url <- paste0(server$url, "/api/formats/", format_id)
       
       if(! is.null(server$username) && ! is.null(server$password)){
         res <- httr::GET(
@@ -43,7 +43,7 @@ get.model <- function(server, model_id){
       stop("Invalid credentials")
     }
     else if(res$status_code == 404){
-      stop("Model not found")
+      stop("Format not found")
     }
     else if(res$status_code == 500){
       stop("Internal server error")

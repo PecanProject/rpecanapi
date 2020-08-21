@@ -1,19 +1,19 @@
-##' Submit an XML file as a PEcAn workflow.
+##' Submit a JSON file as a PEcAn workflow.
 ##' Hits the `POST /api/workflows/` API endpoint
 ##'
-##' @name submit.workflow.xml
-##' @title Submit an XML file as a PEcAn workflow & obtain the workflow_id
+##' @name submit.workflow.json
+##' @title Submit a JSON file as a PEcAn workflow & obtain the workflow_id
 ##' @param server Server object obtained using the connect() function
-##' @param xmlFile XML file containing the workflow configurations
+##' @param jsonFile JSON file containing the workflow configurations
 ##' @return Response obtained from the `POST /api/workflow/` endpoint
 ##' @author Tezan Sahu
 ##' @export
 ##' @examples
 ##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
-##' res <- submit.workflow.xml(server, "api.sipnet.xml")
+##' res <- submit.workflow.json(server, "api.sipnet.json")
 
-submit.workflow.xml <- function(server, xmlFile){
-  xml_string <- paste0(xml2::read_xml(xmlFile))
+submit.workflow.json <- function(server, jsonFile){
+  json_content <- jsonlite::read_json(jsonFile)
   res <- NULL
   tryCatch(
     expr = {
@@ -23,15 +23,15 @@ submit.workflow.xml <- function(server, xmlFile){
         res <- httr::POST(
           url,
           httr::authenticate(server$username, server$password),
-          httr::content_type("application/xml"),
-          body = xml_string
+          body = json_content,
+          encode='json'
         )
       }
       else{
         res <- httr::POST(
           url,
-          httr::content_type("application/xml"),
-          body = xml_string
+          body = json_content,
+          encode='json'
         )
       }
     },

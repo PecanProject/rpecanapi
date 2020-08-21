@@ -1,23 +1,23 @@
-##' Get details of PEcAn Model from the database using model id.
-##' Hits the `/api/models/{model_id}` API endpoint.
-##' @name get.model
-##' @title Get details of PEcAn Model from the database using model id
+##' Get details of PEcAn PFT from the database using PFT id.
+##' Hits the `/api/pfts/{pft_id}` API endpoint.
+##' @name get.pft
+##' @title Get details of PEcAn PFT from the database using PFT id
 ##' @param server Server object obtained using the connect() function 
-##' @param model_id ID of the model to retrieve
-##' @return Response obtained from the `/api/models/{model_id}` endpoint
+##' @param pft_id ID of the model to retrieve
+##' @return Response obtained from the `/api/pfts/{pft_id}` endpoint
 ##' @author Tezan Sahu
 ##' @export
 ##' @examples
 ##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 ##' 
-##' # Get details of the SIPNET ssr model (id = 1000000022)
-##' res <- get.model(server, model_id=1000000022)
+##' # Get details of the temperate.deciduous PFT (id = 41)
+##' res <- get.pft(server, pft_id=41)
 
-get.model <- function(server, model_id){
+get.pft <- function(server, pft_id){
   res <- NULL
   tryCatch(
     expr = {
-      url <- paste0(server$url, "/api/models/", model_id)
+      url <- paste0(server$url, "/api/pfts/", pft_id)
       
       if(! is.null(server$username) && ! is.null(server$password)){
         res <- httr::GET(
@@ -33,9 +33,7 @@ get.model <- function(server, model_id){
       message("Sorry! Server not responding.")
     }
   )
-  
   if(! is.null(res)) {
-    
     if(res$status_code == 200){
       return(jsonlite::fromJSON(rawToChar(res$content)))
     }
@@ -43,7 +41,7 @@ get.model <- function(server, model_id){
       stop("Invalid credentials")
     }
     else if(res$status_code == 404){
-      stop("Model not found")
+      stop("PFT not found")
     }
     else if(res$status_code == 500){
       stop("Internal server error")

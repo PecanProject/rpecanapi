@@ -1,23 +1,25 @@
-##' Get details of PEcAn Model from the database using model id.
-##' Hits the `/api/models/{model_id}` API endpoint.
-##' @name get.model
-##' @title Get details of PEcAn Model from the database using model id
-##' @param server Server object obtained using the connect() function 
-##' @param model_id ID of the model to retrieve
-##' @return Response obtained from the `/api/models/{model_id}` endpoint
+##' Obtain the status of a particular PEcAn workflow by supplying 
+##' its ID. Hits the `/api/workflows/{id}/status` API endpoint
+##'
+##' @name get.workflow.status
+##' @title Get the status of a particular PEcAn workflow using the workflow ID
+##' @param server Server object obtained using the connect() function
+##' @param workflow_id ID of the PEcAn workflow whose status are needed
+##' @return Response obtained from the `/api/workflow/{id}/status` endpoint
 ##' @author Tezan Sahu
 ##' @export
 ##' @examples
 ##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 ##' 
-##' # Get details of the SIPNET ssr model (id = 1000000022)
-##' res <- get.model(server, model_id=1000000022)
+##' # Get details of workflow with id = '1000009172'
+##' res <- get.workflow.status(server, workflow_id=1000009172)
 
-get.model <- function(server, model_id){
+get.workflow.status <- function(server, workflow_id){
   res <- NULL
   tryCatch(
     expr = {
-      url <- paste0(server$url, "/api/models/", model_id)
+      url <- paste0(server$url, "/api/workflows/", workflow_id, "/status")
+      
       
       if(! is.null(server$username) && ! is.null(server$password)){
         res <- httr::GET(
@@ -35,7 +37,6 @@ get.model <- function(server, model_id){
   )
   
   if(! is.null(res)) {
-    
     if(res$status_code == 200){
       return(jsonlite::fromJSON(rawToChar(res$content)))
     }
@@ -43,7 +44,7 @@ get.model <- function(server, model_id){
       stop("Invalid credentials")
     }
     else if(res$status_code == 404){
-      stop("Model not found")
+      stop("Workflow not found")
     }
     else if(res$status_code == 500){
       stop("Internal server error")

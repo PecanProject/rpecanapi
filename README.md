@@ -425,6 +425,29 @@ submit.workflow.json(server, xmlFile='test.json')
 #> [1] "Submitted successfully"
 ```
 
+#### Submit a set of workflows specified as a CSV file
+_This assumes the presence of a CSV file `test.csv` containing the specifications of the set of workflows._
+
+_Columns: `model`  `revision`  `met`  `site_id`  `pft`  `start_date`  `end_date`  `sensitivity`  `ensemble`  `comment`_
+
+```R
+submit.workflows.csv(server, csvFile='test.csv')
+#> [[1]]
+#> [[1]]$workflow_id
+#> [1] "99000000141"
+
+#> [[1]]$status
+#> [1] "Submitted successfully"
+
+
+#> [[2]]
+#> [[2]]$workflow_id
+#> [1] "99000000142"
+
+#> [[2]]$status
+#> [1] "Submitted successfully"
+```
+
 ### Get Information about PEcAn Runs
 
 #### Get list of Runs belonging to a PEcAn Workflow

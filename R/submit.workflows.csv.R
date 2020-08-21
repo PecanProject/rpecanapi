@@ -16,6 +16,8 @@
 submit.workflows.csv <- function(server, csvFile) {
   data <- read.csv(csvFile, stringsAsFactors = FALSE)
   
+  results <- vector(mode="list", length=nrow(data))
+  
   # Submit the workflows whose specs are mentioned in the csv
   for(i in 1:nrow(data)) {
     # Get the model id using the helper function
@@ -42,14 +44,15 @@ submit.workflows.csv <- function(server, csvFile) {
           notes = as.character(data[i, ]["comment"])
         )
         
-        print(workflow_details)
-        print("=======================================")
+        results[[i]] <- workflow_details
       },
       error = function(e) {
         message("Sorry! Server not responding.")
       }
     )
   }
+  
+  return(results)
 }
 
 ##' Get the time taken for a workflow to reach its current state from the time it started execution

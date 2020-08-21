@@ -1,0 +1,57 @@
+url: https://pecanproject.github.io/rpecanapi
+
+development:
+  mode: auto
+
+template:
+  params:
+    bootswatch: flatly
+
+authors:
+  Tezan Sahu:
+    href: https://tezansahu.github.io
+  PEcAn Project:
+    href: https://pecanproject.org
+    
+home:
+  links:
+  - text: Code for API Server
+    href: https://github.com/PecanProject/pecan/tree/develop/apps/api
+    
+reference:
+  - title: General Server State
+    contents:
+    - connect
+    - ping
+    - get.status
+    
+  - title: Searching & Retrieving PEcAn Data
+    contents:
+    - search.models
+    - get.model
+    - search.sites
+    - get.site
+    - search.pfts
+    - get.pft
+    - search.formats
+    - get.format
+    - search.inputs
+    - download.input
+  
+  - title: PEcAn Workflows
+    contents:
+    - get.workflows
+    - get.workflow
+    - submit.workflow
+    - submit.workflow.xml
+    - submit.workflow.json
+    - get.workflow.status
+    - download.workflow.file
+  
+  - title: PEcAn Runs
+    contents:
+    - get.runs
+    - get.run
+    - download.run.input
+    - download.run.output
+    - plot_run_vars

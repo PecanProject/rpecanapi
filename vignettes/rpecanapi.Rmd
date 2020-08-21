@@ -1,6 +1,11 @@
 ---
 title: Introduction to the PEcAn R API
 author: Tezan Sahu, Alexey Shiklomanov
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to the PEcAn R API}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 # Introduction to the PEcAn R API {#pecanapi-vignette}

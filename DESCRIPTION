@@ -16,8 +16,7 @@ Description: The Predictive Ecosystem Carbon Analyzer (PEcAn) is a scientific
 Imports:
   httr,
   jsonlite,
-  xml2,
-  dplyr
+  XML
 License: MIT
 Copyright: Authors
 LazyLoad: yes

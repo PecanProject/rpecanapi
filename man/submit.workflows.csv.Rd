@@ -15,7 +15,7 @@ submit.workflows.csv(server, csvFile)
 Response obtained from the \verb{POST /api/workflow/} endpoint
 }
 \description{
-Submits a bunch of PEcAn workflows, the details of which are mentioned in CSV format
+Submits a bunch of PEcAn workflows, the details of which are mentioned in CSV format (Currently works for SIPNET models)
 CSV Template:
 Columns: model  revision  met  site_id  pft  start_date  end_date  sensitivity  ensemble  comment
 Each row corresponds to one workflow to be submitted

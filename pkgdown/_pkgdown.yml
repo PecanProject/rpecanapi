@@ -47,6 +47,7 @@ reference:
     - submit.workflow
     - submit.workflow.xml
     - submit.workflow.json
+    - submit.workflows.csv
     - get.workflow.status
     - download.workflow.file
   

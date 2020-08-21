@@ -1,4 +1,4 @@
-##' Submits a bunch of PEcAn workflows, the details of which are mentioned in CSV format
+##' Submits a bunch of PEcAn workflows, the details of which are mentioned in CSV format (Currently works for SIPNET models)
 ##' CSV Template:
 ##'   Columns: model  revision  met  site_id  pft  start_date  end_date  sensitivity  ensemble  comment
 ##' Each row corresponds to one workflow to be submitted
@@ -16,7 +16,7 @@
 submit.workflows.csv <- function(server, csvFile) {
   data <- read.csv(csvFile, stringsAsFactors = FALSE)
   
-  # Submit these workflows & track their progress (currently only submission is implemented)
+  # Submit the workflows whose specs are mentioned in the csv
   for(i in 1:nrow(data)) {
     # Get the model id using the helper function
     model_id <- get.model.id(server, as.character(data[i, ]["model"]), as.character(data[i, ]["revision"]))
@@ -49,9 +49,6 @@ submit.workflows.csv <- function(server, csvFile) {
         message("Sorry! Server not responding.")
       }
     )
-    
-    
-    
   }
 }
 

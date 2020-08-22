@@ -9,10 +9,12 @@
 ##' @author Tezan Sahu
 ##' @export
 ##' @examples
+##' \dontrun{
 ##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 ##' 
 ##' # Get details of workflow with id = '1000009172'
 ##' res <- get.workflow(server, workflow_id=1000009172)
+##' }
 
 get.workflow <- function(server, workflow_id){
   res <- NULL

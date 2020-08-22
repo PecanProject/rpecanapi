@@ -19,8 +19,10 @@ Submit an XML file as a PEcAn workflow.
 Hits the \verb{POST /api/workflows/} API endpoint
 }
 \examples{
+\dontrun{
 server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 res <- submit.workflow.xml(server, "api.sipnet.xml")
+}
 }
 \author{
 Tezan Sahu

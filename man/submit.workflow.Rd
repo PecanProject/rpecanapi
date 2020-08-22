@@ -49,6 +49,7 @@ Submit a PEcAn workflow using various user-defined parameters
 Hits the \verb{POST /api/workflows/} API endpoint.
 }
 \examples{
+\dontrun{
 server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 
 # Submit a workflow with the SIPNET r136 model (id = 1000000014) for Niwot Ridge site (id = 772) with 
@@ -56,6 +57,7 @@ server <- connect(url="http://localhost:8000", username="carya", password="illin
 # id = 99000000003
 res <- submit.workflow(server, model_id=1000000014, site_id=772, pfts=c("temperate.coniferous"), start_date="2002-01-01", 
   end_date="2003-12-31", inputs=list(met=list(id=99000000003)))
+}
 }
 \author{
 Tezan Sahu

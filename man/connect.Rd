@@ -24,5 +24,7 @@ Currently, there is no validation. In future, we may validate the username-passw
 pair by hitting the appropriate API endpoint
 }
 \examples{
+\dontrun{
 server <- connect(url="http://localhost:8000", username="carya", password="illinois")
+}
 }

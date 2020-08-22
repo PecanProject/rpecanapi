@@ -24,6 +24,7 @@ format_name & mimetype Hits the \verb{/api/formats/} API endpoint with
 relevant query parameters
 }
 \examples{
+\dontrun{
 server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 
 # Get details of all formats
@@ -34,6 +35,7 @@ res2 <- search.formats(server, format_name="ameriflux")
 
 # Get details of the 'ameriflux' formats of 'csv' mimetype
 res3 <- search.formats(server, format_name="ameriflux", mimetype="csv")
+}
 }
 \author{
 Tezan Sahu

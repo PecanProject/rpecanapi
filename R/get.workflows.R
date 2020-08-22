@@ -13,6 +13,7 @@
 ##' @author Tezan Sahu
 ##' @export
 ##' @examples
+##' \dontrun{
 ##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 ##' 
 ##' # Get list of all workflows
@@ -26,6 +27,7 @@
 ##' 
 ##' # Get list of workflow(s) that use 'SIPNET-ssr' model & 'Willow Creek (US-WCr)' as site
 ##' res4 <- get.workflows(server, 1000000022, 676)
+##' }
 
 get.workflows <- function(server, model_id=NULL, site_id=NULL, offset=0, limit=50){
   if(! is.element(limit, c(10, 20, 50, 100, 500))) {

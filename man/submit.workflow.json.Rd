@@ -19,8 +19,10 @@ Submit a JSON file as a PEcAn workflow.
 Hits the \verb{POST /api/workflows/} API endpoint
 }
 \examples{
+\dontrun{
 server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 res <- submit.workflow.json(server, "api.sipnet.json")
+}
 }
 \author{
 Tezan Sahu

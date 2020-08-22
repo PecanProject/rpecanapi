@@ -17,8 +17,10 @@ Pings the PEcAn API server (using the URL passed in the server object)
 to see if it is live or not. Hits the \verb{/api/ping} API endpoint
 }
 \examples{
+\dontrun{
 server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 res <- ping(server)
+}
 }
 \author{
 Tezan Sahu

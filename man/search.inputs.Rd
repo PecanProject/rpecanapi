@@ -38,6 +38,7 @@ model_id & site_id Hits the \verb{/api/inputs/} API endpoint with
 relevant query parameters
 }
 \examples{
+\dontrun{
 server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 
 # Get details of all inputs
@@ -48,6 +49,7 @@ res2 <- search.inputs(server, model_id="1000000022")
 
 # Get details of all inputs for the SIPNET ssr model (id = 1000000022) & Niwor Ridge site (id = 772)
 res3 <- search.inputs(server, model_id="1000000022", site_id="772")
+}
 }
 \author{
 Tezan Sahu

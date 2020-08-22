@@ -24,10 +24,12 @@ Downloads & saves the desired file for a workflow.
 Hits the \verb{/api/workflows/\{id\}/file/\{filename\}} API endpoint
 }
 \examples{
+\dontrun{
 server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 
 # Download the 'ensemble.ts.99000000017.NPP.2002.2002.Rdata' output file for the workflow with id = 99000000031
 download.workflow.file(server, workflow_id=99000000031, filename='ensemble.ts.99000000017.NPP.2002.2002.Rdata')
+}
 }
 \author{
 Tezan Sahu

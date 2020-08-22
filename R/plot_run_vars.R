@@ -14,6 +14,7 @@
 ##' @author Tezan Sahu
 ##' @export
 ##' @examples
+##' \dontrun{
 ##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 ##' 
 ##' # Plot the Gross Primary Productivity vs Time for the run with ID '99000000282' for the year 2002
@@ -21,6 +22,7 @@
 ##' 
 ##' # Plot the Total Respiration vs Soil Respiration for the run with ID '99000000283' for the year 2002 of custom size
 ##' plot_run_vars(server, run_id=99000000283, year=2002, y_var="TotalResp", x_var="SoilResp", width=500, height=400)
+##' }
 
 plot_run_vars <- function(server, run_id, year, y_var, x_var="time", width=800, height=600, filename="plot.png"){
   res <- NULL

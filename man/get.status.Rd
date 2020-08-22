@@ -17,8 +17,10 @@ Obtain general information about PEcAn & the details of the database host
 Hits the \verb{/api/status} API endpoint
 }
 \examples{
+\dontrun{
 server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 res <- get.status(server)
+}
 }
 \author{
 Tezan Sahu

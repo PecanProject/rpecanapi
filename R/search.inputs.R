@@ -14,6 +14,7 @@
 ##' @author Tezan Sahu
 ##' @export
 ##' @examples
+##' \dontrun{
 ##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 ##' 
 ##' # Get details of all inputs
@@ -24,6 +25,7 @@
 ##' 
 ##' # Get details of all inputs for the SIPNET ssr model (id = 1000000022) & Niwor Ridge site (id = 772)
 ##' res3 <- search.inputs(server, model_id="1000000022", site_id="772")
+##' }
 
 search.inputs <- function(server, model_id=NULL, site_id=NULL, format_id=NULL, host_id=NULL, offset=0, limit=50){
   if(! is.element(limit, c(10, 20, 50, 100, 500))) {

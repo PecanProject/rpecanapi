@@ -11,10 +11,12 @@
 ##' @author Tezan Sahu
 ##' @export
 ##' @examples
+##' \dontrun{
 ##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 ##' 
 ##' # Download the 'README.txt' output for the run with id = '99000000282'
 ##' download.run.output(server, run_id=99000000282, filename='README.txt', save_as='test.README.txt')
+##' }
 
 download.run.output <- function(server, run_id, filename, save_as=NULL){
   res <- NULL

@@ -11,6 +11,7 @@
 ##' @author Tezan Sahu
 ##' @export
 ##' @examples
+##' \dontrun{
 ##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 ##' 
 ##' # Get details of all formats
@@ -21,6 +22,7 @@
 ##' 
 ##' # Get details of the 'ameriflux' formats of 'csv' mimetype
 ##' res3 <- search.formats(server, format_name="ameriflux", mimetype="csv")
+##' }
 
 search.formats <- function(server, format_name="", mimetype="", ignore_case=TRUE){
   res <- NULL

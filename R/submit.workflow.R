@@ -17,6 +17,7 @@
 ##' @author Tezan Sahu
 ##' @export
 ##' @examples
+##' \dontrun{
 ##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 ##' 
 ##' # Submit a workflow with the SIPNET r136 model (id = 1000000014) for Niwot Ridge site (id = 772) with 
@@ -24,6 +25,7 @@
 ##' # id = 99000000003
 ##' res <- submit.workflow(server, model_id=1000000014, site_id=772, pfts=c("temperate.coniferous"), start_date="2002-01-01", 
 ##'   end_date="2003-12-31", inputs=list(met=list(id=99000000003)))
+##' }
 
 submit.workflow <- function(server, model_id, site_id, pfts, start_date, end_date, inputs, ensemble=NULL, meta.analysis=NULL, sensitivity.analysis = NULL, notes=NULL) {
   # Prepare the workflow based on the parameters set by user

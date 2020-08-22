@@ -10,10 +10,12 @@
 ##' @author Tezan Sahu
 ##' @export
 ##' @examples
+##' \dontrun{
 ##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 ##' 
 ##' # Get details of all runs for the workflow with ID '1000009172'
 ##' res <- get.runs(server, workflow_id=1000009172)
+##' }
 
 get.runs <- function(server, workflow_id, offset=0, limit=50){
   if(! is.element(limit, c(10, 20, 50, 100, 500))) {

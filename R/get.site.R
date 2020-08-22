@@ -8,10 +8,12 @@
 ##' @author Tezan Sahu
 ##' @export
 ##' @examples
+##' \dontrun{
 ##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 ##' 
 ##' # Get details of the WillowCreek(US-WCr) site (id = 676)
 ##' res <- get.site(server, site_id=676)
+##' }
 
 get.site <- function(server, site_id){
   res <- NULL

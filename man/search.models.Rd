@@ -24,6 +24,7 @@ model_name & revision. Hits the \verb{/api/models/} API endpoint with
 relevant query parameters
 }
 \examples{
+\dontrun{
 server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 
 # Get details of all models
@@ -37,6 +38,7 @@ res3 <- search.models(server, model_name="SIPNET", revision="ssr")
 
 # Get details of models where name contains "SIP" (case sensitive)
 res4 <- search.models(server, model_name="SIPNET", ignore_case=FALSE)
+}
 }
 \author{
 Tezan Sahu

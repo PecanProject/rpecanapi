@@ -9,8 +9,10 @@
 ##' @author Tezan Sahu
 ##' @export
 ##' @examples
+##' \dontrun{
 ##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 ##' res <- submit.workflow.json(server, "api.sipnet.json")
+##' }
 
 submit.workflow.json <- function(server, jsonFile){
   json_content <- jsonlite::read_json(jsonFile)

@@ -11,10 +11,12 @@
 ##' @author Tezan Sahu
 ##' @export
 ##' @examples
+##' \dontrun{
 ##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 ##' 
 ##' # Download the 'niwot.clim' file (id = 99000000003)
 ##' download.input(server, input_id='99000000003', save_as='local.niwot.clim')
+##' }
 
 download.input <- function(server, input_id, filename=NULL, save_as=NULL){
   res <- NULL

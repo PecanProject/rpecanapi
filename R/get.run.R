@@ -9,10 +9,12 @@
 ##' @author Tezan Sahu
 ##' @export
 ##' @examples
+##' \dontrun{
 ##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 ##' 
 ##' # Get details of run with id = '1002042201'
 ##' res <- get.run(server, 1002042201)
+##' }
 
 get.run <- function(server, run_id){
   res <- NULL

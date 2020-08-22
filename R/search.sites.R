@@ -10,6 +10,7 @@
 ##' @author Tezan Sahu
 ##' @export
 ##' @examples
+##' \dontrun{
 ##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 ##' 
 ##' # Get details of all sites
@@ -20,6 +21,7 @@
 ##' 
 ##' # Get details of sites where name contains "Willow" (case sensitive)
 ##' res3 <- search.sites(server, sitename="Willow", ignore_case=FALSE)
+##' }
 
 search.sites <- function(server, sitename="", ignore_case=TRUE){
   res <- NULL

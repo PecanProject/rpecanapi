@@ -40,6 +40,7 @@ Plot the desired variables from the results of a PEcAn run.
 Hits the \verb{/api/run/\{run_id\}/graph/\{year\}/\{y_var\}} API endpoint
 }
 \examples{
+\dontrun{
 server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 
 # Plot the Gross Primary Productivity vs Time for the run with ID '99000000282' for the year 2002
@@ -47,6 +48,7 @@ plot_run_vars(server, run_id=99000000282, year=2002, y_var="GPP")
 
 # Plot the Total Respiration vs Soil Respiration for the run with ID '99000000283' for the year 2002 of custom size
 plot_run_vars(server, run_id=99000000283, year=2002, y_var="TotalResp", x_var="SoilResp", width=500, height=400)
+}
 }
 \author{
 Tezan Sahu

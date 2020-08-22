@@ -8,10 +8,12 @@
 ##' @author Tezan Sahu
 ##' @export
 ##' @examples
+##' \dontrun{
 ##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 ##' 
 ##' # Get details of the Ameriflux.level4.h format (id = 19)
 ##' res <- get.format(server, format_id=19)
+##' }
 
 get.format <- function(server, format_id){
   res <- NULL

@@ -19,10 +19,12 @@ Get details of PEcAn Format from the database using format id.
 Hits the \verb{/api/formats/\{format_id\}} API endpoint.
 }
 \examples{
+\dontrun{
 server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 
 # Get details of the Ameriflux.level4.h format (id = 19)
 res <- get.format(server, format_id=19)
+}
 }
 \author{
 Tezan Sahu

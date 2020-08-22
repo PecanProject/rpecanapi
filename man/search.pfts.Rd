@@ -33,6 +33,7 @@ PFT name, type & model type. Hits the \verb{/api/pfts/} API endpoint
 with relevant query parameters
 }
 \examples{
+\dontrun{
 server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 
 # Get details of all PFTs
@@ -46,6 +47,7 @@ res3 <- search.pfts(server, pft_type="cultivar")
 
 # Get details of PFTs with 'SIPNET' model type
 res4 <- search.pfts(server, model_type='SIPNET')
+}
 }
 \author{
 Tezan Sahu

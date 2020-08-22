@@ -8,10 +8,12 @@
 ##' @author Tezan Sahu
 ##' @export
 ##' @examples
+##' \dontrun{
 ##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 ##' 
 ##' # Get details of the temperate.deciduous PFT (id = 41)
 ##' res <- get.pft(server, pft_id=41)
+##' }
 
 get.pft <- function(server, pft_id){
   res <- NULL

@@ -13,6 +13,7 @@
 ##' @author Tezan Sahu
 ##' @export
 ##' @examples
+##' \dontrun{
 ##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 ##' 
 ##' # Get details of all PFTs
@@ -26,6 +27,7 @@
 ##' 
 ##' # Get details of PFTs with 'SIPNET' model type
 ##' res4 <- search.pfts(server, model_type='SIPNET')
+##' }
 
 search.pfts <- function(server, pft_name="", pft_type="", model_type="", ignore_case=TRUE){
   if(! is.element(pft_type, c("", "plant", "cultivar"))) {

@@ -8,8 +8,10 @@
 ##' @author Tezan Sahu
 ##' @export
 ##' @examples
+##' \dontrun{
 ##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 ##' res <- get.status(server)
+##' }
 
 get.status <- function(server){
   res <- NULL

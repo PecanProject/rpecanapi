@@ -27,6 +27,7 @@ about specific workflows. Hits the \verb{/api/workflows/} API endpoint with
 relevant query parameters
 }
 \examples{
+\dontrun{
 server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 
 # Get list of all workflows
@@ -40,6 +41,7 @@ res3 <- get.workflows(server, site_id=676)
 
 # Get list of workflow(s) that use 'SIPNET-ssr' model & 'Willow Creek (US-WCr)' as site
 res4 <- get.workflows(server, 1000000022, 676)
+}
 }
 \author{
 Tezan Sahu

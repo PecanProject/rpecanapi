@@ -9,8 +9,10 @@
 ##' @author Tezan Sahu
 ##' @export
 ##' @examples
+##' \dontrun{
 ##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 ##' res <- submit.workflow.xml(server, "api.sipnet.xml")
+##' }
 
 submit.workflow.xml <- function(server, xmlFile){
   xml_string <- paste0(xml2::read_xml(xmlFile))

@@ -1,6 +1,6 @@
-# rpecanapi <a href='https://dplyr.tidyverse.org'><img src='man/figures/logo.png' align="right" height="139" /></a>
+# `rpecanapi` <a href='https://pecanproject.github.io/rpecanapi'><img src='man/figures/logo.png' align="right" height="139" /></a>
 
-[![Build Status](https://travis-ci.org/PecanProject/rpecanapi.svg?branch=master)](https://travis-ci.org/PecanProject/rpecanapi)
+![Docs Status](https://img.shields.io/github/workflow/status/PecanProject/rpecanapi/pkgdown)
 ![GitHub](https://img.shields.io/github/license/PecanProject/rpecanapi?color=blue)
 
 ## Overview

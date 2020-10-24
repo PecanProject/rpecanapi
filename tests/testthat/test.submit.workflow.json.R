@@ -1,4 +1,3 @@
-
 context("Submit a PEcAn wokflow in JSON format")
 
 server <- set.server()

@@ -9,9 +9,11 @@
 ##' @param start_date Starting date of the analysis (character)
 ##' @param end_date Ending date of the analysis (character)
 ##' @param inputs Inputs to the workflow (including meteorological data, etc.) (object)
-##' @param ensemble Ensemble settings object for the workflow. Default: NULL (uses NPP & runs for 1 iteration)
+##' @param ensemble_size Ensemble size for the workflow. Default: 1
+##' @param sensitivity_variable Variable for performing sensitivity. Default: NPP
 ##' @param meta.analysis Meta-analysis settings object for the workflow. Default: NULL (uses default parameters)
-##' @param sensitivity.analysis Sensitivity Analysis settings object. Default: NULL (No sensitivity analysis)
+##' @param sensitivity.analysis Whether or not to perform a sensitivity analysis. Can also take
+##' a sensitivity setting object as input. Default: FALSE (logical or list)
 ##' @param notes Additional notes that the user need to specify for the submitted workflow. Default: NULL
 ##' @return Response obtained from the `POST /api/workflows/` endpoint
 ##' @author Tezan Sahu
@@ -25,7 +27,8 @@
 ##' res <- submit.workflow(server, model_id=1000000014, site_id=772, pfts=c("temperate.coniferous"), start_date="2002-01-01", 
 ##'   end_date="2003-12-31", inputs=list(met=list(id=99000000003)))
 
-submit.workflow <- function(server, model_id, site_id, pfts, start_date, end_date, inputs, ensemble=NULL, meta.analysis=NULL, sensitivity.analysis = NULL, notes=NULL) {
+submit.workflow <- function(server, model_id, site_id, pfts, start_date, end_date, inputs, meta.analysis=NULL, 
+                            ensemble_size=1, sensitivity_variable = "NPP", sensitivity.analysis = FALSE, notes=NULL) {
   # Prepare the workflow based on the parameters set by user
   workflow <- list()
   for(i in 1:length(pfts)) {
@@ -36,29 +39,28 @@ submit.workflow <- function(server, model_id, site_id, pfts, start_date, end_dat
   workflow$model <- list(id = model_id)
   
   workflow$run <- list()
-  workflow$run$site <- list(id = site_id)
+  workflow$run$site <- list(
+    id = site_id,
+    met.start = start_date,
+    met.end = end_date
+  )
   workflow$run$start.date <- start_date
   workflow$run$end.date <- end_date
   workflow$run$inputs <- inputs
   
-  if(is.null(ensemble)) {
-    # Set the default ensemble settings
-    workflow$ensemble <- list(
-      size = 1,
-      variable = "NPP",
-      samplingspace = list(
-        parameters = list(
-          method = "uniform"
-        ),
-        met = list(
-          method = "sampling"
-        )
+  # Set the default ensemble settings
+  workflow$ensemble <- list(
+    size = ensemble_size,
+    variable = sensitivity_variable,
+    samplingspace = list(
+      parameters = list(
+        method = "uniform"
+      ),
+      met = list(
+        method = "sampling"
       )
     )
-  }
-  else {
-    workflows$ensemble <- ensemble
-  }
+  )
   
   if(is.null(meta.analysis)) {
     # Set the default meta.analysis settings
@@ -71,13 +73,26 @@ submit.workflow <- function(server, model_id, site_id, pfts, start_date, end_dat
     workflow$meta.analysis <- meta.analysis
   }
   
-  if(! is.null(sensitivity.analysis) && sensitivity.analysis != FALSE) {
+  # If sensitivity.analysis is set to TRUE, use the default settings to populate the workflow
+  if(typeof(sensitivity.analysis) == "logical") {
+    if(sensitivity.analysis) {
+      workflow$sensitivity.analysis <- list(
+        quantiles = list(sigma1 = -2, sigma2 = -1, sigma3 = 1, sigma4 = 2)
+      )
+    }
+    # Else if FALSE, do nothing
+  }
+  # If a list containing configs (sigmas, etc.) is passed, use that to populate thw workflow
+  else if (typeof(sensitivity.analysis) == "list") {
     workflow$sensitivity.analysis <- sensitivity.analysis
   }
+  # Else, do not populate the sensitivity analysis settings
+  
   
   if(! is.null(notes)) {
-    workflowList$info$notes <- notes
+    workflow$info$notes <- notes
   }
+  
   
   # Submit the prepared workflow to the PEcAn API in JSON format
   res <- NULL

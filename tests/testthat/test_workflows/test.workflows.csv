@@ -1,0 +1,3 @@
+model,revision,met,site_id,pft,start_date,end_date,sensitivity,ensemble_size,comment
+"SIPNET","r136","AmerifluxLBL",772,"temperate.coniferous","2003-01-01","2003-12-31",FALSE,1,"SIPNET Demo 1"
+"SIPNET","r136","AmerifluxLBL",772,"temperate.coniferous","2003-01-01","2003-12-31",TRUE,10,"SIPNET Demo 2"

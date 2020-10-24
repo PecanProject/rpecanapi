@@ -47,6 +47,7 @@ reference:
     - submit.workflow
     - submit.workflow.xml
     - submit.workflow.json
+    - submit.workflows.csv
     - get.workflow.status
     - download.workflow.file
   
@@ -57,3 +58,8 @@ reference:
     - download.run.input
     - download.run.output
     - plot_run_vars
+  
+  - title: Internal Functions
+    contents:
+    - get.model.id
+    - get.workflow.time.elapsed

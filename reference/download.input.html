@@ -88,12 +88,6 @@ Hits the /api/inputs/{input_id} API endpoint" />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../articles/rpecanapi.html">Get started</a>
 </li>
 <li>
@@ -125,7 +119,7 @@ Hits the /api/inputs/{input_id} API endpoint" />
 Hits the <code>/api/inputs/{input_id}</code> API endpoint</p>
     </div>
 
-    <pre class="usage"><span class='fu'>download.input</span>(<span class='kw'>server</span>, <span class='kw'>input_id</span>, filename = <span class='kw'>NULL</span>, save_as = <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>download.input</span><span class='op'>(</span><span class='va'>server</span>, <span class='va'>input_id</span>, filename <span class='op'>=</span> <span class='cn'>NULL</span>, save_as <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -157,10 +151,11 @@ else defaults to 'pecan_input_file')</p></td>
     <p>Tezan Sahu</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>server</span> <span class='op'>&lt;-</span> <span class='fu'><a href='connect.html'>connect</a></span>(url=<span class='st'>"http://localhost:8000"</span>, username=<span class='st'>"carya"</span>, password=<span class='st'>"illinois"</span>)
+    <pre class="examples"><div class='input'><span class='va'>server</span> <span class='op'>&lt;-</span> <span class='fu'><a href='connect.html'>connect</a></span><span class='op'>(</span>url<span class='op'>=</span><span class='st'>"http://localhost:8000"</span>, username<span class='op'>=</span><span class='st'>"carya"</span>, password<span class='op'>=</span><span class='st'>"illinois"</span><span class='op'>)</span>
 
 <span class='co'># Download the 'niwot.clim' file (id = 99000000003)</span>
-<span class='fu'>download.input</span>(<span class='kw'>server</span>, input_id=<span class='st'>'99000000003'</span>, save_as=<span class='st'>'local.niwot.clim'</span>)</div><div class='output co'>#&gt; <span class='message'>Sorry! Server not responding.</span></div></pre>
+<span class='fu'>download.input</span><span class='op'>(</span><span class='va'>server</span>, input_id<span class='op'>=</span><span class='st'>'99000000003'</span>, save_as<span class='op'>=</span><span class='st'>'local.niwot.clim'</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Sorry! Server not responding.</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -176,7 +171,7 @@ else defaults to 'pecan_input_file')</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

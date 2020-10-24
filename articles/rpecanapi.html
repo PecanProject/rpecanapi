@@ -45,12 +45,6 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../articles/rpecanapi.html">Get started</a>
 </li>
 <li>
@@ -67,7 +61,8 @@
 
       
 
-      </header><script src="rpecanapi_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="rpecanapi_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="rpecanapi_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="rpecanapi_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Introduction to the PEcAn R API</h1>
@@ -90,9 +85,8 @@
 <p>The PEcAn API package (<code>rpecanapi</code>) is designed to allow users to retreieve relevant information about the various aspects of PEcAn &amp; submit PEcAn workflows directly from an R session.</p>
 <p><code>rpecanapi</code> is specifically designed to only depend on CRAN packages, and not on any PEcAn internal packages. This makes it easy to install, and allows it to be used without needing to download and install PEcAn itself (which is large and has many complex R package and system dependencies). It can be installed directly from GitHub as follows:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw">devtools</span>::<span class="fu">install_github</span>(<span class="st">"pecanproject/rpecanapi"</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">rpecanapi</span>)
-</pre></div>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"pecanproject/rpecanapi"</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">rpecanapi</span><span class="op">)</span></pre></div>
 <p>This vignette covers the following major sections:</p>
 <ul>
 <li>
@@ -110,17 +104,15 @@
 <p>This tutorial assumes you are running a Dockerized instance of PEcAn on your local machine (hostname <code>localhost</code>, port 8000). To check this, open a browser and try to access <code>http://localhost:8000</code>. If you are trying to access a remote instance of PEcAn, you will need to substitute the hostname and port accordingly.</p>
 <p>We first create a server object with the appropriate credentials for authentication.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="kw">server</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/connect.html">connect</a></span>(<span class="st">"http://localhost:8000"</span>, username = <span class="st">"carya"</span>, password = <span class="st">"illinois"</span>)
-</pre></div>
+<span class="va">server</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/connect.html">connect</a></span><span class="op">(</span><span class="st">"http://localhost:8000"</span>, username <span class="op">=</span> <span class="st">"carya"</span>, password <span class="op">=</span> <span class="st">"illinois"</span><span class="op">)</span></pre></div>
 <p>The rest of this tutorial assumes that you are using this same server object (<code>server</code>).</p>
 <p>To check that the PEcAn server with which one is interacting is live &amp; fetch its details, one can ping the server &amp; also look at its status:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit">
 <span class="co"># Ping the server to check if it is listening</span>
-<span class="fu"><a href="../reference/ping.html">ping</a></span>(<span class="kw">server</span>)
+<span class="fu"><a href="../reference/ping.html">ping</a></span><span class="op">(</span><span class="va">server</span><span class="op">)</span>
 
 <span class="co"># Fetch the details about the server &amp; the PEcAn version running on it</span>
-<span class="fu"><a href="../reference/get.status.html">get.status</a></span>(<span class="kw">server</span>)
-</pre></div>
+<span class="fu"><a href="../reference/get.status.html">get.status</a></span><span class="op">(</span><span class="va">server</span><span class="op">)</span></pre></div>
 </div>
 <div id="rpecanapi-explore" class="section level2">
 <h2 class="hasAnchor">
@@ -130,60 +122,53 @@
 <p>However, chances are you may have to look them up in the database first. For this, <code>rpecanapi</code> provides several <code>search.*</code> utilities to make this easier. Once the search is narrowed, one can also use the corresponding <code>get.*</code> utilities to retrieve more details about the individual elements.</p>
 <p>First, let’s pick a model. To list all models, we can run <code>search.models</code> with no arguments (other than the server object, <code>server</code>).</p>
 <div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="kw">models</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search.models.html">search.models</a></span>(<span class="kw">server</span>)
-</pre></div>
+<span class="va">models</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search.models.html">search.models</a></span><span class="op">(</span><span class="va">server</span><span class="op">)</span></pre></div>
 <p>We can narrow down our search by model name or revision.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit">
 <span class="co"># Search for models with model name containing 'ED'</span>
-<span class="fu"><a href="../reference/search.models.html">search.models</a></span>(<span class="kw">server</span>, model_name = <span class="st">"ED"</span>)
+<span class="fu"><a href="../reference/search.models.html">search.models</a></span><span class="op">(</span><span class="va">server</span>, model_name <span class="op">=</span> <span class="st">"ED"</span><span class="op">)</span>
 
 <span class="co"># Search for models with model name containing 'sipnet'</span>
-<span class="fu"><a href="../reference/search.models.html">search.models</a></span>(<span class="kw">server</span>, model_name =<span class="st">"sipnet"</span>)
+<span class="fu"><a href="../reference/search.models.html">search.models</a></span><span class="op">(</span><span class="va">server</span>, model_name <span class="op">=</span><span class="st">"sipnet"</span><span class="op">)</span>
 
 <span class="co"># Search for models with model name containing 'sipnet' of the 'r136' revision</span>
-<span class="fu"><a href="../reference/search.models.html">search.models</a></span>(<span class="kw">server</span>, model_name = <span class="st">"sipnet"</span>, revision = <span class="st">"r136"</span>)
-</pre></div>
+<span class="fu"><a href="../reference/search.models.html">search.models</a></span><span class="op">(</span><span class="va">server</span>, model_name <span class="op">=</span> <span class="st">"sipnet"</span>, revision <span class="op">=</span> <span class="st">"r136"</span><span class="op">)</span></pre></div>
 <p>One can easily obtain the <code>model_id</code> of the desired model from the result of this function call.</p>
 <p>Note that the search is case-insensitive by default, and searches before and after the input string. See <code><a href="../reference/search.models.html">?search.models</a></code> to learn how to toggle this behavior. For the purposes of this tutorial, let’s use the SIPNET model because it has low input requirements and runs very quickly. Specifically, let’s use the <code>136</code> version. [The <code>model_id</code> for this is ‘1000000014’]</p>
 <p>To get more detailed information about this model (like the type of inputs that are required by this model, etc.), we have another helper function.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit">
 <span class="co"># Get all the details of the model with id = '1000000014'</span>
-<span class="fu"><a href="../reference/get.model.html">get.model</a></span>(<span class="kw">server</span>, model_id = <span class="st">'1000000014'</span>)
-</pre></div>
+<span class="fu"><a href="../reference/get.model.html">get.model</a></span><span class="op">(</span><span class="va">server</span>, model_id <span class="op">=</span> <span class="st">'1000000014'</span><span class="op">)</span></pre></div>
 <p>Through this, we can also note the types of inputs that are necessary (and maybe not so necessary) for the model to run. For the above model, th <code>met</code> input is required to execure the workflow. We will use this information later.</p>
 <p>We can repeat this process for sites with the <code>search.sites</code> &amp; <code>get.site</code> functions. The 3 sites in the search below are largely identical, so we’ll use the one with more site information. For this, we can inspect the details of both the sites.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit">
 <span class="co"># Search for models with site name containing 'niwot ridge'</span>
-<span class="kw">all_sites</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search.sites.html">search.sites</a></span>(<span class="kw">con</span>, sitename = <span class="st">"niwot ridge"</span>)
-<span class="kw">all_sites</span>
+<span class="va">all_sites</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search.sites.html">search.sites</a></span><span class="op">(</span><span class="va">con</span>, sitename <span class="op">=</span> <span class="st">"niwot ridge"</span><span class="op">)</span>
+<span class="va">all_sites</span>
 
 <span class="co"># Get all the details of each of the sites obtained above (here, all_sites$count = 3)</span>
-<span class="co">for</span>(<span class="kw">i</span> <span class="co">in</span> <span class="fl">1</span><span class="op">:</span><span class="kw">all_sites</span><span class="op">$</span><span class="kw">count</span>){
-  <span class="fu"><a href="../reference/get.site.html">get.site</a></span>(<span class="kw">server</span>, site_id = <span class="kw">all_sites</span><span class="op">$</span><span class="kw">sites</span>[[<span class="st">'id'</span>]][<span class="kw">i</span>])
-}
-</pre></div>
+<span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">all_sites</span><span class="op">$</span><span class="va">count</span><span class="op">)</span><span class="op">{</span>
+  <span class="fu"><a href="../reference/get.site.html">get.site</a></span><span class="op">(</span><span class="va">server</span>, site_id <span class="op">=</span> <span class="va">all_sites</span><span class="op">$</span><span class="va">sites</span><span class="op">[[</span><span class="st">'id'</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span>
+<span class="op">}</span></pre></div>
 <p>Once we run the above lines, we will see that the site with <code>site_id</code> = ‘772’ has more information in terms of <code>soil</code>, <code>sand_pct</code> &amp; <code>clay_pct</code>. We can use this as our site to execute the workflow.</p>
 <p>The PEcAn system requires at least 1 plant functional type (PFT) to be specified in a workflow. We can look up the PFTs in a similar fashion as well &amp; fetch the details of a specific PFT as we did earlier for models &amp; sites. To search for PFTs, use the <code>search.pfts</code> function, which can take optional arguments for PFT name (<code>pft_name</code>), PFT type (<code>pft_type</code>), and model type (<code>model_type</code>).</p>
 <div class="sourceCode" id="cb8"><pre class="downlit">
 <span class="co"># Search for all PFTs that have the word 'tundra' for 'ED' models</span>
-<span class="fu"><a href="../reference/search.pfts.html">search.pfts</a></span>(<span class="kw">server</span>, pft_name = <span class="st">"tundra"</span>, model_type = <span class="st">"ED"</span>)
+<span class="fu"><a href="../reference/search.pfts.html">search.pfts</a></span><span class="op">(</span><span class="va">server</span>, pft_name <span class="op">=</span> <span class="st">"tundra"</span>, model_type <span class="op">=</span> <span class="st">"ED"</span><span class="op">)</span>
 
 <span class="co"># Search for all PFTs that have the word 'coniferous' for 'sipnet' models</span>
-<span class="fu"><a href="../reference/search.pfts.html">search.pfts</a></span>(<span class="kw">server</span>, pft_name = <span class="st">"coniferous"</span>, model_type = <span class="st">"sipnet"</span>)
+<span class="fu"><a href="../reference/search.pfts.html">search.pfts</a></span><span class="op">(</span><span class="va">server</span>, pft_name <span class="op">=</span> <span class="st">"coniferous"</span>, model_type <span class="op">=</span> <span class="st">"sipnet"</span><span class="op">)</span>
 
 <span class="co"># Get the details of the 'temperate.coniferous' PFT (id = '42')</span>
-<span class="fu"><a href="../reference/get.pft.html">get.pft</a></span>(<span class="kw">server</span>, pft_id = <span class="st">'42'</span>)
-</pre></div>
+<span class="fu"><a href="../reference/get.pft.html">get.pft</a></span><span class="op">(</span><span class="va">server</span>, pft_id <span class="op">=</span> <span class="st">'42'</span><span class="op">)</span></pre></div>
 <p>More details about the case sensitivity of the search as well as the allowed values for <code>pft_type</code> can be seen using <code>?search.pft</code>.</p>
 <p>Now, we try to obtain the inputs that are required to execute our workflow. We had earlier seen that the SIPNET-r136 model needs a <code>met</code> input data. Hence, we can search for the inputs related to the desired model &amp; site (as well as by their availability on the host server that one is interacting with).</p>
 <div class="sourceCode" id="cb9"><pre class="downlit">
 <span class="co"># Search for all inputs related to the US-NR1 site for the SIPNET-r136 model</span>
-<span class="fu"><a href="../reference/search.inputs.html">search.inputs</a></span>(<span class="kw">server</span>, model_id = <span class="st">'1000000014'</span>, site_id = <span class="st">'772'</span>)
-</pre></div>
+<span class="fu"><a href="../reference/search.inputs.html">search.inputs</a></span><span class="op">(</span><span class="va">server</span>, model_id <span class="op">=</span> <span class="st">'1000000014'</span>, site_id <span class="op">=</span> <span class="st">'772'</span><span class="op">)</span></pre></div>
 <p>Since we assume that we are working with the API deployed on the docker container locally, we would like to choose an input that has <code>hostname == 'docker'</code>. [This could be the input with id = 99000000003 or 99000000004]. We can also to choose to download these input(s) onto our local environment for inspection or processing:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="fu"><a href="../reference/download.input.html">download.input</a></span>(<span class="kw">server</span>, input_id = <span class="fl">99000000003</span>, save_as = <span class="st">'local.niwot.clim'</span>)
-</pre></div>
+<span class="fu"><a href="../reference/download.input.html">download.input</a></span><span class="op">(</span><span class="va">server</span>, input_id <span class="op">=</span> <span class="fl">99000000003</span>, save_as <span class="op">=</span> <span class="st">'local.niwot.clim'</span><span class="op">)</span></pre></div>
 <p>This will download the necessary input file (if it is present on the host) &amp; save it locally as <code>local.niwot.clim</code>.</p>
 </div>
 <div id="rpecanapi-workflow" class="section level2">
@@ -195,20 +180,19 @@
 <a href="#using-user-defined-parameters" class="anchor"></a>Using User-Defined Parameters</h3>
 <p><code>rpecanapi</code> provides a direct utility function to just mention the <code>model_id</code>, <code>site_id</code>, <code>pfts</code> &amp; <code>inputs</code> (along with advanced settings for meta-analysis, ensembles &amp; sensitivity analysis) without the need to manually create an entire workflow configuration object. It can be used as follows:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit">
-<span class="kw">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/submit.workflow.html">submit.workflow</a></span>(
-  <span class="kw">server</span>,
-  model_id = <span class="st">'1000000014'</span>, 
-  site_id = <span class="st">'772'</span>, 
-  pfts = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"temperate.coniferous"</span>), 
-  start_date = <span class="st">"2002-01-01"</span>, 
-  end_date = <span class="st">"2003-12-31"</span>, 
-  inputs = <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(
-    met = <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(id = <span class="st">"99000000003"</span>)
-  )
-)
+<span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/submit.workflow.html">submit.workflow</a></span><span class="op">(</span>
+  <span class="va">server</span>,
+  model_id <span class="op">=</span> <span class="st">'1000000014'</span>, 
+  site_id <span class="op">=</span> <span class="st">'772'</span>, 
+  pfts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"temperate.coniferous"</span><span class="op">)</span>, 
+  start_date <span class="op">=</span> <span class="st">"2002-01-01"</span>, 
+  end_date <span class="op">=</span> <span class="st">"2003-12-31"</span>, 
+  inputs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+    met <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"99000000003"</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">)</span>
 
-<span class="kw">workflow_id</span> <span class="op">&lt;-</span> <span class="kw">res</span><span class="op">$</span><span class="kw">workflow_id</span>          <span class="co"># Assume that here workflow_id = '99000000001'</span>
-</pre></div>
+<span class="va">workflow_id</span> <span class="op">&lt;-</span> <span class="va">res</span><span class="op">$</span><span class="va">workflow_id</span>          <span class="co"># Assume that here workflow_id = '99000000001'</span></pre></div>
 <p>To know more about the different parameters that this function can take in, feel free to check out <code><a href="../reference/submit.workflow.html">?submit.workflow</a></code>. In the above example, we leave the <code>meta.analysis</code>, <code>ensemble</code> &amp; <code>sensitivity.analysis</code> as default, which translates to a single run using NPP (Net Primary Productivity) &amp; no sensitivity analysis settings.</p>
 <p>This will create the necessary records in the <code>workflows</code> &amp; <code>attributes</code> tables of the database on the PEcAn server &amp; submit the workflow to the RabbitMQ queue associated with the server for execution. If the submission is successful, it returns the <code>workflow_id</code> of the submitted workflow.</p>
 </div>
@@ -257,8 +241,7 @@
 <span id="cb12-39"><a href="#cb12-39"></a><span class="kw">&lt;/pecan&gt;</span></span></code></pre></div>
 <p>Now, we can submit this workflow for execution using:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit">
-<span class="fu"><a href="../reference/submit.workflow.xml.html">submit.workflow.xml</a></span>(<span class="kw">server</span>, xmlFile = <span class="st">"test.xml"</span>)
-</pre></div>
+<span class="fu"><a href="../reference/submit.workflow.xml.html">submit.workflow.xml</a></span><span class="op">(</span><span class="va">server</span>, xmlFile <span class="op">=</span> <span class="st">"test.xml"</span><span class="op">)</span></pre></div>
 <p>This also performs similar operations for updating the database &amp; submitting the workflow to RabbitMQ. If the submission is successful, it returns the <code>workflow_id</code> of the submitted workflow.</p>
 </div>
 <div id="as-an-json-file" class="section level3">
@@ -301,8 +284,7 @@
 <span id="cb14-34"><a href="#cb14-34"></a><span class="fu">}</span></span></code></pre></div>
 <p>Now, we can submit this workflow for execution using:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit">
-<span class="fu"><a href="../reference/submit.workflow.json.html">submit.workflow.json</a></span>(<span class="kw">server</span>, jsonFile = <span class="st">"test.json"</span>)
-</pre></div>
+<span class="fu"><a href="../reference/submit.workflow.json.html">submit.workflow.json</a></span><span class="op">(</span><span class="va">server</span>, jsonFile <span class="op">=</span> <span class="st">"test.json"</span><span class="op">)</span></pre></div>
 <p>Again, this performs similar operations for updating the database &amp; submitting the workflow to RabbitMQ, &amp; returns the <code>workflow_id</code> of the workflow on successful submission.</p>
 </div>
 </div>
@@ -312,55 +294,50 @@
 <p>Workflows can be searched for &amp; viewed easily using <code>rpecanapi</code> utility funtions as follows:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit">
 <span class="co"># Search for all workflows that have used the SIPNET-r136 model (id = 1000000014) on the Niwot Ridge site (id = 772)</span>
-<span class="fu"><a href="../reference/get.workflows.html">get.workflows</a></span>(<span class="kw">server</span>, model_id = <span class="st">'1000000014'</span>, site_id = <span class="st">'772'</span>)
+<span class="fu"><a href="../reference/get.workflows.html">get.workflows</a></span><span class="op">(</span><span class="va">server</span>, model_id <span class="op">=</span> <span class="st">'1000000014'</span>, site_id <span class="op">=</span> <span class="st">'772'</span><span class="op">)</span>
 
 <span class="co"># Check the status of a submitted workflow (we earlier assumed that the workflow_id was '99000000001')</span>
-<span class="fu"><a href="../reference/get.workflow.status.html">get.workflow.status</a></span>(<span class="kw">server</span>, workflow_id = <span class="st">'99000000001'</span>)
+<span class="fu"><a href="../reference/get.workflow.status.html">get.workflow.status</a></span><span class="op">(</span><span class="va">server</span>, workflow_id <span class="op">=</span> <span class="st">'99000000001'</span><span class="op">)</span>
 
 <span class="co"># Get all the details of a workflow using its ID </span>
-<span class="fu"><a href="../reference/get.workflow.html">get.workflow</a></span>(<span class="kw">server</span>, workflow_id = <span class="st">'99000000001'</span>)
-</pre></div>
+<span class="fu"><a href="../reference/get.workflow.html">get.workflow</a></span><span class="op">(</span><span class="va">server</span>, workflow_id <span class="op">=</span> <span class="st">'99000000001'</span><span class="op">)</span></pre></div>
 <p>This will also return the files available in the workflow’s directory which can be downloaded by a user &amp; locally viewed or processed. To download a file (for example, the <code>pecan.CONFIG.xml</code> file), we use the <code>download.</code> function:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit">
-<span class="fu"><a href="../reference/download.workflow.file.html">download.workflow.file</a></span>(<span class="kw">server</span>, workflow_id = <span class="st">'99000000001'</span>, filename = <span class="st">"pecan.CONFIG.xml"</span>)
-</pre></div>
+<span class="fu"><a href="../reference/download.workflow.file.html">download.workflow.file</a></span><span class="op">(</span><span class="va">server</span>, workflow_id <span class="op">=</span> <span class="st">'99000000001'</span>, filename <span class="op">=</span> <span class="st">"pecan.CONFIG.xml"</span><span class="op">)</span></pre></div>
 <p>This downloads the <code>pecan.CONFIG.xml</code> file from the server for the mentioned workflow &amp; saves it locally using the same file name (because the <code>save_as</code> parameter is set to default value).</p>
 <p>All of PEcAn’s outputs as well as its database files (<code>dbfiles</code>) can also be accessed remotely via the THREDDS data server. You can explore these files by browsing to <code>localhost:8000/thredds/</code> in a browser (substituting hostname and port, accordingly).</p>
 <p>Similarly, one can also fetch basic informtion about runs belonging to a workflow along with details for a particlar workflow:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit">
 <span class="co"># Get information about runs belonging to a workflow with id = 99000000001</span>
-<span class="fu"><a href="../reference/get.runs.html">get.runs</a></span>(<span class="kw">server</span>, workflow_id = <span class="st">'99000000001'</span>)
+<span class="fu"><a href="../reference/get.runs.html">get.runs</a></span><span class="op">(</span><span class="va">server</span>, workflow_id <span class="op">=</span> <span class="st">'99000000001'</span><span class="op">)</span>
 
 <span class="co"># Fetch the details about a run with id = 99000000002</span>
-<span class="fu"><a href="../reference/get.run.html">get.run</a></span>(<span class="kw">server</span>, run_id = <span class="st">'99000000002'</span>)
-</pre></div>
+<span class="fu"><a href="../reference/get.run.html">get.run</a></span><span class="op">(</span><span class="va">server</span>, run_id <span class="op">=</span> <span class="st">'99000000002'</span><span class="op">)</span></pre></div>
 <p>This will also return the files available in the input &amp; output files corresponding to the run which can be downloaded by a user &amp; locally viewed or processed. As an example, we try to download the <code>2002.nc</code> output file for a run, which is in NetCDF format:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit">
 <span class="co"># This will download the `2002.nc` file &amp; store it locally with the same name</span>
-<span class="fu"><a href="../reference/download.run.output.html">download.run.output</a></span>(<span class="kw">server</span>, run_id = <span class="st">'99000000002'</span>, filename = <span class="st">'2002.nc'</span>)
+<span class="fu"><a href="../reference/download.run.output.html">download.run.output</a></span><span class="op">(</span><span class="va">server</span>, run_id <span class="op">=</span> <span class="st">'99000000002'</span>, filename <span class="op">=</span> <span class="st">'2002.nc'</span><span class="op">)</span>
 
 <span class="co"># Process this file locally to generate plots</span>
-<span class="kw">sipnet_out</span> <span class="op">&lt;-</span> <span class="kw">ncdf4</span>::<span class="fu">nc_open</span>(<span class="st">'2002.nc'</span>)
-<span class="kw">gpp</span> <span class="op">&lt;-</span> <span class="kw">ncdf4</span>::<span class="fu">ncvar_get</span>(<span class="kw">sipnet_out</span>, <span class="st">"GPP"</span>)
-<span class="kw">time</span> <span class="op">&lt;-</span> <span class="kw">ncdf4</span>::<span class="fu">ncvar_get</span>(<span class="kw">sipnet_out</span>, <span class="st">"time"</span>)
-<span class="kw">ncdf4</span>::<span class="fu">nc_close</span>(<span class="kw">sipnet_out</span>)
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span>(<span class="kw">time</span>, <span class="kw">gpp</span>, type = <span class="st">"l"</span>)
-</pre></div>
+<span class="va">sipnet_out</span> <span class="op">&lt;-</span> <span class="fu">ncdf4</span><span class="fu">::</span><span class="fu">nc_open</span><span class="op">(</span><span class="st">'2002.nc'</span><span class="op">)</span>
+<span class="va">gpp</span> <span class="op">&lt;-</span> <span class="fu">ncdf4</span><span class="fu">::</span><span class="fu">ncvar_get</span><span class="op">(</span><span class="va">sipnet_out</span>, <span class="st">"GPP"</span><span class="op">)</span>
+<span class="va">time</span> <span class="op">&lt;-</span> <span class="fu">ncdf4</span><span class="fu">::</span><span class="fu">ncvar_get</span><span class="op">(</span><span class="va">sipnet_out</span>, <span class="st">"time"</span><span class="op">)</span>
+<span class="fu">ncdf4</span><span class="fu">::</span><span class="fu">nc_close</span><span class="op">(</span><span class="va">sipnet_out</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">time</span>, <span class="va">gpp</span>, type <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span></pre></div>
 <p><code>rpecanapi</code> also allows you to plot variables against one another based on the outputs of a run. The utility function to achieve this if <code>plot_run_vars</code>, which can be used as follows:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit">
 <span class="co"># Plot GPP vs Time for the year 2002 for the run with id = '99000000002'</span>
-<span class="fu"><a href="../reference/plot_run_vars.html">plot_run_vars</a></span>(<span class="kw">server</span>, run_id = <span class="st">'99000000002'</span>, year = <span class="st">'2002'</span>, y_var = <span class="st">"GPP"</span>)
+<span class="fu"><a href="../reference/plot_run_vars.html">plot_run_vars</a></span><span class="op">(</span><span class="va">server</span>, run_id <span class="op">=</span> <span class="st">'99000000002'</span>, year <span class="op">=</span> <span class="st">'2002'</span>, y_var <span class="op">=</span> <span class="st">"GPP"</span><span class="op">)</span>
 
 <span class="co"># This generates the plot &amp; stores it locally by default as 'plot.png'</span>
 <span class="co"># To view this png file, use:</span>
-<span class="kw">img</span> <span class="op">&lt;-</span> <span class="kw">png</span>::<span class="fu">readPNG</span>(<span class="st">'plot.png'</span>)
-<span class="kw">grid</span>::<span class="fu"><a href="https://rdrr.io/r/grid/grid.raster.html">grid.raster</a></span>(<span class="kw">img</span>)
+<span class="va">img</span> <span class="op">&lt;-</span> <span class="fu">png</span><span class="fu">::</span><span class="fu">readPNG</span><span class="op">(</span><span class="st">'plot.png'</span><span class="op">)</span>
+<span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.raster.html">grid.raster</a></span><span class="op">(</span><span class="va">img</span><span class="op">)</span>
 
 <span class="co"># Plot the TotalResp vs SoilResp for the year 2002 for the run with id = '99000000002' of size 1000 * 800 &amp; save with custom name</span>
-<span class="fu"><a href="../reference/plot_run_vars.html">plot_run_vars</a></span>(<span class="kw">server</span>, run_id = <span class="st">'99000000002'</span>, year = <span class="st">'2002'</span>, y_var = <span class="st">"TotalResp"</span>, x_var = <span class="st">"SoilResp"</span>, width = <span class="fl">1000</span>, height = <span class="fl">800</span>, filename = <span class="st">"totRespVsSoilResp.png"</span>)
-<span class="kw">img</span> <span class="op">&lt;-</span> <span class="kw">png</span>::<span class="fu">readPNG</span>(<span class="st">'totRespVsSoilResp.png'</span>)
-<span class="kw">grid</span>::<span class="fu"><a href="https://rdrr.io/r/grid/grid.raster.html">grid.raster</a></span>(<span class="kw">img</span>)
-</pre></div>
+<span class="fu"><a href="../reference/plot_run_vars.html">plot_run_vars</a></span><span class="op">(</span><span class="va">server</span>, run_id <span class="op">=</span> <span class="st">'99000000002'</span>, year <span class="op">=</span> <span class="st">'2002'</span>, y_var <span class="op">=</span> <span class="st">"TotalResp"</span>, x_var <span class="op">=</span> <span class="st">"SoilResp"</span>, width <span class="op">=</span> <span class="fl">1000</span>, height <span class="op">=</span> <span class="fl">800</span>, filename <span class="op">=</span> <span class="st">"totRespVsSoilResp.png"</span><span class="op">)</span>
+<span class="va">img</span> <span class="op">&lt;-</span> <span class="fu">png</span><span class="fu">::</span><span class="fu">readPNG</span><span class="op">(</span><span class="st">'totRespVsSoilResp.png'</span><span class="op">)</span>
+<span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.raster.html">grid.raster</a></span><span class="op">(</span><span class="va">img</span><span class="op">)</span></pre></div>
 </div>
 </div>
   </div>
@@ -380,7 +357,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

@@ -88,12 +88,6 @@ Hits the POST /api/workflows/ API endpoint." />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../articles/rpecanapi.html">Get started</a>
 </li>
 <li>
@@ -125,19 +119,20 @@ Hits the POST /api/workflows/ API endpoint." />
 Hits the <code>POST /api/workflows/</code> API endpoint.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>submit.workflow</span>(
-  <span class='kw'>server</span>,
-  <span class='kw'>model_id</span>,
-  <span class='kw'>site_id</span>,
-  <span class='kw'>pfts</span>,
-  <span class='kw'>start_date</span>,
-  <span class='kw'>end_date</span>,
-  <span class='kw'>inputs</span>,
-  ensemble = <span class='kw'>NULL</span>,
-  meta.analysis = <span class='kw'>NULL</span>,
-  sensitivity.analysis = <span class='kw'>NULL</span>,
-  notes = <span class='kw'>NULL</span>
-)</pre>
+    <pre class="usage"><span class='fu'>submit.workflow</span><span class='op'>(</span>
+  <span class='va'>server</span>,
+  <span class='va'>model_id</span>,
+  <span class='va'>site_id</span>,
+  <span class='va'>pfts</span>,
+  <span class='va'>start_date</span>,
+  <span class='va'>end_date</span>,
+  <span class='va'>inputs</span>,
+  meta.analysis <span class='op'>=</span> <span class='cn'>NULL</span>,
+  ensemble_size <span class='op'>=</span> <span class='fl'>1</span>,
+  sensitivity_variable <span class='op'>=</span> <span class='st'>"NPP"</span>,
+  sensitivity.analysis <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  notes <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -171,16 +166,21 @@ Hits the <code>POST /api/workflows/</code> API endpoint.</p>
       <td><p>Inputs to the workflow (including meteorological data, etc.) (object)</p></td>
     </tr>
     <tr>
-      <th>ensemble</th>
-      <td><p>Ensemble settings object for the workflow. Default: NULL (uses NPP &amp; runs for 1 iteration)</p></td>
-    </tr>
-    <tr>
       <th>meta.analysis</th>
       <td><p>Meta-analysis settings object for the workflow. Default: NULL (uses default parameters)</p></td>
     </tr>
     <tr>
+      <th>ensemble_size</th>
+      <td><p>Ensemble size for the workflow. Default: 1</p></td>
+    </tr>
+    <tr>
+      <th>sensitivity_variable</th>
+      <td><p>Variable for performing sensitivity. Default: NPP</p></td>
+    </tr>
+    <tr>
       <th>sensitivity.analysis</th>
-      <td><p>Sensitivity Analysis settings object. Default: NULL (No sensitivity analysis)</p></td>
+      <td><p>Whether or not to perform a sensitivity analysis. Can also take
+a sensitivity setting object as input. Default: FALSE (logical or list)</p></td>
     </tr>
     <tr>
       <th>notes</th>
@@ -196,13 +196,14 @@ Hits the <code>POST /api/workflows/</code> API endpoint.</p>
     <p>Tezan Sahu</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>server</span> <span class='op'>&lt;-</span> <span class='fu'><a href='connect.html'>connect</a></span>(url=<span class='st'>"http://localhost:8000"</span>, username=<span class='st'>"carya"</span>, password=<span class='st'>"illinois"</span>)
+    <pre class="examples"><div class='input'><span class='va'>server</span> <span class='op'>&lt;-</span> <span class='fu'><a href='connect.html'>connect</a></span><span class='op'>(</span>url<span class='op'>=</span><span class='st'>"http://localhost:8000"</span>, username<span class='op'>=</span><span class='st'>"carya"</span>, password<span class='op'>=</span><span class='st'>"illinois"</span><span class='op'>)</span>
 
 <span class='co'># Submit a workflow with the SIPNET r136 model (id = 1000000014) for Niwot Ridge site (id = 772) with </span>
 <span class='co'># PFT as 'temperate.coniferous' starting from 01-01-2002 to 31-12-2003 using the input met data with</span>
 <span class='co'># id = 99000000003</span>
-<span class='kw'>res</span> <span class='op'>&lt;-</span> <span class='fu'>submit.workflow</span>(<span class='kw'>server</span>, model_id=<span class='fl'>1000000014</span>, site_id=<span class='fl'>772</span>, pfts=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"temperate.coniferous"</span>), start_date=<span class='st'>"2002-01-01"</span>, 
-  end_date=<span class='st'>"2003-12-31"</span>, inputs=<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(met=<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(id=<span class='fl'>99000000003</span>)))</div><div class='output co'>#&gt; <span class='message'>Sorry! Server not responding.</span></div></pre>
+<span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>submit.workflow</span><span class='op'>(</span><span class='va'>server</span>, model_id<span class='op'>=</span><span class='fl'>1000000014</span>, site_id<span class='op'>=</span><span class='fl'>772</span>, pfts<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"temperate.coniferous"</span><span class='op'>)</span>, start_date<span class='op'>=</span><span class='st'>"2002-01-01"</span>, 
+  end_date<span class='op'>=</span><span class='st'>"2003-12-31"</span>, inputs<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>met<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id<span class='op'>=</span><span class='fl'>99000000003</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Sorry! Server not responding.</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -218,7 +219,7 @@ Hits the <code>POST /api/workflows/</code> API endpoint.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

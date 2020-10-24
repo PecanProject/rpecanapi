@@ -25,6 +25,9 @@
     <loc>https://pecanproject.github.io/rpecanapi/reference/get.model.html</loc>
   </url>
   <url>
+    <loc>https://pecanproject.github.io/rpecanapi/reference/get.model.id.html</loc>
+  </url>
+  <url>
     <loc>https://pecanproject.github.io/rpecanapi/reference/get.pft.html</loc>
   </url>
   <url>
@@ -44,6 +47,9 @@
   </url>
   <url>
     <loc>https://pecanproject.github.io/rpecanapi/reference/get.workflow.status.html</loc>
+  </url>
+  <url>
+    <loc>https://pecanproject.github.io/rpecanapi/reference/get.workflow.time.elapsed.html</loc>
   </url>
   <url>
     <loc>https://pecanproject.github.io/rpecanapi/reference/get.workflows.html</loc>
@@ -77,6 +83,9 @@
   </url>
   <url>
     <loc>https://pecanproject.github.io/rpecanapi/reference/submit.workflow.xml.html</loc>
+  </url>
+  <url>
+    <loc>https://pecanproject.github.io/rpecanapi/reference/submit.workflows.csv.html</loc>
   </url>
   <url>
     <loc>https://pecanproject.github.io/rpecanapi/articles/rpecanapi.html</loc>

@@ -14,16 +14,9 @@
   </meta.analysis>
 
   <ensemble>
+    <size>1</size>
     <variable>NPP</variable>
   </ensemble>
-
-  <sensitivity.analysis>
-    <quantiles>
-      <sigma>-1</sigma>
-      <sigma>1</sigma>
-    </quantiles>
-    <variable>NPP</variable>
-  </sensitivity.analysis>
 
   <model>
     <type>SIPNET</type>

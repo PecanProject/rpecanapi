@@ -1,0 +1,341 @@
+---
+title: Introduction to the PEcAn R API
+author: Tezan Sahu, Alexey Shiklomanov
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to the PEcAn R API}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Introduction to the PEcAn R API {#pecanapi-vignette}
+
+```{r, include = FALSE, eval = TRUE}
+op_default <- knitr::opts_chunk$get(default = TRUE)
+knitr::opts_chunk$set(op_default)
+```
+
+## Introduction
+
+The PEcAn API package (`rpecanapi`) is designed to allow users to retreieve relevant information about the various aspects of PEcAn & submit PEcAn workflows directly from an R session.
+
+`rpecanapi` is specifically designed to only depend on CRAN packages, and not on any PEcAn internal packages.
+This makes it easy to install, and allows it to be used without needing to download and install PEcAn itself (which is large and has many complex R package and system dependencies).
+It can be installed directly from GitHub as follows:
+
+```{r, eval = FALSE}
+devtools::install_github("pecanproject/rpecanapi")
+library(rpecanapi)
+```
+
+This vignette covers the following major sections:
+
+- [Initial setup](#rpecanapi-setup) goes over the configuration required to make `rpecanapi` work by connecting remotely to a PEcAn API server.
+- [Exploring to prepare a workflow](#rpecanapi-explore) covers how one can leverage the various `rpecanapi` functions to search for & fetch details about elements that may be neccessary to create a workflow.
+- [Preparing & submitting a workflow](#rpecanapi-workflow) goes over how to create & submit a PEcAn workflow with the PEcAn server for execution
+- Finally, [processing the outputs of workflows & runs](#rpecanapi-output) covers how to view details about workflows & runs, download & process relevant files form a workflow, as well as how to obtain necessary plots for from a run.
+
+## Initial Setup {#pecanapi-setup}
+
+This tutorial assumes you are running a Dockerized instance of PEcAn on your local machine (hostname `localhost`, port 8000).
+To check this, open a browser and try to access `http://localhost:8000`.
+If you are trying to access a remote instance of PEcAn, you will need to substitute the hostname and port accordingly.
+
+We first create a server object with the appropriate credentials for authentication.
+
+```{r, eval = FALSE}
+server <- connect("http://localhost:8000", username = "carya", password = "illinois")
+```
+
+The rest of this tutorial assumes that you are using this same server object (`server`).
+
+To check that the PEcAn server with which one is interacting is live & fetch its details, one can ping the server & also look at its status:
+
+```{r, eval = FALSE}
+# Ping the server to check if it is listening
+ping(server)
+
+# Fetch the details about the server & the PEcAn version running on it
+get.status(server)
+```
+
+## Exploring to Prepare a Workflow {#rpecanapi-explore}
+
+Building a workflow requires some important pieces of information: the model and site IDs, the PFTs (Plant Functional Types) as well as the input data for the model.
+
+If you know these for your site and model, you can pass them directly into the function to submit a workflow (`submit.workflow`) or create XML / JSON files containing these relevant configurations for the workflow and use the `submit.workflow.xml` or `submit.workflow.json` respectively.
+
+However, chances are you may have to look them up in the database first. For this, `rpecanapi` provides several `search.*` utilities to make this easier. Once the search is narrowed, one can also use the corresponding `get.*` utilities to retrieve more details about the individual elements.
+
+First, let's pick a model.
+To list all models, we can run `search.models` with no arguments (other than the server object, `server`).
+
+```{r, eval = FALSE}
+models <- search.models(server)
+```
+
+We can narrow down our search by model name or revision.
+
+```{r, eval = FALSE}
+# Search for models with model name containing 'ED'
+search.models(server, model_name = "ED")
+
+# Search for models with model name containing 'sipnet'
+search.models(server, model_name ="sipnet")
+
+# Search for models with model name containing 'sipnet' of the 'r136' revision
+search.models(server, model_name = "sipnet", revision = "r136")
+```
+One can easily obtain the `model_id` of the desired model from the result of this function call.
+
+Note that the search is case-insensitive by default, and searches before and after the input string.
+See `?search.models` to learn how to toggle this behavior.
+For the purposes of this tutorial, let's use the SIPNET model because it has low input requirements and runs very quickly.
+Specifically, let's use the `136` version. [The `model_id` for this is '1000000014']
+
+To get more detailed information about this model (like the type of inputs that are required by this model, etc.), we have another helper function.
+```{r, eval = FALSE}
+# Get all the details of the model with id = '1000000014'
+get.model(server, model_id = '1000000014')
+```
+Through this, we can also note the types of inputs that are necessary (and maybe not so necessary) for the model to run. For the above model, th `met` input is required to execure the workflow. We will use this information later.
+
+We can repeat this process for sites with the `search.sites` & `get.site` functions.
+The 3 sites in the search below are largely identical, so we'll use the one with more site information. For this, we can inspect the details of both the sites.
+
+```{r, eval = FALSE}
+# Search for models with site name containing 'niwot ridge'
+all_sites <- search.sites(con, sitename = "niwot ridge")
+all_sites
+
+# Get all the details of each of the sites obtained above (here, all_sites$count = 3)
+for(i in 1:all_sites$count){
+  get.site(server, site_id = all_sites$sites[['id']][i])
+}
+```
+Once we run the above lines, we will see that the site with `site_id` = '772' has more information in terms of `soil`, `sand_pct` & `clay_pct`. We can use this as our site to execute the workflow.
+
+The PEcAn system requires at least 1 plant functional type (PFT) to be specified in a workflow. We can look up the PFTs in a similar fashion as well & fetch the details of a specific PFT as we did earlier for models & sites. To search for PFTs, use the `search.pfts` function, which can take optional arguments for PFT name (`pft_name`), PFT type (`pft_type`), and model type (`model_type`).
+
+```{r, eval = FALSE}
+# Search for all PFTs that have the word 'tundra' for 'ED' models
+search.pfts(server, pft_name = "tundra", model_type = "ED")
+
+# Search for all PFTs that have the word 'coniferous' for 'sipnet' models
+search.pfts(server, pft_name = "coniferous", model_type = "sipnet")
+
+# Get the details of the 'temperate.coniferous' PFT (id = '42')
+get.pft(server, pft_id = '42')
+```
+More details about the case sensitivity of the search as well as the allowed values for `pft_type` can be seen using `?search.pft`.
+
+Now, we try to obtain the inputs that are required to execute our workflow. We had earlier seen that the SIPNET-r136 model needs a `met` input data. Hence, we can search for the inputs related to the desired model & site (as well as by their availability on the host server that one is interacting with).
+
+```{r, eval = FALSE}
+# Search for all inputs related to the US-NR1 site for the SIPNET-r136 model
+search.inputs(server, model_id = '1000000014', site_id = '772')
+```
+
+Since we assume that we are working with the API deployed on the docker container locally, we would like to choose an input that has `hostname == 'docker'`. [This could be the input with id = 99000000003 or 99000000004]. We can also to choose to download these input(s) onto our local environment for inspection or processing:
+
+```{r, eval = FALSE}
+download.input(server, input_id = 99000000003, save_as = 'local.niwot.clim')
+```
+This will download the necessary input file (if it is present on the host) & save it locally as `local.niwot.clim`.
+
+## Preparing & Submitting a Workflow {#rpecanapi-workflow}
+
+With site and model IDs along with the necessary PFTs & Input data in hand, we are ready to create & submit a workflow. `rpecanapi` allows you to submit your workflow in 3 different ways:
+
+### Using User-Defined Parameters
+
+`rpecanapi` provides a direct utility function to just mention the `model_id`, `site_id`, `pfts` & `inputs` (along with advanced settings for meta-analysis, ensembles & sensitivity analysis) without the need to manually create an entire workflow configuration object. It can be used as follows:
+
+```{r, eval = FALSE}
+res <- submit.workflow(
+  server,
+  model_id = '1000000014', 
+  site_id = '772', 
+  pfts = c("temperate.coniferous"), 
+  start_date = "2002-01-01", 
+  end_date = "2003-12-31", 
+  inputs = list(
+    met = list(id = "99000000003")
+  )
+)
+
+workflow_id <- res$workflow_id          # Assume that here workflow_id = '99000000001'
+```
+To know more about the different parameters that this function can take in, feel free to check out `?submit.workflow`. In the above example, we leave the `meta.analysis`, `ensemble` & `sensitivity.analysis` as default, which translates to a single run using NPP (Net Primary Productivity) & no sensitivity analysis settings.
+
+This will create the necessary records in the `workflows` & `attributes` tables of the database on the PEcAn server & submit the workflow to the RabbitMQ queue associated with the server for execution. If the submission is successful, it returns the `workflow_id` of the submitted workflow.
+
+### As an XML file
+
+Just like the `pecan.xml` file generated by the web interface, one can actually create an XML file containing the workflow configurations and submit it to the PEcAn server for executing using `rpecanapi`. Here, we assume that an XML file called `test.xml` is present on your local machine with the following contents:
+
+```{xml}
+<?xml version="1.0"?>
+<pecan>
+  <pfts>
+    <pft>
+      <name>temperate.coniferous</name> 
+    </pft>
+  </pfts>
+
+  <meta.analysis>
+    <iter>100</iter>
+    <random.effects>FALSE</random.effects>
+    <threshold>1.2</threshold>
+    <update>AUTO</update>
+  </meta.analysis>
+
+  <ensemble>
+    <size>1</size>
+    <variable>NPP</variable>
+  </ensemble>
+
+  <model>
+    <type>SIPNET</type>
+    <revision>r136</revision>
+  </model>
+
+  <run>
+    <site>
+      <id>772</id>
+    </site>
+    <inputs>
+      <met>
+        <id>99000000003</id>
+      </met>
+    </inputs>
+    <start.date>2002-01-01 00:00:00</start.date>
+    <end.date>2002-12-31 00:00:00</end.date>
+    <dbfiles>pecan/dbfiles</dbfiles>
+  </run>
+</pecan>
+```
+
+Now, we can submit this workflow for execution using:
+
+```{r, eval = FALSE}
+submit.workflow.xml(server, xmlFile = "test.xml")
+```
+
+This also performs similar operations for updating the database & submitting the workflow to RabbitMQ. If the submission is successful, it returns the `workflow_id` of the submitted workflow.
+
+### As an JSON file
+
+For user comfortable with JSON, `rpecanapi` also allows to submit a workflow as a JSON file for execution. Here, we assume that a JSON file called `test.json` is present on your local machine with the following contents:
+
+```{json}
+{
+  "pfts": {
+    "pft": {
+      "name": "temperate.coniferous"
+    }
+  },
+  "meta.analysis": {
+    "iter": 100,
+    "random.effects": "FALSE",
+    "threshold": 1.2,
+    "update": "AUTO"
+  },
+  "ensemble": {
+    "size": 1,
+    "variable": "NPP"
+  },
+  "model": {
+    "type": "SIPNET",
+    "revision": "r136"
+  },
+  "run": {
+    "site": {
+      "id": 772
+    },
+    "inputs": {
+      "met": {
+        "id": "99000000003"
+      }
+    },
+    "start.date": "2002-01-01 00:00:00",
+    "end.date": "2002-12-31 00:00:00",
+    "dbfiles": "pecan/dbfiles"
+  }
+}
+```
+
+Now, we can submit this workflow for execution using:
+
+```{r, eval = FALSE}
+submit.workflow.json(server, jsonFile = "test.json")
+```
+
+Again, this performs similar operations for updating the database & submitting the workflow to RabbitMQ, & returns the `workflow_id` of the workflow on successful submission.
+
+## Processing the Outputs of Workflows & Runs {#pecanapi-output}
+
+Workflows can be searched for & viewed easily using `rpecanapi` utility funtions as follows:
+
+```{r, eval = FALSE}
+# Search for all workflows that have used the SIPNET-r136 model (id = 1000000014) on the Niwot Ridge site (id = 772)
+get.workflows(server, model_id = '1000000014', site_id = '772')
+
+# Check the status of a submitted workflow (we earlier assumed that the workflow_id was '99000000001')
+get.workflow.status(server, workflow_id = '99000000001')
+
+# Get all the details of a workflow using its ID 
+get.workflow(server, workflow_id = '99000000001')
+```
+
+This will also return the files available in the workflow's directory which can be downloaded by a user & locally viewed or processed. To download a file (for example, the `pecan.CONFIG.xml` file), we use the `download.` function:
+
+```{r, eval = FALSE}
+download.workflow.file(server, workflow_id = '99000000001', filename = "pecan.CONFIG.xml")
+```
+
+This downloads the `pecan.CONFIG.xml` file from the server for the mentioned workflow & saves it locally using the same file name (because the `save_as` parameter is set to default value).
+
+All of PEcAn's outputs as well as its database files (`dbfiles`) can also be accessed remotely via the THREDDS data server.
+You can explore these files by browsing to `localhost:8000/thredds/` in a browser (substituting hostname and port, accordingly).
+
+Similarly, one can also fetch basic informtion about runs belonging to a workflow along with details for a particlar workflow:
+
+```{r, eval = FALSE}
+# Get information about runs belonging to a workflow with id = 99000000001
+get.runs(server, workflow_id = '99000000001')
+
+# Fetch the details about a run with id = 99000000002
+get.run(server, run_id = '99000000002')
+```
+
+This will also return the files available in the input & output files corresponding to the run which can be downloaded by a user & locally viewed or processed. As an example, we try to download the `2002.nc` output file for a run, which is in NetCDF format:
+
+```{r, eval = FALSE}
+# This will download the `2002.nc` file & store it locally with the same name
+download.run.output(server, run_id = '99000000002', filename = '2002.nc')
+
+# Process this file locally to generate plots
+sipnet_out <- ncdf4::nc_open('2002.nc')
+gpp <- ncdf4::ncvar_get(sipnet_out, "GPP")
+time <- ncdf4::ncvar_get(sipnet_out, "time")
+ncdf4::nc_close(sipnet_out)
+plot(time, gpp, type = "l")
+```
+
+`rpecanapi` also allows you to plot variables against one another based on the outputs of a run. The utility function to achieve this if `plot_run_vars`, which can be used as follows:
+
+```{r, eval = FALSE}
+# Plot GPP vs Time for the year 2002 for the run with id = '99000000002'
+plot_run_vars(server, run_id = '99000000002', year = '2002', y_var = "GPP")
+
+# This generates the plot & stores it locally by default as 'plot.png'
+# To view this png file, use:
+img <- png::readPNG('plot.png')
+grid::grid.raster(img)
+
+# Plot the TotalResp vs SoilResp for the year 2002 for the run with id = '99000000002' of size 1000 * 800 & save with custom name
+plot_run_vars(server, run_id = '99000000002', year = '2002', y_var = "TotalResp", x_var = "SoilResp", width = 1000, height = 800, filename = "totRespVsSoilResp.png")
+img <- png::readPNG('totRespVsSoilResp.png')
+grid::grid.raster(img)
+```

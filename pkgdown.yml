@@ -3,7 +3,7 @@ pkgdown: 1.6.1.9000
 pkgdown_sha: e1e46f2e13c7efdb17bc4eae40bc3779c2b0b517
 articles:
   rpecanapi: rpecanapi.html
-last_built: 2020-10-24T21:44Z
+last_built: 2020-10-28T15:40Z
 urls:
   reference: https://pecanproject.github.io/rpecanapi/reference
   article: https://pecanproject.github.io/rpecanapi/articles

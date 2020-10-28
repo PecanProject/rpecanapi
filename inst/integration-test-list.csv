@@ -1,0 +1,48 @@
+model_name,revision,met,site_id,pfts,start_date,end_date,sensitivity.analysis,ensemble_size,notes
+### example set of core multi-site runs
+SIPNET,r136,CRUNCEP,756,temperate.coniferous,,,FALSE,1,"Southern Pine (Subcategory), Duke Forest Pine "
+SIPNET,r136,CRUNCEP,506,boreal.coniferous,,,FALSE,1,"Boreal Pine (Subcategory), BOREAS NSA - (CA-Man)"
+SIPNET,r136,CRUNCEP,772,temperate.coniferous,,,FALSE,1,"Intermountain (Subcategory), Niwot Ridge Forest/LTER NWT1 (US-NR1)"
+SIPNET,r136,CRUNCEP,1000005005,tropics_BCI,,,FALSE,1,"Evergreen broadleaf forest, Barro Colorado Island"
+SIPNET,r136,CRUNCEP,1000000370,temperate.deciduous,,,FALSE,1,"Deciduous needleleaf forest ,  Yakutsk-Larch RU-Ylr"
+SIPNET,r136,CRUNCEP,758,temperate.deciduous,,,FALSE,1,"Deciduous broadleaf forest , Harvard Forest EMS Tower/HFR1 (US-Ha1)"
+SIPNET,r136,CRUNCEP,774,temperate.deciduous,,,FALSE,1,"Closed Shrublands, Sky Oaks- Old Stand (US-SO2)"
+SIPNET,r136,CRUNCEP,1000000095,temperate.deciduous,,,FALSE,1,"Open Shrublands, Sevilleta Shrubland (US-Ses)"
+SIPNET,r136,CRUNCEP,775,temperate.oakpinebarrens,,,FALSE,1,"Woody Savanas, Tonzi Ranch"
+SIPNET,r136,CRUNCEP,1000005158,semiarid.grassland-kendall,,,FALSE,1,"Grasslands, Walnut Gulch Kendall Grasslands (US-Wkg)"
+SIPNET,r136,CRUNCEP,679,temperate.wetland,,,FALSE,1,"Permanent wetlands, Lost Creek (US-Los)"
+SIPNET,r136,CRUNCEP,591,tundra.grasses,,,FALSE,1,"Tundra, Arctic Long-Term Ecological Research (LTER) Toolik Lake"
+SIPNET,r136,CRUNCEP,76,semiarid.grassland,,,FALSE,1,"Agriculture, EBI Energy Farm"
+### example set of met test runs
+SIPNET,r136,AmerifluxLBL,772,temperate.coniferous,,,FALSE,1,"Niwot Ridge"
+SIPNET,r136,FLUXNET2015,772,temperate.coniferous,,,FALSE,1,"Niwot Ridge"
+SIPNET,r136,NARR,772,temperate.coniferous,,,FALSE,1,"Niwot Ridge"
+SIPNET,r136,GFDL,772,temperate.coniferous,,,FALSE,1,"Niwot Ridge"
+SIPNET,r136,ERA5,772,temperate.coniferous,,,FALSE,1,"Niwot Ridge"
+## other models to test
+BIOCRO,,CRUNCEP,,c4grass,,,FALSE,1,CROP ONLY
+DALEC,,CRUNCEP,758,deciduous,,,FALSE,1,"Deciduous broadleaf forest , Harvard Forest EMS Tower/HFR1 (US-Ha1)"
+dvmdostem,,CRUNCEP,758,CMT04-Decid,,,FALSE,1,"Deciduous broadleaf forest , Harvard Forest EMS Tower/HFR1 (US-Ha1)"
+ED2.2,git,CRUNCEP,758,temperate.Late_Hardwood,,,FALSE,1,"Deciduous broadleaf forest , Harvard Forest EMS Tower/HFR1 (US-Ha1)"
+ED2.2,git,CRUNCEP,758,temperate.Early_Hardwood,,,FALSE,1,"Deciduous broadleaf forest , Harvard Forest EMS Tower/HFR1 (US-Ha1)"
+ED2.2,git,CRUNCEP,758,temperate.North_Mid_Hardwood,,,FALSE,1,"Deciduous broadleaf forest , Harvard Forest EMS Tower/HFR1 (US-Ha1)"
+ED2.2,git,CRUNCEP,758,temperate.Late_Conifer,,,FALSE,1,"Deciduous broadleaf forest , Harvard Forest EMS Tower/HFR1 (US-Ha1)"
+ED2.2,git,CRUNCEP,758,temperate.Northern_Pine,,,FALSE,1,"Deciduous broadleaf forest , Harvard Forest EMS Tower/HFR1 (US-Ha1)"
+ED2.2,git,CRUNCEP,758,temperate.Early_Hardwood|temperate.Mid_Hardwood|temperate.Late_Hardwood,,,FALSE,1,"Multi-PFT example, Harvard Forest EMS Tower/HFR1 (US-Ha1)"
+FATES,,CRUNCEP,758,needleleaf_evergreen_temperate_tree,,,FALSE,1,"Deciduous broadleaf forest , Harvard Forest EMS Tower/HFR1 (US-Ha1)"
+GDAY,,CRUNCEP,758,everygreen.broadleaf,,,FALSE,1,"Deciduous broadleaf forest , Harvard Forest EMS Tower/HFR1 (US-Ha1)"
+JULES,,CRUNCEP,758,temperate.coniferous,,,FALSE,1,"Deciduous broadleaf forest , Harvard Forest EMS Tower/HFR1 (US-Ha1)"
+LINKAGES,,CRUNCEP,758,Quercus.Rubra_Northern.Red.Oak,,,FALSE,1,"Deciduous broadleaf forest , Harvard Forest EMS Tower/HFR1 (US-Ha1)"
+LPJGUESS,,CRUNCEP,758,TeBS,,,FALSE,1,"Deciduous broadleaf forest , Harvard Forest EMS Tower/HFR1 (US-Ha1)"
+MAAT,,CRUNCEP,758,temperate.deciduous,,,FALSE,1,"Deciduous broadleaf forest , Harvard Forest EMS Tower/HFR1 (US-Ha1)"
+MAAT,,CRUNCEP,772,temperate.coniferous,,,FALSE,1,Niwot Ridge Forest/LTER NWT1 (US-NR1)
+MAAT,,CRUNCEP,1000000105,tropical.panama_medlyn,,,FALSE,1,Barro Colorado Island (PA-Bar)
+MAAT,,CRUNCEP,2000000005,[arctic.tundra],,,FALSE,1,Kougarok (NGEE-Arctic)
+MAESPA,git,CRUNCEP,758,broadleaf_evergreen_forest,,,FALSE,1,"Deciduous broadleaf forest , Harvard Forest EMS Tower/HFR1 (US-Ha1)"
+PRELES,,CRUNCEP,758,Norway Spruce,,,FALSE,1,"Deciduous broadleaf forest , Harvard Forest EMS Tower/HFR1 (US-Ha1)"
+TEM,,"TEM ""built in"" met",2000000005,Arctic tundra,,,FALSE,1,"Kougarok (NGEE-Arctic).  TEM may be most relevant for boreal/tundra. TEM has ""built in"" met right now for specific ""sites"" . We still need to develop met process for TEM because it also requires parsing spatial data for IC/veg PFTs.  To start I think its easiest to start test using  built-in met"
+TEM,,"TEM ""built in"" met",2000000005,Shrub tundra,,,FALSE,1,"Kougarok (NGEE-Arctic).  TEM may be most relevant for boreal/tundra. TEM has ""built in"" met right now for specific ""sites"" . We still need to develop met process for TEM because it also requires parsing spatial data for IC/veg PFTs.  To start I think its easiest to start test using  built-in met"
+TEM,,"TEM ""built in"" met",[pick existing sites with met],Boreal?,,,FALSE,1,"TEM may be most relevant for boreal/tundra. TEM has ""built in"" met right now for specific ""sites"" . We still need to develop met process for TEM because it also requires parsing spatial data for IC/veg PFTs.  To start I think its easiest to start test using  built-in met"
+FATES,,"GSWP3 (""built in"") met OR CRUNCEP",1000000105,broadleaf_evergreen_tropical_tree,,,FALSE,1,Barro Colorado Island (PA-Bar)
+FATES,,"GSWP3 (""built in"") met OR CRUNCEP",772,[temperate.coniferous],,,FALSE,1,Niwot Ridge Forest/LTER NWT1 (US-NR1)
+CTSM,,"GSWP3 (""built in"") met OR CRUNCEP",772,[temperate.coniferous],,,FALSE,1,Niwot Ridge Forest/LTER NWT1 (US-NR1)

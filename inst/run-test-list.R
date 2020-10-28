@@ -20,13 +20,31 @@ models <- GET(
 default_start_date <- "2004-01-01"
 default_end_date <- "2004-12-31"
 
+#' Convert test list columns to `input` lists
+configure_inputs <- function(met, model_name, ...) {
+  # TODO: Add more inputs.
+  input <- list(met = list(source = met))
+  if (grepl("ED2", model_name)) {
+    # TODO: Get these IDs from the database or from user input. Though they are
+    # unlikely to change.
+    input <- modifyList(input, list(
+      lu = list(id = 294),
+      thsum = list(id = 295),
+      veg = list(id = 296),
+      soil = list(id = 297)
+    ))
+  }
+  input
+}
+
 test_list <- read.csv("inst/integration-test-list.csv", comment.char = "#") %>%
   as_tibble() %>%
   # Only test models that are available on the target machine
   inner_join(models, c("model_name", "revision")) %>%
   mutate(start_date = if_else(is.na(start_date), default_start_date, as.character(start_date)),
          end_date = if_else(is.na(end_date), default_end_date, as.character(end_date)),
-         inputs = map(met, ~list(met = list(source = .x))),
+         # TODO: Add more inputs here
+         inputs = pmap(., configure_inputs),
          pfts = strsplit(pfts, "|", fixed = TRUE))
 
 test_runs <- test_list %>%

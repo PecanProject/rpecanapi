@@ -1,8 +1,7 @@
 ##' Submit a PEcAn workflow using various user-defined parameters
 ##' Hits the `POST /api/workflows/` API endpoint.
 ##' @name submit.workflow
-##' @title Submit a PEcAn workflow using various user-defined parameters
-##' @param server Server object obtained using the connect() function 
+##' @param server Server object obtained using the connect() function
 ##' @param model_id ID of the model to be used (character)
 ##' @param site_id ID of the site to be used (character)
 ##' @param pfts List of PFTs to be used (list)
@@ -16,7 +15,7 @@
 ##' a sensitivity setting object as input. Default: FALSE (logical or list)
 ##' @param notes Additional notes that the user need to specify for the submitted workflow. Default: NULL
 ##' @return Response obtained from the `POST /api/workflows/` endpoint
-##' @author Tezan Sahu
+##' @author Tezan Sahu, Alexey Shiklomanov
 ##' @export
 ##' @examples
 ##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
@@ -27,55 +26,44 @@
 ##' res <- submit.workflow(server, model_id=1000000014, site_id=772, pfts=c("temperate.coniferous"), start_date="2002-01-01", 
 ##'   end_date="2003-12-31", inputs=list(met=list(id=99000000003)))
 
-submit.workflow <- function(server, model_id, site_id, pfts, start_date, end_date, inputs, meta.analysis=NULL, 
-                            ensemble_size=1, sensitivity_variable = "NPP", sensitivity.analysis = FALSE, notes=NULL) {
+submit.workflow <- function(server, model_id, site_id, pfts, start_date, end_date, inputs, meta.analysis = list(),
+                            ensemble_size=1, sensitivity_variable = "NPP", sensitivity.analysis = FALSE, notes = NULL) {
   # Prepare the workflow based on the parameters set by user
   workflow <- list()
-  for(i in 1:length(pfts)) {
-    workflow$pfts <- c(workflow$pfts, pft=list())
-    workflow$pfts$pft[i]$pft$name <- pfts[i]
-  }
-  
+  workflow$pfts <- lapply(pfts, function(x) list(name = x))
+  names(workflow$pfts) <- rep("pft", length(pfts))
+
   workflow$model <- list(id = model_id)
   
-  workflow$run <- list()
-  workflow$run$site <- list(
-    id = site_id,
-    met.start = start_date,
-    met.end = end_date
+  workflow$run <- list(
+    start.date = start_date,
+    end.date = end_date,
+    inputs = inputs,
+    site = list(
+      id = site_id,
+      met.start = start_date,
+      met.end = end_date
+    )
   )
-  workflow$run$start.date <- start_date
-  workflow$run$end.date <- end_date
-  workflow$run$inputs <- inputs
-  
+
   # Set the default ensemble settings
   workflow$ensemble <- list(
     size = ensemble_size,
     variable = sensitivity_variable,
     samplingspace = list(
-      parameters = list(
-        method = "uniform"
-      ),
-      met = list(
-        method = "sampling"
-      )
+      parameters = list(method = "uniform"),
+      met = list(method = "sampling")
     )
   )
-  
-  if(is.null(meta.analysis)) {
-    # Set the default meta.analysis settings
-    workflow$meta.analysis <- list(
-      iter = 3000,
-      random.effects = FALSE
-    )
-  }
-  else {
-    workflow$meta.analysis <- meta.analysis
-  }
-  
+
+  workflow$meta.analysis <- modifyList(
+    list(iter = 3000, random.effects = FALSE),
+    meta.analysis
+  )
+
   # If sensitivity.analysis is set to TRUE, use the default settings to populate the workflow
-  if(typeof(sensitivity.analysis) == "logical") {
-    if(sensitivity.analysis) {
+  if (is.logical(sensitivity.analysis)) {
+    if (sensitivity.analysis) {
       workflow$sensitivity.analysis <- list(
         quantiles = list(sigma1 = -2, sigma2 = -1, sigma3 = 1, sigma4 = 2)
       )
@@ -83,56 +71,90 @@ submit.workflow <- function(server, model_id, site_id, pfts, start_date, end_dat
     # Else if FALSE, do nothing
   }
   # If a list containing configs (sigmas, etc.) is passed, use that to populate thw workflow
-  else if (typeof(sensitivity.analysis) == "list") {
+  else if (is.list(sensitivity.analysis)) {
     workflow$sensitivity.analysis <- sensitivity.analysis
   }
   # Else, do not populate the sensitivity analysis settings
-  
-  
-  if(! is.null(notes)) {
+
+  if (!is.null(notes)) {
     workflow$info$notes <- notes
   }
-  
-  
-  # Submit the prepared workflow to the PEcAn API in JSON format
+
+  # Submit the prepared workflow to the PEcAn API in XML format
+  # NOTE: Use XML here because JSON doesn't like duplicate tags (which we use
+  # for PFTs, among other things).
+  pecanxml <- listToXML(workflow, "pecan")
+  tf <- tempfile(fileext = ".xml")
+  on.exit(file.remove(tf), add = TRUE)
+  invisible(XML::saveXML(pecanxml, tf))
+  xml_string <- paste0(xml2::read_xml(tf))
+
   res <- NULL
-  tryCatch(
-    expr = {
-      url <- paste0(server$url, "/api/workflows/")
-      
-      if(! is.null(server$username) && ! is.null(server$password)){
-        res <- httr::POST(
-          url,
-          httr::authenticate(server$username, server$password),
-          body = workflow,
-          encode='json'
-        )
-      }
-      else{
-        res <- httr::POST(
-          url,
-          body = workflow,
-          encode='json'
-        )
-      }
-    },
-    error = function(e) {
-      message("Sorry! Server not responding.")
+  tryCatch({
+    url <- paste0(server$url, "/api/workflows/")
+    if (!is.null(server$username) && !is.null(server$password)) {
+      res <- httr::POST(
+        url,
+        httr::authenticate(server$username, server$password),
+        httr::content_type("application/xml"),
+        body = xml_string
+      )
+    } else {
+      res <- httr::POST(
+        url,
+        httr::content_type("application/xml"),
+        body = xml_string
+      )
     }
-  )
+  }, error = function(e) {
+    message("Server request failed with the following error:\n",
+            conditionMessage(e))
+  })
   
-  if(! is.null(res)) {
-    if(res$status_code == 201){
-      return(jsonlite::fromJSON(rawToChar(res$content)))
+  if (!is.null(res)) {
+    if (res$status_code == 201) {
+      return(httr::content(res))
     }
-    else if(res$status_code == 401){
+    else if (res$status_code == 401){
       stop("Invalid credentials")
     }
     else if(res$status_code == 500){
-      stop("Internal server error")
+      output <- httr::content(res)
+      stop("Internal server error:\n",
+           output[[1]], "\n",
+           output[[2]])
     }
     else{
       stop("Unidentified error")
     }
   }
+}
+
+listToXML <- function(item, tag) {
+  if (typeof(item) != "list") {
+    if (length(item) > 1) {
+      xml <- XML::xmlNode(tag)
+      for (name in names(item)) {
+        XML::xmlAttrs(xml)[[name]] <- item[[name]]
+      }
+      return(xml)
+    } else {
+      return(XML::xmlNode(tag, item))
+    }
+  }
+  if (identical(names(item), c("text", ".attrs"))) {
+    xml <- XML::xmlNode(tag, item[["text"]])
+  } else {
+    xml <- XML::xmlNode(tag)
+    for (i in seq_along(item)) {
+      if (is.null(names(item)) || names(item)[i] != ".attrs") {
+        xml <- XML::append.xmlNode(xml, listToXML(item[[i]], names(item)[i]))
+      }
+    }
+  }
+  attrs <- item[[".attrs"]]
+  for (name in names(attrs)) {
+    XML::xmlAttrs(xml)[[name]] <- attrs[[name]]
+  }
+  return(xml)
 }

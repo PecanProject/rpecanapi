@@ -58,7 +58,7 @@ jobs:
         uses: docker://pecan/bety:develop
         with:
           # entrypoint: /home/bety/script/betyuser.sh
-          args: carya illinois "Carya Demo User" carya@example.com 1 1
+          args: user carya illinois "Carya Demo User" carya@example.com 1 1
 
       - uses: r-lib/actions/setup-r@master
         with:

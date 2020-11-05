@@ -125,7 +125,9 @@ submit.workflow <- function(server, model_id, site_id, pfts, start_date, end_dat
            output[[2]])
     }
     else{
-      stop("Unidentified error")
+      stop("Encountered other error.\n",
+           "Code: ", res$status_code, "\n",
+           "Message: ", httr::content(res)$error)
     }
   }
 }

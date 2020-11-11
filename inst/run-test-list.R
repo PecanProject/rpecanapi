@@ -41,11 +41,21 @@ test_list <- read.csv("inst/integration-test-list.csv", comment.char = "#") %>%
   as_tibble() %>%
   # Only test models that are available on the target machine
   inner_join(models, c("model_name", "revision")) %>%
-  mutate(start_date = if_else(is.na(start_date), default_start_date, as.character(start_date)),
-         end_date = if_else(is.na(end_date), default_end_date, as.character(end_date)),
-         # TODO: Add more inputs here
-         inputs = pmap(., configure_inputs),
-         pfts = strsplit(pfts, "|", fixed = TRUE))
+  mutate(
+    start_date = if_else(is.na(start_date), default_start_date, as.character(start_date)),
+    end_date = if_else(is.na(end_date), default_end_date, as.character(end_date)),
+    # TODO: Add more inputs here
+    inputs = pmap(., configure_inputs),
+    pfts = strsplit(pfts, "|", fixed = TRUE),
+    # ED2-specific customizations
+    workflow_list_mods = if_else(
+      model_name == "ED2.2",
+      list(list(model = list(phenol.scheme = 0,
+                             ed_misc = list(output_month = 12),
+                             edin = "ED2IN.r2.2.0"))),
+      list(list())
+    )
+  )
 
 test_runs <- test_list %>%
   select_if(colnames(.) %in% names(formals(submit.workflow))) %>%

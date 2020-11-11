@@ -14,6 +14,8 @@
 ##' @param sensitivity.analysis Whether or not to perform a sensitivity analysis. Can also take
 ##' a sensitivity setting object as input. Default: FALSE (logical or list)
 ##' @param notes Additional notes that the user need to specify for the submitted workflow. Default: NULL
+##' @param workflow_list_mods List of additional changes to be applied to the
+##'   workflow list. Passed to [utils::modifyList()]. Default = `list() (no changes)`.
 ##' @return Response obtained from the `POST /api/workflows/` endpoint
 ##' @author Tezan Sahu, Alexey Shiklomanov
 ##' @export
@@ -27,7 +29,8 @@
 ##'   end_date="2003-12-31", inputs=list(met=list(id=99000000003)))
 
 submit.workflow <- function(server, model_id, site_id, pfts, start_date, end_date, inputs, meta.analysis = list(),
-                            ensemble_size=1, sensitivity_variable = "NPP", sensitivity.analysis = FALSE, notes = NULL) {
+                            ensemble_size=1, sensitivity_variable = "NPP", sensitivity.analysis = FALSE, notes = NULL,
+                            workflow_list_mods = list()) {
   # Prepare the workflow based on the parameters set by user
   workflow <- list()
   workflow$pfts <- lapply(pfts, function(x) list(name = x))
@@ -79,6 +82,9 @@ submit.workflow <- function(server, model_id, site_id, pfts, start_date, end_dat
   if (!is.null(notes)) {
     workflow$info$notes <- notes
   }
+
+  # Apply any additional user changes (if any)
+  workflow <- modifyList(workflow, workflow_list_mods)
 
   # Submit the prepared workflow to the PEcAn API in XML format
   # NOTE: Use XML here because JSON doesn't like duplicate tags (which we use

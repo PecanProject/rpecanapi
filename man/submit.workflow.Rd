@@ -2,7 +2,8 @@
 % Please edit documentation in R/submit.workflow.R
 \name{submit.workflow}
 \alias{submit.workflow}
-\title{Submit a PEcAn workflow using various user-defined parameters}
+\title{Submit a PEcAn workflow using various user-defined parameters
+Hits the \verb{POST /api/workflows/} API endpoint.}
 \usage{
 submit.workflow(
   server,
@@ -12,11 +13,12 @@ submit.workflow(
   start_date,
   end_date,
   inputs,
-  meta.analysis = NULL,
+  meta.analysis = list(),
   ensemble_size = 1,
   sensitivity_variable = "NPP",
   sensitivity.analysis = FALSE,
-  notes = NULL
+  notes = NULL,
+  workflow_list_mods = list()
 )
 }
 \arguments{
@@ -44,6 +46,9 @@ submit.workflow(
 a sensitivity setting object as input. Default: FALSE (logical or list)}
 
 \item{notes}{Additional notes that the user need to specify for the submitted workflow. Default: NULL}
+
+\item{workflow_list_mods}{List of additional changes to be applied to the
+workflow list. Passed to \code{\link[utils:modifyList]{utils::modifyList()}}. Default = \verb{list() (no changes)}.}
 }
 \value{
 Response obtained from the \verb{POST /api/workflows/} endpoint
@@ -62,5 +67,5 @@ res <- submit.workflow(server, model_id=1000000014, site_id=772, pfts=c("tempera
   end_date="2003-12-31", inputs=list(met=list(id=99000000003)))
 }
 \author{
-Tezan Sahu
+Tezan Sahu, Alexey Shiklomanov
 }

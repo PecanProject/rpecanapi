@@ -37,7 +37,8 @@ configure_inputs <- function(met, model_name, ...) {
   input
 }
 
-test_list <- read.csv("inst/integration-test-list.csv", comment.char = "#") %>%
+test_list <- read.csv("inst/integration-test-list.csv", comment.char = "#",
+                      na.strings = "") %>%
   as_tibble() %>%
   # Only test models that are available on the target machine
   inner_join(models, c("model_name", "revision")) %>%

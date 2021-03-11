@@ -12,6 +12,7 @@
 ##' @return A server object that can be passed into other functions for making requests to the PEcAn API
 ##' @export
 ##' @examples
+##' sub('^/|/$','',url) will remove one trailing slash from the url.
 ##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 
 connect <- function(url, username=NULL, password=NULL){

@@ -56,6 +56,8 @@ relevant query parameters" />
 
 
 
+
+
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -67,9 +69,18 @@ relevant query parameters" />
 
 
 
+<!-- dependencies from examples -->
+
+
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -162,16 +173,16 @@ relevant query parameters</p>
 
 <span class='co'># Get list of all workflows</span>
 <span class='va'>res1</span> <span class='op'>&lt;-</span> <span class='fu'>get.workflows</span><span class='op'>(</span><span class='va'>server</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Sorry! Server not responding.</span></div><div class='input'>
+</div><div class='co'>#&gt; Sorry! Server not responding.</div><div class='input'>
 <span class='co'># Get list of all workflows using 'SIPNET-ssr' model</span>
 <span class='va'>res2</span> <span class='op'>&lt;-</span> <span class='fu'>get.workflows</span><span class='op'>(</span><span class='va'>server</span>, model_id<span class='op'>=</span><span class='fl'>1000000022</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Sorry! Server not responding.</span></div><div class='input'>
+</div><div class='co'>#&gt; Sorry! Server not responding.</div><div class='input'>
 <span class='co'>##' # Get list of all workflows using 'Willow Creek (US-WCr)' as site</span>
 <span class='va'>res3</span> <span class='op'>&lt;-</span> <span class='fu'>get.workflows</span><span class='op'>(</span><span class='va'>server</span>, site_id<span class='op'>=</span><span class='fl'>676</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Sorry! Server not responding.</span></div><div class='input'>
+</div><div class='co'>#&gt; Sorry! Server not responding.</div><div class='input'>
 <span class='co'># Get list of workflow(s) that use 'SIPNET-ssr' model &amp; 'Willow Creek (US-WCr)' as site</span>
 <span class='va'>res4</span> <span class='op'>&lt;-</span> <span class='fu'>get.workflows</span><span class='op'>(</span><span class='va'>server</span>, <span class='fl'>1000000022</span>, <span class='fl'>676</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Sorry! Server not responding.</span></div></pre>
+</div><div class='co'>#&gt; Sorry! Server not responding.</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -183,11 +194,11 @@ relevant query parameters</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://tezansahu.github.io'>Tezan Sahu</a>, Rob Kooper.</p>
+  <p><p>Developed by <a href="https://tezansahu.github.io" class="external-link">Tezan Sahu</a>, Rob Kooper.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
 </div>
 
       </footer>
@@ -195,6 +206,8 @@ relevant query parameters</p>
 
   
 
+
+  
 
   </body>
 </html>

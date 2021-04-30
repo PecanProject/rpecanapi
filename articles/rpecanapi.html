@@ -26,6 +26,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -65,7 +67,7 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Introduction to the PEcAn R API</h1>
-                        <h4 class="author">Tezan Sahu, Alexey Shiklomanov</h4>
+                        <h4 data-toc-skip class="author">Tezan Sahu, Alexey Shiklomanov</h4>
             
       
       
@@ -77,15 +79,15 @@
     
 <div id="pecanapi-vignette" class="section level1">
 <h1 class="hasAnchor">
-<a href="#pecanapi-vignette" class="anchor"></a>Introduction to the PEcAn R API</h1>
+<a href="#pecanapi-vignette" class="anchor" aria-hidden="true"></a>Introduction to the PEcAn R API</h1>
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h2>
+<a href="#introduction" class="anchor" aria-hidden="true"></a>Introduction</h2>
 <p>The PEcAn API package (<code>rpecanapi</code>) is designed to allow users to retreieve relevant information about the various aspects of PEcAn &amp; submit PEcAn workflows directly from an R session.</p>
 <p><code>rpecanapi</code> is specifically designed to only depend on CRAN packages, and not on any PEcAn internal packages. This makes it easy to install, and allows it to be used without needing to download and install PEcAn itself (which is large and has many complex R package and system dependencies). It can be installed directly from GitHub as follows:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"pecanproject/rpecanapi"</span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">rpecanapi</span><span class="op">)</span></code></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rpecanapi</span><span class="op">)</span></code></pre></div>
 <p>This vignette covers the following major sections:</p>
 <ul>
 <li>
@@ -99,7 +101,7 @@
 </div>
 <div id="pecanapi-setup" class="section level2">
 <h2 class="hasAnchor">
-<a href="#pecanapi-setup" class="anchor"></a>Initial Setup</h2>
+<a href="#pecanapi-setup" class="anchor" aria-hidden="true"></a>Initial Setup</h2>
 <p>This tutorial assumes you are running a Dockerized instance of PEcAn on your local machine (hostname <code>localhost</code>, port 8000). To check this, open a browser and try to access <code>http://localhost:8000</code>. If you are trying to access a remote instance of PEcAn, you will need to substitute the hostname and port accordingly.</p>
 <p>We first create a server object with the appropriate credentials for authentication.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -115,7 +117,7 @@
 </div>
 <div id="rpecanapi-explore" class="section level2">
 <h2 class="hasAnchor">
-<a href="#rpecanapi-explore" class="anchor"></a>Exploring to Prepare a Workflow</h2>
+<a href="#rpecanapi-explore" class="anchor" aria-hidden="true"></a>Exploring to Prepare a Workflow</h2>
 <p>Building a workflow requires some important pieces of information: the model and site IDs, the PFTs (Plant Functional Types) as well as the input data for the model.</p>
 <p>If you know these for your site and model, you can pass them directly into the function to submit a workflow (<code>submit.workflow</code>) or create XML / JSON files containing these relevant configurations for the workflow and use the <code>submit.workflow.xml</code> or <code>submit.workflow.json</code> respectively.</p>
 <p>However, chances are you may have to look them up in the database first. For this, <code>rpecanapi</code> provides several <code>search.*</code> utilities to make this easier. Once the search is narrowed, one can also use the corresponding <code>get.*</code> utilities to retrieve more details about the individual elements.</p>
@@ -172,22 +174,22 @@
 </div>
 <div id="rpecanapi-workflow" class="section level2">
 <h2 class="hasAnchor">
-<a href="#rpecanapi-workflow" class="anchor"></a>Preparing &amp; Submitting a Workflow</h2>
+<a href="#rpecanapi-workflow" class="anchor" aria-hidden="true"></a>Preparing &amp; Submitting a Workflow</h2>
 <p>With site and model IDs along with the necessary PFTs &amp; Input data in hand, we are ready to create &amp; submit a workflow. <code>rpecanapi</code> allows you to submit your workflow in 3 different ways:</p>
 <div id="using-user-defined-parameters" class="section level3">
 <h3 class="hasAnchor">
-<a href="#using-user-defined-parameters" class="anchor"></a>Using User-Defined Parameters</h3>
+<a href="#using-user-defined-parameters" class="anchor" aria-hidden="true"></a>Using User-Defined Parameters</h3>
 <p><code>rpecanapi</code> provides a direct utility function to just mention the <code>model_id</code>, <code>site_id</code>, <code>pfts</code> &amp; <code>inputs</code> (along with advanced settings for meta-analysis, ensembles &amp; sensitivity analysis) without the need to manually create an entire workflow configuration object. It can be used as follows:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/submit.workflow.html">submit.workflow</a></span><span class="op">(</span>
   <span class="va">server</span>,
   model_id <span class="op">=</span> <span class="st">'1000000014'</span>, 
   site_id <span class="op">=</span> <span class="st">'772'</span>, 
-  pfts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"temperate.coniferous"</span><span class="op">)</span>, 
+  pfts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"temperate.coniferous"</span><span class="op">)</span>, 
   start_date <span class="op">=</span> <span class="st">"2002-01-01"</span>, 
   end_date <span class="op">=</span> <span class="st">"2003-12-31"</span>, 
-  inputs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-    met <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"99000000003"</span><span class="op">)</span>
+  inputs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+    met <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"99000000003"</span><span class="op">)</span>
   <span class="op">)</span>
 <span class="op">)</span>
 
@@ -197,7 +199,7 @@
 </div>
 <div id="as-an-xml-file" class="section level3">
 <h3 class="hasAnchor">
-<a href="#as-an-xml-file" class="anchor"></a>As an XML file</h3>
+<a href="#as-an-xml-file" class="anchor" aria-hidden="true"></a>As an XML file</h3>
 <p>Just like the <code>pecan.xml</code> file generated by the web interface, one can actually create an XML file containing the workflow configurations and submit it to the PEcAn server for executing using <code>rpecanapi</code>. Here, we assume that an XML file called <code>test.xml</code> is present on your local machine with the following contents:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">&lt;?xml</span> version="1.0"<span class="kw">?&gt;</span></span>
 <span id="cb12-2"><a href="#cb12-2"></a><span class="kw">&lt;pecan&gt;</span></span>
@@ -245,7 +247,7 @@
 </div>
 <div id="as-an-json-file" class="section level3">
 <h3 class="hasAnchor">
-<a href="#as-an-json-file" class="anchor"></a>As an JSON file</h3>
+<a href="#as-an-json-file" class="anchor" aria-hidden="true"></a>As an JSON file</h3>
 <p>For user comfortable with JSON, <code>rpecanapi</code> also allows to submit a workflow as a JSON file for execution. Here, we assume that a JSON file called <code>test.json</code> is present on your local machine with the following contents:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">{</span></span>
 <span id="cb14-2"><a href="#cb14-2"></a>  <span class="dt">"pfts"</span><span class="fu">:</span> <span class="fu">{</span></span>
@@ -289,7 +291,7 @@
 </div>
 <div id="pecanapi-output" class="section level2">
 <h2 class="hasAnchor">
-<a href="#pecanapi-output" class="anchor"></a>Processing the Outputs of Workflows &amp; Runs</h2>
+<a href="#pecanapi-output" class="anchor" aria-hidden="true"></a>Processing the Outputs of Workflows &amp; Runs</h2>
 <p>Workflows can be searched for &amp; viewed easily using <code>rpecanapi</code> utility funtions as follows:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Search for all workflows that have used the SIPNET-r136 model (id = 1000000014) on the Niwot Ridge site (id = 772)</span>
@@ -322,7 +324,7 @@
 <span class="va">gpp</span> <span class="op">&lt;-</span> <span class="fu">ncdf4</span><span class="fu">::</span><span class="fu">ncvar_get</span><span class="op">(</span><span class="va">sipnet_out</span>, <span class="st">"GPP"</span><span class="op">)</span>
 <span class="va">time</span> <span class="op">&lt;-</span> <span class="fu">ncdf4</span><span class="fu">::</span><span class="fu">ncvar_get</span><span class="op">(</span><span class="va">sipnet_out</span>, <span class="st">"time"</span><span class="op">)</span>
 <span class="fu">ncdf4</span><span class="fu">::</span><span class="fu">nc_close</span><span class="op">(</span><span class="va">sipnet_out</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">time</span>, <span class="va">gpp</span>, type <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">time</span>, <span class="va">gpp</span>, type <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span></code></pre></div>
 <p><code>rpecanapi</code> also allows you to plot variables against one another based on the outputs of a run. The utility function to achieve this if <code>plot_run_vars</code>, which can be used as follows:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Plot GPP vs Time for the year 2002 for the run with id = '99000000002'</span>
@@ -331,12 +333,12 @@
 <span class="co"># This generates the plot &amp; stores it locally by default as 'plot.png'</span>
 <span class="co"># To view this png file, use:</span>
 <span class="va">img</span> <span class="op">&lt;-</span> <span class="fu">png</span><span class="fu">::</span><span class="fu">readPNG</span><span class="op">(</span><span class="st">'plot.png'</span><span class="op">)</span>
-<span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.raster.html">grid.raster</a></span><span class="op">(</span><span class="va">img</span><span class="op">)</span>
+<span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.raster.html" class="external-link">grid.raster</a></span><span class="op">(</span><span class="va">img</span><span class="op">)</span>
 
 <span class="co"># Plot the TotalResp vs SoilResp for the year 2002 for the run with id = '99000000002' of size 1000 * 800 &amp; save with custom name</span>
 <span class="fu"><a href="../reference/plot_run_vars.html">plot_run_vars</a></span><span class="op">(</span><span class="va">server</span>, run_id <span class="op">=</span> <span class="st">'99000000002'</span>, year <span class="op">=</span> <span class="st">'2002'</span>, y_var <span class="op">=</span> <span class="st">"TotalResp"</span>, x_var <span class="op">=</span> <span class="st">"SoilResp"</span>, width <span class="op">=</span> <span class="fl">1000</span>, height <span class="op">=</span> <span class="fl">800</span>, filename <span class="op">=</span> <span class="st">"totRespVsSoilResp.png"</span><span class="op">)</span>
 <span class="va">img</span> <span class="op">&lt;-</span> <span class="fu">png</span><span class="fu">::</span><span class="fu">readPNG</span><span class="op">(</span><span class="st">'totRespVsSoilResp.png'</span><span class="op">)</span>
-<span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.raster.html">grid.raster</a></span><span class="op">(</span><span class="va">img</span><span class="op">)</span></code></pre></div>
+<span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.raster.html" class="external-link">grid.raster</a></span><span class="op">(</span><span class="va">img</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
   </div>
@@ -352,11 +354,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://tezansahu.github.io">Tezan Sahu</a>, Rob Kooper.</p>
+  <p></p>
+<p>Developed by <a href="https://tezansahu.github.io" class="external-link external-link">Tezan Sahu</a>, Rob Kooper.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link external-link">pkgdown</a> 1.6.1.9001.</p>
 </div>
 
       </footer>
@@ -364,6 +368,8 @@
 
   
 
+
+  
 
   </body>
 </html>

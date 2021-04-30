@@ -31,6 +31,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -70,18 +72,18 @@
   <div class="contents col-md-9">
 <div id="rpecanapi-" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#rpecanapi-" class="anchor"></a><code>rpecanapi</code> <a href="https://pecanproject.github.io/rpecanapi"><img src="reference/figures/logo.png" align="right" height="139"></a>
+<a href="#rpecanapi-" class="anchor" aria-hidden="true"></a><code>rpecanapi</code> <a href="https://pecanproject.github.io/rpecanapi"><img src="reference/figures/logo.png" align="right" height="139"></a>
 </h1></div>
 <p><img src="https://img.shields.io/github/workflow/status/PecanProject/rpecanapi/pkgdown" alt="Docs Status"><img src="https://img.shields.io/github/license/PecanProject/rpecanapi?color=blue" alt="GitHub"></p>
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
-<a href="#overview" class="anchor"></a>Overview</h2>
-<p><code>rpecanapi</code> is an open source R package to interact with the PEcAn Project Server(s) &amp; leverage the functionality of the PEcAn bioinformatics toolbox. The Predictive Ecosystem Analyser (PEcAn) Project is an open source framework initiated to meet the demands for more accessible, transparent &amp; repeatable modeling of ecosystems. To know more about the PEcAn Project, check out the <a href="https://github.com/PecanProject/pecan">PEcAn Github Repository</a></p>
+<a href="#overview" class="anchor" aria-hidden="true"></a>Overview</h2>
+<p><code>rpecanapi</code> is an open source R package to interact with the PEcAn Project Server(s) &amp; leverage the functionality of the PEcAn bioinformatics toolbox. The Predictive Ecosystem Analyser (PEcAn) Project is an open source framework initiated to meet the demands for more accessible, transparent &amp; repeatable modeling of ecosystems. To know more about the PEcAn Project, check out the <a href="https://github.com/PecanProject/pecan" class="external-link">PEcAn Github Repository</a></p>
 <p>This package allows users to get relevant information from the PEcAn database as well as submit PEcAn workflows.</p>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<a href="#installation" class="anchor" aria-hidden="true"></a>Installation</h2>
 <p>You can install the development version of <code>rpecanapi</code> from GitHub as follows:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
@@ -89,7 +91,7 @@
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
-<a href="#usage" class="anchor"></a>Usage</h2>
+<a href="#usage" class="anchor" aria-hidden="true"></a>Usage</h2>
 <p><em>The following snippets assume that the PEcAn RESTful API Server is running on <code>http://localhost:8000</code>. This can be replaced with any other appropriate PEcAn Server URL.</em></p>
 <ul>
 <li><a href="#getting-started">Getting Started</a></li>
@@ -105,18 +107,18 @@
 </ul>
 <div id="getting-started" class="section level3">
 <h3 class="hasAnchor">
-<a href="#getting-started" class="anchor"></a>Getting Started</h3>
+<a href="#getting-started" class="anchor" aria-hidden="true"></a>Getting Started</h3>
 <div id="load-rpecanapi--create-the-server-object" class="section level4">
 <h4 class="hasAnchor">
-<a href="#load-rpecanapi--create-the-server-object" class="anchor"></a>Load <code>rpecanapi</code> &amp; Create the Server Object</h4>
+<a href="#load-rpecanapi--create-the-server-object" class="anchor" aria-hidden="true"></a>Load <code>rpecanapi</code> &amp; Create the Server Object</h4>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">rpecanapi</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">rpecanapi</span><span class="op">)</span>
 
 <span class="va">server</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/connect.html">connect</a></span><span class="op">(</span>url<span class="op">=</span><span class="st">"http://localhost:8000"</span>, username<span class="op">=</span><span class="st">"carya"</span>, password<span class="op">=</span><span class="st">"illinois"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="ping-the-pecan-api-server" class="section level4">
 <h4 class="hasAnchor">
-<a href="#ping-the-pecan-api-server" class="anchor"></a>Ping the PEcAn API Server</h4>
+<a href="#ping-the-pecan-api-server" class="anchor" aria-hidden="true"></a>Ping the PEcAn API Server</h4>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/ping.html">ping</a></span><span class="op">(</span><span class="va">server</span><span class="op">)</span>
 
@@ -128,7 +130,7 @@
 </div>
 <div id="get-general-information-about-the-server--pecan-version" class="section level4">
 <h4 class="hasAnchor">
-<a href="#get-general-information-about-the-server--pecan-version" class="anchor"></a>Get General Information about the Server &amp; PEcAn Version</h4>
+<a href="#get-general-information-about-the-server--pecan-version" class="anchor" aria-hidden="true"></a>Get General Information about the Server &amp; PEcAn Version</h4>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/get.status.html">get.status</a></span><span class="op">(</span><span class="va">server</span><span class="op">)</span>
 
@@ -165,10 +167,10 @@
 </div>
 <div id="get-information-about-pecan-models" class="section level3">
 <h3 class="hasAnchor">
-<a href="#get-information-about-pecan-models" class="anchor"></a>Get Information about PEcAn Models</h3>
+<a href="#get-information-about-pecan-models" class="anchor" aria-hidden="true"></a>Get Information about PEcAn Models</h3>
 <div id="search-for-pecan-models" class="section level4">
 <h4 class="hasAnchor">
-<a href="#search-for-pecan-models" class="anchor"></a>Search for PEcAn Model(s):</h4>
+<a href="#search-for-pecan-models" class="anchor" aria-hidden="true"></a>Search for PEcAn Model(s):</h4>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/search.models.html">search.models</a></span><span class="op">(</span><span class="va">server</span>, model_name<span class="op">=</span><span class="st">'sip'</span>, revision<span class="op">=</span><span class="st">'r'</span><span class="op">)</span>
 
@@ -182,7 +184,7 @@
 </div>
 <div id="get-the-details-of-a-pecan-model" class="section level4">
 <h4 class="hasAnchor">
-<a href="#get-the-details-of-a-pecan-model" class="anchor"></a>Get the details of a PEcAn Model:</h4>
+<a href="#get-the-details-of-a-pecan-model" class="anchor" aria-hidden="true"></a>Get the details of a PEcAn Model:</h4>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/get.model.html">get.model</a></span><span class="op">(</span><span class="va">server</span>, model_id<span class="op">=</span><span class="st">'1000000014'</span><span class="op">)</span>
 
@@ -209,10 +211,10 @@
 </div>
 <div id="get-information-about-pecan-sites" class="section level3">
 <h3 class="hasAnchor">
-<a href="#get-information-about-pecan-sites" class="anchor"></a>Get Information about PEcAn Sites</h3>
+<a href="#get-information-about-pecan-sites" class="anchor" aria-hidden="true"></a>Get Information about PEcAn Sites</h3>
 <div id="search-for-pecan-sites" class="section level4">
 <h4 class="hasAnchor">
-<a href="#search-for-pecan-sites" class="anchor"></a>Search for PEcAn Site(s):</h4>
+<a href="#search-for-pecan-sites" class="anchor" aria-hidden="true"></a>Search for PEcAn Site(s):</h4>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/search.sites.html">search.sites</a></span><span class="op">(</span><span class="va">server</span>, sitename<span class="op">=</span><span class="st">'willow'</span><span class="op">)</span>
 
@@ -229,7 +231,7 @@
 </div>
 <div id="get-the-details-of-a-pecan-site" class="section level4">
 <h4 class="hasAnchor">
-<a href="#get-the-details-of-a-pecan-site" class="anchor"></a>Get the details of a PEcAn Site:</h4>
+<a href="#get-the-details-of-a-pecan-site" class="anchor" aria-hidden="true"></a>Get the details of a PEcAn Site:</h4>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/get.site.html">get.site</a></span><span class="op">(</span><span class="va">server</span>, site_id<span class="op">=</span><span class="st">'676'</span><span class="op">)</span>
 
@@ -281,10 +283,10 @@
 </div>
 <div id="get-information-about-pecan-pfts-plant-functional-types" class="section level3">
 <h3 class="hasAnchor">
-<a href="#get-information-about-pecan-pfts-plant-functional-types" class="anchor"></a>Get Information about PEcAn PFTs (Plant Functional Types)</h3>
+<a href="#get-information-about-pecan-pfts-plant-functional-types" class="anchor" aria-hidden="true"></a>Get Information about PEcAn PFTs (Plant Functional Types)</h3>
 <div id="search-for-pecan-pfts" class="section level4">
 <h4 class="hasAnchor">
-<a href="#search-for-pecan-pfts" class="anchor"></a>Search for PEcAn PFT(s):</h4>
+<a href="#search-for-pecan-pfts" class="anchor" aria-hidden="true"></a>Search for PEcAn PFT(s):</h4>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/search.pfts.html">search.pfts</a></span><span class="op">(</span><span class="va">server</span>, pft_name<span class="op">=</span><span class="st">'deciduous'</span>, model_type<span class="op">=</span><span class="st">'sipnet'</span><span class="op">)</span>
 
@@ -303,7 +305,7 @@
 </div>
 <div id="get-the-details-of-a-pecan-pft" class="section level4">
 <h4 class="hasAnchor">
-<a href="#get-the-details-of-a-pecan-pft" class="anchor"></a>Get the details of a PEcAn PFT:</h4>
+<a href="#get-the-details-of-a-pecan-pft" class="anchor" aria-hidden="true"></a>Get the details of a PEcAn PFT:</h4>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/get.pft.html">get.pft</a></span><span class="op">(</span><span class="va">server</span>, pft_id<span class="op">=</span><span class="st">'2000000045'</span><span class="op">)</span>
 
@@ -325,10 +327,10 @@
 </div>
 <div id="get-information-about-pecan-formats" class="section level3">
 <h3 class="hasAnchor">
-<a href="#get-information-about-pecan-formats" class="anchor"></a>Get Information about PEcAn Formats</h3>
+<a href="#get-information-about-pecan-formats" class="anchor" aria-hidden="true"></a>Get Information about PEcAn Formats</h3>
 <div id="search-for-pecan-formats" class="section level4">
 <h4 class="hasAnchor">
-<a href="#search-for-pecan-formats" class="anchor"></a>Search for PEcAn Formats:</h4>
+<a href="#search-for-pecan-formats" class="anchor" aria-hidden="true"></a>Search for PEcAn Formats:</h4>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/search.formats.html">search.formats</a></span><span class="op">(</span><span class="va">server</span>, format_name<span class="op">=</span><span class="st">"ameriflux"</span>, mimetype<span class="op">=</span><span class="st">"netcdf"</span><span class="op">)</span>
 
@@ -342,7 +344,7 @@
 </div>
 <div id="get-details-about-a-pecan-format" class="section level4">
 <h4 class="hasAnchor">
-<a href="#get-details-about-a-pecan-format" class="anchor"></a>Get details about a PEcAn Format:</h4>
+<a href="#get-details-about-a-pecan-format" class="anchor" aria-hidden="true"></a>Get details about a PEcAn Format:</h4>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/get.format.html">get.format</a></span><span class="op">(</span><span class="va">server</span>, format_id<span class="op">=</span><span class="fl">38</span><span class="op">)</span>
 
@@ -370,10 +372,10 @@
 </div>
 <div id="get-information-about-pecan-inputs" class="section level3">
 <h3 class="hasAnchor">
-<a href="#get-information-about-pecan-inputs" class="anchor"></a>Get Information about PEcAn Inputs</h3>
+<a href="#get-information-about-pecan-inputs" class="anchor" aria-hidden="true"></a>Get Information about PEcAn Inputs</h3>
 <div id="search-for-pecan-inputs" class="section level4">
 <h4 class="hasAnchor">
-<a href="#search-for-pecan-inputs" class="anchor"></a>Search for PEcAn Inputs:</h4>
+<a href="#search-for-pecan-inputs" class="anchor" aria-hidden="true"></a>Search for PEcAn Inputs:</h4>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/search.inputs.html">search.inputs</a></span><span class="op">(</span><span class="va">server</span>, model_id<span class="op">=</span><span class="fl">1000000014</span>, site_id<span class="op">=</span><span class="fl">772</span>, host_id<span class="op">=</span><span class="fl">99000000001</span><span class="op">)</span>
 
@@ -390,7 +392,7 @@
 </div>
 <div id="download-a-pecan-input-file" class="section level4">
 <h4 class="hasAnchor">
-<a href="#download-a-pecan-input-file" class="anchor"></a>Download a PEcAn Input File:</h4>
+<a href="#download-a-pecan-input-file" class="anchor" aria-hidden="true"></a>Download a PEcAn Input File:</h4>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/download.input.html">download.input</a></span><span class="op">(</span><span class="va">server</span>, input_id<span class="op">=</span><span class="fl">99000000003</span>, save_as<span class="op">=</span><span class="st">"niwot.clim.local"</span><span class="op">)</span></code></pre></div>
 <p><em>This will download the requested input file &amp; save it as <code>niwot.clim.local</code></em></p>
@@ -398,10 +400,10 @@
 </div>
 <div id="get-information-about-pecan-workflows" class="section level3">
 <h3 class="hasAnchor">
-<a href="#get-information-about-pecan-workflows" class="anchor"></a>Get Information about PEcAn Workflows</h3>
+<a href="#get-information-about-pecan-workflows" class="anchor" aria-hidden="true"></a>Get Information about PEcAn Workflows</h3>
 <div id="get-list-of-pecan-workflows" class="section level4">
 <h4 class="hasAnchor">
-<a href="#get-list-of-pecan-workflows" class="anchor"></a>Get list of PEcAn Workflows:</h4>
+<a href="#get-list-of-pecan-workflows" class="anchor" aria-hidden="true"></a>Get list of PEcAn Workflows:</h4>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/get.workflows.html">get.workflows</a></span><span class="op">(</span><span class="va">server</span>, model_id<span class="op">=</span><span class="st">'1000000022'</span>, site_id<span class="op">=</span><span class="st">'676'</span><span class="op">)</span>
 
@@ -418,7 +420,7 @@
 </div>
 <div id="get-details-about-a-pecan-workflow" class="section level4">
 <h4 class="hasAnchor">
-<a href="#get-details-about-a-pecan-workflow" class="anchor"></a>Get details about a PEcAn Workflow:</h4>
+<a href="#get-details-about-a-pecan-workflow" class="anchor" aria-hidden="true"></a>Get details about a PEcAn Workflow:</h4>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/get.workflow.html">get.workflow</a></span><span class="op">(</span><span class="va">server</span>, workflow_id<span class="op">=</span><span class="st">'99000000031'</span><span class="op">)</span>
 
@@ -484,20 +486,20 @@
 </div>
 <div id="submit-a-pecan-workflow-for-execution" class="section level3">
 <h3 class="hasAnchor">
-<a href="#submit-a-pecan-workflow-for-execution" class="anchor"></a>Submit a PEcAn Workflow for Execution</h3>
+<a href="#submit-a-pecan-workflow-for-execution" class="anchor" aria-hidden="true"></a>Submit a PEcAn Workflow for Execution</h3>
 <div id="submit-a-workflow-directly-using-user-specified-parameters" class="section level4">
 <h4 class="hasAnchor">
-<a href="#submit-a-workflow-directly-using-user-specified-parameters" class="anchor"></a>Submit a workflow directly using user-specified parameters</h4>
+<a href="#submit-a-workflow-directly-using-user-specified-parameters" class="anchor" aria-hidden="true"></a>Submit a workflow directly using user-specified parameters</h4>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/submit.workflow.html">submit.workflow</a></span><span class="op">(</span>
   <span class="va">server</span>, 
   model_id<span class="op">=</span><span class="fl">1000000014</span>, 
   site_id<span class="op">=</span><span class="fl">772</span>, 
-  pfts<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"temperate.coniferous"</span><span class="op">)</span>, 
+  pfts<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"temperate.coniferous"</span><span class="op">)</span>, 
   start_date<span class="op">=</span><span class="st">"2002-01-01"</span>, 
   end_date<span class="op">=</span><span class="st">"2003-12-31"</span>, 
-  inputs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-    met<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>id<span class="op">=</span><span class="fl">99000000003</span><span class="op">)</span>
+  inputs<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+    met<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id<span class="op">=</span><span class="fl">99000000003</span><span class="op">)</span>
   <span class="op">)</span>
 <span class="op">)</span>
 
@@ -509,7 +511,7 @@
 </div>
 <div id="submit-a-workflow-as-an-xml-file" class="section level4">
 <h4 class="hasAnchor">
-<a href="#submit-a-workflow-as-an-xml-file" class="anchor"></a>Submit a workflow as an XML file</h4>
+<a href="#submit-a-workflow-as-an-xml-file" class="anchor" aria-hidden="true"></a>Submit a workflow as an XML file</h4>
 <p><em>This assumes the presence of an XML file <code>test.xml</code> containing the specifications of the workflow.</em></p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/submit.workflow.xml.html">submit.workflow.xml</a></span><span class="op">(</span><span class="va">server</span>, xmlFile<span class="op">=</span><span class="st">'test.xml'</span><span class="op">)</span>
@@ -521,7 +523,7 @@
 </div>
 <div id="submit-a-workflow-as-a-json-file" class="section level4">
 <h4 class="hasAnchor">
-<a href="#submit-a-workflow-as-a-json-file" class="anchor"></a>Submit a workflow as a JSON file</h4>
+<a href="#submit-a-workflow-as-a-json-file" class="anchor" aria-hidden="true"></a>Submit a workflow as a JSON file</h4>
 <p><em>This assumes the presence of a JSON file <code>test.json</code> containing the specifications of the workflow.</em></p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/submit.workflow.json.html">submit.workflow.json</a></span><span class="op">(</span><span class="va">server</span>, xmlFile<span class="op">=</span><span class="st">'test.json'</span><span class="op">)</span>
@@ -533,7 +535,7 @@
 </div>
 <div id="submit-a-set-of-workflows-specified-as-a-csv-file" class="section level4">
 <h4 class="hasAnchor">
-<a href="#submit-a-set-of-workflows-specified-as-a-csv-file" class="anchor"></a>Submit a set of workflows specified as a CSV file</h4>
+<a href="#submit-a-set-of-workflows-specified-as-a-csv-file" class="anchor" aria-hidden="true"></a>Submit a set of workflows specified as a CSV file</h4>
 <p><em>This assumes the presence of a CSV file <code>test.csv</code> containing the specifications of the set of workflows.</em></p>
 <p><em>Columns: <code>model</code> <code>revision</code> <code>met</code> <code>site_id</code> <code>pft</code> <code>start_date</code> <code>end_date</code> <code>sensitivity</code> <code>ensemble</code> <code>comment</code></em></p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
@@ -556,10 +558,10 @@
 </div>
 <div id="get-information-about-pecan-runs" class="section level3">
 <h3 class="hasAnchor">
-<a href="#get-information-about-pecan-runs" class="anchor"></a>Get Information about PEcAn Runs</h3>
+<a href="#get-information-about-pecan-runs" class="anchor" aria-hidden="true"></a>Get Information about PEcAn Runs</h3>
 <div id="get-list-of-runs-belonging-to-a-pecan-workflow" class="section level4">
 <h4 class="hasAnchor">
-<a href="#get-list-of-runs-belonging-to-a-pecan-workflow" class="anchor"></a>Get list of Runs belonging to a PEcAn Workflow</h4>
+<a href="#get-list-of-runs-belonging-to-a-pecan-workflow" class="anchor" aria-hidden="true"></a>Get list of Runs belonging to a PEcAn Workflow</h4>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/get.runs.html">get.runs</a></span><span class="op">(</span><span class="va">server</span>, workflow_id<span class="op">=</span><span class="st">'1000009172'</span><span class="op">)</span>
 
@@ -580,7 +582,7 @@
 </div>
 <div id="get-details-about-a-pecan-run" class="section level4">
 <h4 class="hasAnchor">
-<a href="#get-details-about-a-pecan-run" class="anchor"></a>Get details about a PEcAn Run</h4>
+<a href="#get-details-about-a-pecan-run" class="anchor" aria-hidden="true"></a>Get details about a PEcAn Run</h4>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/get.run.html">get.run</a></span><span class="op">(</span><span class="va">server</span>, run_id<span class="op">=</span><span class="st">'99000000282'</span><span class="op">)</span>
 <span class="co">#&gt; $runtype</span>
@@ -647,10 +649,10 @@
 </div>
 <div id="plots--file-downloads-for-workflows--runs" class="section level3">
 <h3 class="hasAnchor">
-<a href="#plots--file-downloads-for-workflows--runs" class="anchor"></a>Plots &amp; File Downloads for Workflows &amp; Runs</h3>
+<a href="#plots--file-downloads-for-workflows--runs" class="anchor" aria-hidden="true"></a>Plots &amp; File Downloads for Workflows &amp; Runs</h3>
 <div id="plot-the-desired-variables-from-the-results-of-a-pecan-run" class="section level4">
 <h4 class="hasAnchor">
-<a href="#plot-the-desired-variables-from-the-results-of-a-pecan-run" class="anchor"></a>Plot the desired variables from the results of a PEcAn Run:</h4>
+<a href="#plot-the-desired-variables-from-the-results-of-a-pecan-run" class="anchor" aria-hidden="true"></a>Plot the desired variables from the results of a PEcAn Run:</h4>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/plot_run_vars.html">plot_run_vars</a></span><span class="op">(</span>
       <span class="va">server_invalid</span>, 
@@ -663,21 +665,21 @@
 </div>
 <div id="download-an-input-file-for-a-run" class="section level4">
 <h4 class="hasAnchor">
-<a href="#download-an-input-file-for-a-run" class="anchor"></a>Download an Input File for a Run:</h4>
+<a href="#download-an-input-file-for-a-run" class="anchor" aria-hidden="true"></a>Download an Input File for a Run:</h4>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/download.run.input.html">download.run.input</a></span><span class="op">(</span><span class="va">server</span>, run_id<span class="op">=</span><span class="fl">99000000283</span>, filename<span class="op">=</span><span class="st">"sipnet.in"</span>, save_as<span class="op">=</span><span class="st">"sipnet.in.local"</span><span class="op">)</span></code></pre></div>
 <p><em>This will download the requested input file &amp; save it as <code>sipnet.in.local</code></em></p>
 </div>
 <div id="download-an-output-file-for-a-run" class="section level4">
 <h4 class="hasAnchor">
-<a href="#download-an-output-file-for-a-run" class="anchor"></a>Download an Output File for a Run:</h4>
+<a href="#download-an-output-file-for-a-run" class="anchor" aria-hidden="true"></a>Download an Output File for a Run:</h4>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/download.run.output.html">download.run.output</a></span><span class="op">(</span><span class="va">server</span>, run_id<span class="op">=</span><span class="fl">99000000283</span>, filename<span class="op">=</span><span class="st">"2002.nc"</span>, save_as<span class="op">=</span><span class="st">"local.2002.nc"</span><span class="op">)</span></code></pre></div>
 <p><em>This will download the requested output file &amp; save it as <code>local.2002.nc</code></em></p>
 </div>
 <div id="download-a-file-for-a-workflow" class="section level4">
 <h4 class="hasAnchor">
-<a href="#download-a-file-for-a-workflow" class="anchor"></a>Download a File for a Workflow:</h4>
+<a href="#download-a-file-for-a-workflow" class="anchor" aria-hidden="true"></a>Download a File for a Workflow:</h4>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/download.workflow.file.html">download.workflow.file</a></span><span class="op">(</span><span class="va">server</span>, workflow_id<span class="op">=</span><span class="fl">99000000031</span>, filename<span class="op">=</span><span class="st">"pecan.xml"</span>, save_as<span class="op">=</span><span class="st">"local.pecan.xml"</span><span class="op">)</span></code></pre></div>
 <p><em>This will download the requested file &amp; save it as <code>local.pecan.xml</code></em> ***</p>
@@ -690,7 +692,7 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
 <li>Browse source code at at <br><a href="https://github.com/PecanProject/rpecanapi">https://​github.com/​PecanProject/​rpecanapi</a>
 </li>
@@ -698,38 +700,46 @@
 </li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="https://opensource.org/licenses/mit-license.php">MIT</a></li>
 </ul>
 </div>
+
+
 <div class="citation">
-<h2>Citation</h2>
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
 <li><a href="authors.html">Citing rpecanapi</a></li>
 </ul>
 </div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>
 <a href="https://tezansahu.github.io">Tezan Sahu</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-1031-9683" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>Rob Kooper <br><small class="roles"> Author, contributor </small>  </li>
-<li><a href="authors.html">All authors...</a></li>
+<li><a href="authors.html">More on authors...</a></li>
 </ul>
 </div>
+
+
 
   </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://tezansahu.github.io">Tezan Sahu</a>, Rob Kooper.</p>
+  <p></p>
+<p>Developed by <a href="https://tezansahu.github.io" class="external-link">Tezan Sahu</a>, Rob Kooper.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p>
 </div>
 
       </footer>
@@ -737,6 +747,8 @@
 
   
 
+
+  
 
   </body>
 </html>

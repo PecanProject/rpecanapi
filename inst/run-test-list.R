@@ -47,7 +47,7 @@ test_list <- read.csv("inst/integration-test-list.csv", comment.char = "#",
     end_date = if_else(is.na(end_date), default_end_date, as.character(end_date)),
     # TODO: Add more inputs here
     inputs = pmap(., configure_inputs),
-    pfts = strsplit(pfts, "|", fixed = TRUE),
+    pfts = strsplit(as.character(pfts), "|", fixed = TRUE),
     # ED2-specific customizations
     workflow_list_mods = if_else(
       model_name == "ED2.2",

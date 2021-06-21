@@ -69,9 +69,6 @@ relevant query parameters" />
 
 
 
-<!-- dependencies from examples -->
-
-
   
 
   
@@ -134,7 +131,7 @@ about specific workflows. Hits the <code>/api/workflows/</code> API endpoint wit
 relevant query parameters</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get.workflows</span><span class='op'>(</span><span class='va'>server</span>, model_id <span class='op'>=</span> <span class='cn'>NULL</span>, site_id <span class='op'>=</span> <span class='cn'>NULL</span>, offset <span class='op'>=</span> <span class='fl'>0</span>, limit <span class='op'>=</span> <span class='fl'>50</span><span class='op'>)</span></pre>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>get.workflows</span><span class='op'>(</span><span class='va'>server</span>, model_id <span class='op'>=</span> <span class='cn'>NULL</span>, site_id <span class='op'>=</span> <span class='cn'>NULL</span>, offset <span class='op'>=</span> <span class='fl'>0</span>, limit <span class='op'>=</span> <span class='fl'>50</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -169,20 +166,24 @@ relevant query parameters</p>
     <p>Tezan Sahu</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>server</span> <span class='op'>&lt;-</span> <span class='fu'><a href='connect.html'>connect</a></span><span class='op'>(</span>url<span class='op'>=</span><span class='st'>"http://localhost:8000"</span>, username<span class='op'>=</span><span class='st'>"carya"</span>, password<span class='op'>=</span><span class='st'>"illinois"</span><span class='op'>)</span>
-
-<span class='co'># Get list of all workflows</span>
-<span class='va'>res1</span> <span class='op'>&lt;-</span> <span class='fu'>get.workflows</span><span class='op'>(</span><span class='va'>server</span><span class='op'>)</span>
-</div><div class='co'>#&gt; Sorry! Server not responding.</div><div class='input'>
-<span class='co'># Get list of all workflows using 'SIPNET-ssr' model</span>
-<span class='va'>res2</span> <span class='op'>&lt;-</span> <span class='fu'>get.workflows</span><span class='op'>(</span><span class='va'>server</span>, model_id<span class='op'>=</span><span class='fl'>1000000022</span><span class='op'>)</span>
-</div><div class='co'>#&gt; Sorry! Server not responding.</div><div class='input'>
-<span class='co'>##' # Get list of all workflows using 'Willow Creek (US-WCr)' as site</span>
-<span class='va'>res3</span> <span class='op'>&lt;-</span> <span class='fu'>get.workflows</span><span class='op'>(</span><span class='va'>server</span>, site_id<span class='op'>=</span><span class='fl'>676</span><span class='op'>)</span>
-</div><div class='co'>#&gt; Sorry! Server not responding.</div><div class='input'>
-<span class='co'># Get list of workflow(s) that use 'SIPNET-ssr' model &amp; 'Willow Creek (US-WCr)' as site</span>
-<span class='va'>res4</span> <span class='op'>&lt;-</span> <span class='fu'>get.workflows</span><span class='op'>(</span><span class='va'>server</span>, <span class='fl'>1000000022</span>, <span class='fl'>676</span><span class='op'>)</span>
-</div><div class='co'>#&gt; Sorry! Server not responding.</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='va'>server</span> <span class='op'>&lt;-</span> <span class='fu'><a href='connect.html'>connect</a></span><span class='op'>(</span>url<span class='op'>=</span><span class='st'>"http://localhost:8000"</span>, username<span class='op'>=</span><span class='st'>"carya"</span>, password<span class='op'>=</span><span class='st'>"illinois"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Get list of all workflows</span></span>
+<span class='r-in'><span class='va'>res1</span> <span class='op'>&lt;-</span> <span class='fu'>get.workflows</span><span class='op'>(</span><span class='va'>server</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Sorry! Server not responding.</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Get list of all workflows using 'SIPNET-ssr' model</span></span>
+<span class='r-in'><span class='va'>res2</span> <span class='op'>&lt;-</span> <span class='fu'>get.workflows</span><span class='op'>(</span><span class='va'>server</span>, model_id<span class='op'>=</span><span class='fl'>1000000022</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Sorry! Server not responding.</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>##' # Get list of all workflows using 'Willow Creek (US-WCr)' as site</span></span>
+<span class='r-in'><span class='va'>res3</span> <span class='op'>&lt;-</span> <span class='fu'>get.workflows</span><span class='op'>(</span><span class='va'>server</span>, site_id<span class='op'>=</span><span class='fl'>676</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Sorry! Server not responding.</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Get list of workflow(s) that use 'SIPNET-ssr' model &amp; 'Willow Creek (US-WCr)' as site</span></span>
+<span class='r-in'><span class='va'>res4</span> <span class='op'>&lt;-</span> <span class='fu'>get.workflows</span><span class='op'>(</span><span class='va'>server</span>, <span class='fl'>1000000022</span>, <span class='fl'>676</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Sorry! Server not responding.</span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

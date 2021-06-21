@@ -68,9 +68,6 @@ with relevant query parameters" />
 
 
 
-<!-- dependencies from examples -->
-
-
   
 
   
@@ -132,13 +129,13 @@ PFT name, type &amp; model type. Hits the <code>/api/pfts/</code> API endpoint
 with relevant query parameters</p>
     </div>
 
-    <pre class="usage"><span class='fu'>search.pfts</span><span class='op'>(</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>search.pfts</span><span class='op'>(</span>
   <span class='va'>server</span>,
   pft_name <span class='op'>=</span> <span class='st'>""</span>,
   pft_type <span class='op'>=</span> <span class='st'>""</span>,
   model_type <span class='op'>=</span> <span class='st'>""</span>,
   ignore_case <span class='op'>=</span> <span class='cn'>TRUE</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -174,20 +171,24 @@ Default: "" (Returns PFTs of all types)</p></td>
     <p>Tezan Sahu</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>server</span> <span class='op'>&lt;-</span> <span class='fu'><a href='connect.html'>connect</a></span><span class='op'>(</span>url<span class='op'>=</span><span class='st'>"http://localhost:8000"</span>, username<span class='op'>=</span><span class='st'>"carya"</span>, password<span class='op'>=</span><span class='st'>"illinois"</span><span class='op'>)</span>
-
-<span class='co'># Get details of all PFTs</span>
-<span class='va'>res1</span> <span class='op'>&lt;-</span> <span class='fu'>search.pfts</span><span class='op'>(</span><span class='va'>server</span><span class='op'>)</span>
-</div><div class='co'>#&gt; Sorry! Server not responding.</div><div class='input'>
-<span class='co'># Get details of all PFTs containing 'temperate' in their name</span>
-<span class='va'>res2</span> <span class='op'>&lt;-</span> <span class='fu'>search.pfts</span><span class='op'>(</span><span class='va'>server</span>, pft_name<span class='op'>=</span><span class='st'>"temperate"</span><span class='op'>)</span>
-</div><div class='co'>#&gt; Sorry! Server not responding.</div><div class='input'>
-<span class='co'># Get details of all PFTs containing of 'cultivar' type</span>
-<span class='va'>res3</span> <span class='op'>&lt;-</span> <span class='fu'>search.pfts</span><span class='op'>(</span><span class='va'>server</span>, pft_type<span class='op'>=</span><span class='st'>"cultivar"</span><span class='op'>)</span>
-</div><div class='co'>#&gt; Sorry! Server not responding.</div><div class='input'>
-<span class='co'># Get details of PFTs with 'SIPNET' model type</span>
-<span class='va'>res4</span> <span class='op'>&lt;-</span> <span class='fu'>search.pfts</span><span class='op'>(</span><span class='va'>server</span>, model_type<span class='op'>=</span><span class='st'>'SIPNET'</span><span class='op'>)</span>
-</div><div class='co'>#&gt; Sorry! Server not responding.</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='va'>server</span> <span class='op'>&lt;-</span> <span class='fu'><a href='connect.html'>connect</a></span><span class='op'>(</span>url<span class='op'>=</span><span class='st'>"http://localhost:8000"</span>, username<span class='op'>=</span><span class='st'>"carya"</span>, password<span class='op'>=</span><span class='st'>"illinois"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Get details of all PFTs</span></span>
+<span class='r-in'><span class='va'>res1</span> <span class='op'>&lt;-</span> <span class='fu'>search.pfts</span><span class='op'>(</span><span class='va'>server</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Sorry! Server not responding.</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Get details of all PFTs containing 'temperate' in their name</span></span>
+<span class='r-in'><span class='va'>res2</span> <span class='op'>&lt;-</span> <span class='fu'>search.pfts</span><span class='op'>(</span><span class='va'>server</span>, pft_name<span class='op'>=</span><span class='st'>"temperate"</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Sorry! Server not responding.</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Get details of all PFTs containing of 'cultivar' type</span></span>
+<span class='r-in'><span class='va'>res3</span> <span class='op'>&lt;-</span> <span class='fu'>search.pfts</span><span class='op'>(</span><span class='va'>server</span>, pft_type<span class='op'>=</span><span class='st'>"cultivar"</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Sorry! Server not responding.</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Get details of PFTs with 'SIPNET' model type</span></span>
+<span class='r-in'><span class='va'>res4</span> <span class='op'>&lt;-</span> <span class='fu'>search.pfts</span><span class='op'>(</span><span class='va'>server</span>, model_type<span class='op'>=</span><span class='st'>'SIPNET'</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Sorry! Server not responding.</span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

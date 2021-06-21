@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://pecanproject.github.io/rpecanapi/404.html</loc>
+  </url>
+  <url>
+    <loc>https://pecanproject.github.io/rpecanapi/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://pecanproject.github.io/rpecanapi/PULL_REQUEST_TEMPLATE.html</loc>
+  </url>
+  <url>
+    <loc>https://pecanproject.github.io/rpecanapi/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://pecanproject.github.io/rpecanapi/articles/rpecanapi.html</loc>
+  </url>
+  <url>
+    <loc>https://pecanproject.github.io/rpecanapi/authors.html</loc>
+  </url>
+  <url>
     <loc>https://pecanproject.github.io/rpecanapi/index.html</loc>
   </url>
   <url>
@@ -55,6 +73,9 @@
     <loc>https://pecanproject.github.io/rpecanapi/reference/get.workflows.html</loc>
   </url>
   <url>
+    <loc>https://pecanproject.github.io/rpecanapi/reference/index.html</loc>
+  </url>
+  <url>
     <loc>https://pecanproject.github.io/rpecanapi/reference/ping.html</loc>
   </url>
   <url>
@@ -86,8 +107,5 @@
   </url>
   <url>
     <loc>https://pecanproject.github.io/rpecanapi/reference/submit.workflows.csv.html</loc>
-  </url>
-  <url>
-    <loc>https://pecanproject.github.io/rpecanapi/articles/rpecanapi.html</loc>
   </url>
 </urlset>

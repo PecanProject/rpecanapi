@@ -69,9 +69,6 @@ Hits the POST /api/workflows/ API endpoint." />
 
 
 
-<!-- dependencies from examples -->
-
-
   
 
   
@@ -133,7 +130,7 @@ Hits the <code>POST /api/workflows/</code> API endpoint.</h1>
 Hits the <code>POST /api/workflows/</code> API endpoint.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>submit.workflow</span><span class='op'>(</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>submit.workflow</span><span class='op'>(</span>
   <span class='va'>server</span>,
   <span class='va'>model_id</span>,
   <span class='va'>site_id</span>,
@@ -147,7 +144,7 @@ Hits the <code>POST /api/workflows/</code> API endpoint.</p>
   sensitivity.analysis <span class='op'>=</span> <span class='cn'>FALSE</span>,
   notes <span class='op'>=</span> <span class='cn'>NULL</span>,
   workflow_list_mods <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -216,14 +213,15 @@ workflow list. Passed to <code><a href='https://rdrr.io/r/utils/modifyList.html'
     <p>Tezan Sahu, Alexey Shiklomanov</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>server</span> <span class='op'>&lt;-</span> <span class='fu'><a href='connect.html'>connect</a></span><span class='op'>(</span>url<span class='op'>=</span><span class='st'>"http://localhost:8000"</span>, username<span class='op'>=</span><span class='st'>"carya"</span>, password<span class='op'>=</span><span class='st'>"illinois"</span><span class='op'>)</span>
-
-<span class='co'># Submit a workflow with the SIPNET r136 model (id = 1000000014) for Niwot Ridge site (id = 772) with </span>
-<span class='co'># PFT as 'temperate.coniferous' starting from 01-01-2002 to 31-12-2003 using the input met data with</span>
-<span class='co'># id = 99000000003</span>
-<span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>submit.workflow</span><span class='op'>(</span><span class='va'>server</span>, model_id<span class='op'>=</span><span class='fl'>1000000014</span>, site_id<span class='op'>=</span><span class='fl'>772</span>, pfts<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"temperate.coniferous"</span><span class='op'>)</span>, start_date<span class='op'>=</span><span class='st'>"2002-01-01"</span>, 
-  end_date<span class='op'>=</span><span class='st'>"2003-12-31"</span>, inputs<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>met<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id<span class='op'>=</span><span class='fl'>99000000003</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='co'>#&gt; <span class='error'>Error in loadNamespace(name): </span>there is no package called ‘XML’</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='va'>server</span> <span class='op'>&lt;-</span> <span class='fu'><a href='connect.html'>connect</a></span><span class='op'>(</span>url<span class='op'>=</span><span class='st'>"http://localhost:8000"</span>, username<span class='op'>=</span><span class='st'>"carya"</span>, password<span class='op'>=</span><span class='st'>"illinois"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Submit a workflow with the SIPNET r136 model (id = 1000000014) for Niwot Ridge site (id = 772) with </span></span>
+<span class='r-in'><span class='co'># PFT as 'temperate.coniferous' starting from 01-01-2002 to 31-12-2003 using the input met data with</span></span>
+<span class='r-in'><span class='co'># id = 99000000003</span></span>
+<span class='r-in'><span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>submit.workflow</span><span class='op'>(</span><span class='va'>server</span>, model_id<span class='op'>=</span><span class='fl'>1000000014</span>, site_id<span class='op'>=</span><span class='fl'>772</span>, pfts<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"temperate.coniferous"</span><span class='op'>)</span>, start_date<span class='op'>=</span><span class='st'>"2002-01-01"</span>, </span>
+<span class='r-in'>  end_date<span class='op'>=</span><span class='st'>"2003-12-31"</span>, inputs<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>met<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id<span class='op'>=</span><span class='fl'>99000000003</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-err co'><span class='r-pr'>#&gt;</span> <span class='error'>Error in loadNamespace(x)</span> there is no package called ‘XML’</span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

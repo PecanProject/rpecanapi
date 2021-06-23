@@ -1,5 +1,6 @@
 source("run-test-list.R")
 library(plotly)
+library(ggplot2)
 library(tidyverse)
 
 view(stages)
@@ -39,21 +40,64 @@ scatter_plot %>% layout(
   yaxis = list(showgrid = FALSE)
 )
 
-# Final Status Visualization Using Bar Chart.
+## Bar Chart Visualization
 
-bar_plot <- stages %>%
-  plot_ly(
-    type = "bar",
-    y = ~ site_id,
-    x = ~ workflow_id,
-    text = ~ stage,
-    color = ~ model_id,
-    marker = list(colors = "Paired",
-                  opacity = 1.0),
-    hovertemplate = paste("<b>%{text}</b>")
-  )
-bar_plot %>% layout(
-  title = "run-test-list.R Visualization",
-  xaxis = list(showgrid = FALSE),
-  yaxis = list(showgrid = FALSE)
-)
+# function to calculate percentage
+cal_percentage <- function(stages) {
+  as.data.frame.matrix(prop.table(table(stages)) * 100)
+}
+
+# model percentage
+
+model_perc <-
+  data.frame(model = stages$model_id,
+             success = stages$success_status)
+m_per <- cal_percentage(model_perc)
+
+rmodel <- rownames_to_column(m_per, var = "model_id")
+colnames(rmodel) <- c("model_id", "fail_percent", "succ_percent")
+
+# site percentage
+
+site_perc <-
+  data.frame(model = stages$site_id, success = stages$success_status)
+s_per <- cal_percentage(site_perc)
+
+rsite <- rownames_to_column(s_per, var = "site_id")
+colnames(rsite) <- c("site_id", "fail_percent", "succ_percent")
+
+# site_id as Y axis and success percentage as X axis
+
+rsite$succ_percent <- as.character(rsite$succ_percent)
+rsite$site_id <- as.character(rsite$site_id)
+
+ggplot(data = rsite,
+       aes(x = succ_percent,
+           y = site_id,
+           fill = succ_percent)) +
+  geom_bar(stat = "identity",
+           color = "black",
+           position = position_dodge()) +
+  theme_bw() +
+  labs(title = "success percentage of site_id",
+       x = "percentage",
+       y = "site_id",
+       fill = " success percentage")
+
+# model_id as Y axis and success percentage as X axis
+
+rmodel$succ_percent <- as.character(rmodel$succ_percent)
+rmodel$model_id <- as.character(rmodel$model_id)
+
+ggplot(data = rmodel,
+       aes(x = succ_percent,
+           y = model_id,
+           fill = succ_percent)) +
+  geom_bar(stat = "identity",
+           color = "black",
+           position = position_dodge()) +
+  theme_bw() +
+  labs(title = "success percentage of model_id",
+       x = "percentage",
+       y = "model_id",
+       fill = " success percentage")

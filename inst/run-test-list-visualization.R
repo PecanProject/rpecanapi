@@ -16,10 +16,18 @@ test_list <-
 stages$success_status <-
   ifelse(grepl("DONE", stages$stage), TRUE, FALSE)
 
-color_var <-
-  ifelse(grepl("TRUE", stages$success_status), "red", "green")
+# Add Met Column
 
+stages$met <- test_list$met[match(stages$notes, test_list$notes)]
 
+# Success Percentages of Models, Sites and Met
+
+site_succ_percent <-
+  tapply(stages$success_status, stages$site_name, mean) * 100
+model_succ_percent <-
+  tapply(stages$success_status, stages$model_name, mean) * 100
+met_succ_percent <-
+  tapply(stages$success_status, stages$met, mean) * 100
 
 # Get models & sites Name
 
@@ -31,6 +39,10 @@ stages$site_name <-
   sites_name$sites$sitename[match(stages$site_id, sites_name$sites$id)]
 
 # Final Status Visualization Using Scatter Plot.
+
+
+color_var <-
+  ifelse(grepl("TRUE", stages$success_status), "red", "green")
 
 scatter_plot <-
   plot_ly(
@@ -56,91 +68,57 @@ scatter_plot %>% layout(
 
 ## Final Status Visualization Using Bar Chart
 
-# function to calculate percentage
-cal_percentage <- function(stages) {
-  as.data.frame.matrix(prop.table(table(stages)) * 100)
-}
-
-# model percentage
-
-model_perc <-
-  data.frame(model = stages$model_name,
-             success = stages$success_status)
-m_per <- cal_percentage(model_perc)
-
-rmodel <- rownames_to_column(m_per, var = "model_name")
-colnames(rmodel) <- c("model_name", "fail_percent", "succ_percent")
-
-# site percentage
-
-site_perc <-
-  data.frame(model = stages$site_name,
-             success = stages$success_status)
-s_per <- cal_percentage(site_perc)
-
-rsite <- rownames_to_column(s_per, var = "site_name")
-colnames(rsite) <- c("site_name", "fail_percent", "succ_percent")
-
-# met percentage
-
-met_perc <-
-  data.frame(model = stages$met, success = stages$success_status)
-m_per <- cal_percentage(met_perc)
-
-rmet <- rownames_to_column(m_per, var = "r_met")
-colnames(rmet) <- c("r_met", "fail_percent", "succ_percent")
-
 # site_id as Y axis and success percentage as X axis
 
-rsite$succ_percent <- as.character(rsite$succ_percent)
+s_df <- data.frame(site_succ_percent)
+all_sites <- rownames_to_column(s_df, var = "site_name")
 
-ggplot(data = rsite,
+ggplot(data = all_sites,
        aes(x = site_name,
-           y = succ_percent,
-           fill = succ_percent)) +
+           y = site_succ_percent,
+           fill = site_succ_percent)) +
   geom_bar(stat = "identity",
            color = "black",
            position = position_dodge()) +
   scale_x_discrete(guide = guide_axis(n.dodge = 4)) +
   theme_bw() +
-  labs(title = "success percentage of site_name",
-       x = "percentage",
-       y = "site_name",
-       fill = " success percentage")
+  labs(title = "Success Percentage of Sites",
+       x = "Sites Name",
+       y = "Percentage(%)",
+       fill = " Success Percentage")
 
 # model_id as Y axis and success percentage as X axis
 
-rmodel$succ_percent <- as.character(rmodel$succ_percent)
+m_df <- data.frame(model_succ_percent)
+all_models <- rownames_to_column(m_df, var = "model_name")
 
-ggplot(data = rmodel,
+ggplot(data = all_models,
        aes(x = model_name,
-           y = succ_percent,
-           fill = succ_percent)) +
+           y = model_succ_percent,
+           fill = model_succ_percent)) +
   geom_bar(stat = "identity",
            color = "black",
            position = position_dodge()) +
   theme_bw() +
-  labs(title = "success percentage of model_name",
-       x = "percentage",
-       y = "model_name",
-       fill = " success percentage")
+  labs(title = "Success Percentage of Models",
+       x = "Models Name",
+       y = "Percentage(%)",
+       fill = " Success Percentage")
 
 # met as Y axis and success percentage as X axis
+met_df <- data.frame(met_succ_percent) %>%
+  na.omit(met_df)
+all_met <- rownames_to_column(met_df, var = "met_val")
 
-stages$met <- test_list$met[match(stages$notes, test_list$notes)]
-test_list$met <- as.character(test_list$met)
-
-rmet$succ_percent <- as.character(rmet$succ_percent)
-
-ggplot(data = rmet,
-       aes(x = r_met,
-           y = succ_percent,
-           fill = succ_percent)) +
+ggplot(data = all_met,
+       aes(x = met_val,
+           y = met_succ_percent,
+           fill = met_succ_percent)) +
   geom_bar(stat = "identity",
            color = "black",
            position = position_dodge()) +
   theme_bw() +
-  labs(title = "success percentage of met",
-       x = "percentage",
-       y = "met",
-       fill = " success percentage")
+  labs(title = "Success Percentage of Met",
+       x = "Met",
+       y = "Percentage(%)",
+       fill = " Success Percentage")

@@ -8,8 +8,10 @@ stages$workflow_id <- as.character(stages$workflow_id)
 stages$model_id <- as.character(stages$model_id)
 stages$stage <- as.character(stages$stage)
 
-test_list <- read.csv("inst/integration-test-list.csv", comment.char = "#",
-                      na.strings = "")
+test_list <-
+  read.csv("inst/integration-test-list.csv",
+           comment.char = "#",
+           na.strings = "")
 
 stages$success_status <-
   ifelse(grepl("DONE", stages$stage), TRUE, FALSE)
@@ -23,8 +25,10 @@ color_var <-
 
 models_name <- search.models(server)
 sites_name <- search.sites(server)
-stages$model_name <- models_name$models$model_name[match(stages$model_id, models_name$models$model_id)]
-stages$site_name <- sites_name$sites$sitename[match(stages$site_id, sites_name$sites$id)]
+stages$model_name <-
+  models_name$models$model_name[match(stages$model_id, models_name$models$model_id)]
+stages$site_name <-
+  sites_name$sites$sitename[match(stages$site_id, sites_name$sites$id)]
 
 # Final Status Visualization Using Scatter Plot.
 
@@ -70,7 +74,8 @@ colnames(rmodel) <- c("model_name", "fail_percent", "succ_percent")
 # site percentage
 
 site_perc <-
-  data.frame(model = stages$site_name, success = stages$success_status)
+  data.frame(model = stages$site_name,
+             success = stages$success_status)
 s_per <- cal_percentage(site_perc)
 
 rsite <- rownames_to_column(s_per, var = "site_name")
@@ -90,12 +95,13 @@ colnames(rmet) <- c("r_met", "fail_percent", "succ_percent")
 rsite$succ_percent <- as.character(rsite$succ_percent)
 
 ggplot(data = rsite,
-       aes(x = succ_percent,
-           y = site_name,
+       aes(x = site_name,
+           y = succ_percent,
            fill = succ_percent)) +
   geom_bar(stat = "identity",
            color = "black",
            position = position_dodge()) +
+  scale_x_discrete(guide = guide_axis(n.dodge = 4)) +
   theme_bw() +
   labs(title = "success percentage of site_name",
        x = "percentage",
@@ -107,8 +113,8 @@ ggplot(data = rsite,
 rmodel$succ_percent <- as.character(rmodel$succ_percent)
 
 ggplot(data = rmodel,
-       aes(x = succ_percent,
-           y = model_name,
+       aes(x = model_name,
+           y = succ_percent,
            fill = succ_percent)) +
   geom_bar(stat = "identity",
            color = "black",
@@ -127,8 +133,8 @@ test_list$met <- as.character(test_list$met)
 rmet$succ_percent <- as.character(rmet$succ_percent)
 
 ggplot(data = rmet,
-       aes(x = succ_percent,
-           y = r_met,
+       aes(x = r_met,
+           y = succ_percent,
            fill = succ_percent)) +
   geom_bar(stat = "identity",
            color = "black",
@@ -138,5 +144,3 @@ ggplot(data = rmet,
        x = "percentage",
        y = "met",
        fill = " success percentage")
-
-

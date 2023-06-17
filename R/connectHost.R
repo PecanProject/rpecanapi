@@ -14,7 +14,7 @@
 ##' @examples
 ##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
 
-connectHost <- function(url, username=NULL, password=NULL, host=NULL){
+connectHost <- function(url, username=NULL, password=NULL, host){
   header <- add_headers(Host = host)
   
   res <- list(url=sub('^/|/$','',url), username=username, password=password, headers = header)

@@ -9,10 +9,11 @@
 ##' @param url Base URL of the PEcAn API Server
 ##' @param username Username
 ##' @param password Password corresponding to the username
+##' @param host host corresponds to host runner machine
 ##' @return A server object that can be passed into other functions for making requests to the PEcAn API
 ##' @export
 ##' @examples
-##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
+##' server <- connect(url="http://localhost:8000", username="carya", password="illinois", host="pecan.localhost")
 
 connectHost <- function(url, username=NULL, password=NULL, host){
   header <- add_headers(Host = host)

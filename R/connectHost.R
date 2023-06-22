@@ -13,7 +13,7 @@
 ##' @return A server object that can be passed into other functions for making requests to the PEcAn API
 ##' @export
 ##' @examples
-##' server <- connect(url="http://localhost:8000", username="carya", password="illinois", host="pecan.localhost")
+##' server <- connectHost(url="http://localhost:8000", username="carya", password="illinois", host="pecan.localhost")
 
 connectHost <- function(url, username=NULL, password=NULL, host){
   header <- add_headers(Host = host)

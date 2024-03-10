@@ -59,7 +59,7 @@ ping(server)
 #### Get General Information about the Server & PEcAn Version
 
 ```R
-# get.status(server)
+get.status(server)
 
 # $host_details
 # $host_details$hostid

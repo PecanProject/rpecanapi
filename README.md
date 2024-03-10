@@ -12,6 +12,7 @@ This package allows users to get relevant information from the PEcAn database as
 ## Installation
 
 You can install the development version of `rpecanapi` from GitHub as follows:
+
 ```R
 # install.packages("devtools")
 devtools::install_github("PecanProject/rpecanapi")
@@ -19,7 +20,7 @@ devtools::install_github("PecanProject/rpecanapi")
 
 ## Usage
 
-_The following snippets assume that the PEcAn RESTful API Server is running on `http://localhost:8000`. This can be replaced with any
+_The following snippets assume that the PEcAn RESTful API Server is running on `http://pecan.localhost:80`. This can be replaced with any
 other appropriate PEcAn Server URL._
 
 - [Getting Started](#getting-started)
@@ -36,13 +37,15 @@ other appropriate PEcAn Server URL._
 ### Getting Started
 
 #### Load `rpecanapi` & Create the Server Object
+
 ```R
 library(rpecanapi)
 
-server <- connect(url="http://localhost:8000", username="carya", password="illinois")
+server <- connect(url="http://pecan.localhost:80", username="carya", password="illinois")
 ```
 
 #### Ping the PEcAn API Server
+
 ```R
 ping(server)
 
@@ -52,44 +55,50 @@ ping(server)
 #> $response
 #> [1] "pong"
 ```
+
 #### Get General Information about the Server & PEcAn Version
+
 ```R
-get.status(server)
+# get.status(server)
 
-#> $pecan_details$version
-#> [1] "1.7.0"
+# $host_details
+# $host_details$hostid
+# [1] 99
 
-#> $pecan_details$branch
-#> [1] "develop"
+# $host_details$hostname
+# [1] ""
 
-#> $pecan_details$gitsha1
-#> [1] "unknown"
+# $host_details$start
+# [1] 9.9e+10
 
-#> $host_details$hostid
-#> [1] 99
+# $host_details$end
+# [1] 1e+11
 
-#> $host_details$hostname
-#> [1] ""
+# $host_details$sync_url
+# [1] ""
 
-#> $host_details$start
-#> [1] 99000000000
+# $host_details$sync_contact
+# [1] ""
 
-#> $host_details$end
-#> [1] 99999999999
+# $host_details$authentication_required
+# [1] "FALSE"
 
-#> $host_details$sync_url
-#> [1] ""
 
-#> $host_details$sync_contact
-#> [1] ""
+# $pecan_details
+# $pecan_details$version
+# [1] "develop"
 
-#> $host_details$authentication_required
-#> "TRUE"
+# $pecan_details$branch
+# [1] "develop"
+
+# $pecan_details$gitsha1
+# [1] "48a3b259fd03512c145b4d6eb387467e56ab49b4"
 ```
 
 ### Get Information about PEcAn Models
 
-#### Search for PEcAn Model(s):
+#### Search for PEcAn Model(s)
+
 ```R
 search.models(server, model_name='sip', revision='r')
 
@@ -102,7 +111,8 @@ search.models(server, model_name='sip', revision='r')
 #> [1] 2
 ```
 
-#### Get the details of a PEcAn Model:
+#### Get the details of a PEcAn Model
+
 ```R
 get.model(server, model_id='1000000014')
 
@@ -126,9 +136,11 @@ get.model(server, model_id='1000000014')
 #> 1          met     TRUE
 #> 2 poolinitcond    FALSE
 ```
+
 ### Get Information about PEcAn Sites
 
-#### Search for PEcAn Site(s):
+#### Search for PEcAn Site(s)
+
 ```R
 search.sites(server, sitename='willow')
 
@@ -144,7 +156,8 @@ search.sites(server, sitename='willow')
 #> [1] 5
 ```
 
-#### Get the details of a PEcAn Site:
+#### Get the details of a PEcAn Site
+
 ```R
 get.site(server, site_id='676')
 
@@ -193,9 +206,11 @@ get.site(server, site_id='676')
 #> $time_zone
 #> [1] "America/Chicago"
 ```
+
 ### Get Information about PEcAn PFTs (Plant Functional Types)
 
-#### Search for PEcAn PFT(s):
+#### Search for PEcAn PFT(s)
+
 ```R
 search.pfts(server, pft_name='deciduous', model_type='sipnet')
 
@@ -213,7 +228,8 @@ search.pfts(server, pft_name='deciduous', model_type='sipnet')
 #> [1] 7
 ```
 
-#### Get the details of a PEcAn PFT:
+#### Get the details of a PEcAn PFT
+
 ```R
 get.pft(server, pft_id='2000000045')
 
@@ -232,9 +248,11 @@ get.pft(server, pft_id='2000000045')
 #> $pft_type
 #> [1] "plant"
 ```
+
 ### Get Information about PEcAn Formats
 
-#### Search for PEcAn Formats:
+#### Search for PEcAn Formats
+
 ```R
 search.formats(server, format_name="ameriflux", mimetype="netcdf")
 
@@ -247,7 +265,8 @@ search.formats(server, format_name="ameriflux", mimetype="netcdf")
 #> [1] 2
 ```
 
-#### Get details about a PEcAn Format:
+#### Get details about a PEcAn Format
+
 ```R
 get.format(server, format_id=38)
 
@@ -275,7 +294,8 @@ get.format(server, format_id=38)
 
 ### Get Information about PEcAn Inputs
 
-#### Search for PEcAn Inputs:
+#### Search for PEcAn Inputs
+
 ```R
 search.inputs(server, model_id=1000000014, site_id=772, host_id=99000000001)
 
@@ -291,15 +311,18 @@ search.inputs(server, model_id=1000000014, site_id=772, host_id=99000000001)
 #> [1] 2
 ```
 
-#### Download a PEcAn Input File:
+#### Download a PEcAn Input File
+
 ```R
 download.input(server, input_id=99000000003, save_as="niwot.clim.local")
 ```
+
 _This will download the requested input file & save it as `niwot.clim.local`_
 
 ### Get Information about PEcAn Workflows
 
-#### Get list of PEcAn Workflows:
+#### Get list of PEcAn Workflows
+
 ```R
 get.workflows(server, model_id='1000000022', site_id='676')
 
@@ -315,7 +338,8 @@ get.workflows(server, model_id='1000000022', site_id='676')
 #> [1] 5
 ```
 
-#### Get details about a PEcAn Workflow:
+#### Get details about a PEcAn Workflow
+
 ```R
 get.workflow(server, workflow_id='99000000031')
 
@@ -382,6 +406,7 @@ get.workflow(server, workflow_id='99000000031')
 ### Submit a PEcAn Workflow for Execution
 
 #### Submit a workflow directly using user-specified parameters
+
 ```R
 submit.workflow(
   server, 
@@ -403,6 +428,7 @@ submit.workflow(
 ```
 
 #### Submit a workflow as an XML file
+
 _This assumes the presence of an XML file `test.xml` containing the specifications of the workflow._
 
 ```R
@@ -415,7 +441,9 @@ submit.workflow.xml(server, xmlFile='test.xml')
 ```
 
 #### Submit a workflow as a JSON file
+
 _This assumes the presence of a JSON file `test.json` containing the specifications of the workflow._
+
 ```R
 submit.workflow.json(server, xmlFile='test.json')
 #> $workflow_id
@@ -426,6 +454,7 @@ submit.workflow.json(server, xmlFile='test.json')
 ```
 
 #### Submit a set of workflows specified as a CSV file
+
 _This assumes the presence of a CSV file `test.csv` containing the specifications of the set of workflows._
 
 _Columns: `model`  `revision`  `met`  `site_id`  `pft`  `start_date`  `end_date`  `sensitivity`  `ensemble`  `comment`_
@@ -451,6 +480,7 @@ submit.workflows.csv(server, csvFile='test.csv')
 ### Get Information about PEcAn Runs
 
 #### Get list of Runs belonging to a PEcAn Workflow
+
 ```R
 get.runs(server, workflow_id='1000009172')
 
@@ -467,7 +497,7 @@ get.runs(server, workflow_id='1000009172')
 #> [1] 50
 
 #> $next_page
-#> [1] "http://localhost:8000/api/runs/?workflow_id=1000009172&offset=50&limit=50"
+#> [1] "http://pecan.localhost:80/api/runs/?workflow_id=1000009172&offset=50&limit=50"
 ```
 
 #### Get details about a PEcAn Run
@@ -535,9 +565,10 @@ get.run(server, run_id='99000000282')
 
 #> ...
 ```
+
 ### Plots & File Downloads for Workflows & Runs
 
-#### Plot the desired variables from the results of a PEcAn Run:
+#### Plot the desired variables from the results of a PEcAn Run
 
 ```R
 plot_run_vars(
@@ -548,24 +579,31 @@ plot_run_vars(
       x_var="SoilResp"
     )
 ```
+
 _This will produce a `plot.png` file containing the requested plot_
 
-#### Download an Input File for a Run:
+#### Download an Input File for a Run
+
 ```R
 download.run.input(server, run_id=99000000283, filename="sipnet.in", save_as="sipnet.in.local")
 ```
+
 _This will download the requested input file & save it as `sipnet.in.local`_
 
-#### Download an Output File for a Run:
+#### Download an Output File for a Run
+
 ```R
 download.run.output(server, run_id=99000000283, filename="2002.nc", save_as="local.2002.nc")
 ```
+
 _This will download the requested output file & save it as `local.2002.nc`_
 
-#### Download a File for a Workflow:
+#### Download a File for a Workflow
+
 ```R
 download.workflow.file(server, workflow_id=99000000031, filename="pecan.xml", save_as="local.pecan.xml")
 ```
+
 _This will download the requested file & save it as `local.pecan.xml`_
 ***
 

@@ -10,7 +10,7 @@
 ##' @author Tezan Sahu
 ##' @export
 ##' @examples
-##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
+##' server <- connect(url="http://pecan.localhost:80", username="carya", password="illinois")
 ##' 
 ##' # Get details of all runs for the workflow with ID '1000009172'
 ##' res <- get.runs(server, workflow_id=1000009172)

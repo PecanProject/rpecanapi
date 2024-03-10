@@ -8,7 +8,7 @@
 ##' @author Tezan Sahu
 ##' @export
 ##' @examples
-##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
+##' server <- connect(url="http://pecan.localhost:80", username="carya", password="illinois")
 ##' res <- ping(server)
 
 ping <- function(server){

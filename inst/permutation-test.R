@@ -9,7 +9,7 @@ library(glue)
 argv <- commandArgs(trailingOnly = TRUE)
 
 # Modify for your target machine and authentication
-server <- connect("http://localhost:8000", "ashiklom", "admin")
+server <- connect("http://pecan.localhost:80", "ashiklom", "admin")
 
 met_source <- c("CRUNCEP", "AmerifluxLBL")
 startdate <- "2004-01-01"

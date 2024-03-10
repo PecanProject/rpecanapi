@@ -8,7 +8,7 @@
 ##' @author Tezan Sahu
 ##' @export
 ##' @examples
-##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
+##' server <- connect(url="http://pecan.localhost:80", username="carya", password="illinois")
 ##' 
 ##' # Get details of the WillowCreek(US-WCr) site (id = 676)
 ##' res <- get.site(server, site_id=676)

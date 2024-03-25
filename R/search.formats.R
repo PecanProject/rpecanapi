@@ -11,7 +11,7 @@
 ##' @author Tezan Sahu
 ##' @export
 ##' @examples
-##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
+##' server <- connect(url="http://pecan.localhost:80", username="carya", password="illinois")
 ##' 
 ##' # Get details of all formats
 ##' res1 <- search.formats(server)

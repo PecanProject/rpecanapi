@@ -11,7 +11,7 @@
 ##' @author Tezan Sahu
 ##' @export
 ##' @examples
-##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
+##' server <- connect(url="http://pecan.localhost:80", username="carya", password="illinois")
 ##' 
 ##' # Download the 'README.txt' output for the run with id = '99000000282'
 ##' download.run.output(server, run_id=99000000282, filename='README.txt', save_as='test.README.txt')

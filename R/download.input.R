@@ -11,7 +11,7 @@
 ##' @author Tezan Sahu
 ##' @export
 ##' @examples
-##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
+##' server <- connect(url="http://pecan.localhost:80", username="carya", password="illinois")
 ##' 
 ##' # Download the 'niwot.clim' file (id = 99000000003)
 ##' download.input(server, input_id='99000000003', save_as='local.niwot.clim')

@@ -14,7 +14,7 @@
 ##' @author Tezan Sahu
 ##' @export
 ##' @examples
-##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
+##' server <- connect(url="http://pecan.localhost:80", username="carya", password="illinois")
 ##' 
 ##' # Plot the Gross Primary Productivity vs Time for the run with ID '99000000282' for the year 2002
 ##' plot_run_vars(server, run_id=99000000282, year=2002, y_var="GPP")

@@ -20,7 +20,7 @@
 ##' @author Tezan Sahu, Alexey Shiklomanov
 ##' @export
 ##' @examples
-##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
+##' server <- connect(url="http://pecan.localhost:80", username="carya", password="illinois")
 ##' 
 ##' # Submit a workflow with the SIPNET r136 model (id = 1000000014) for Niwot Ridge site (id = 772) with 
 ##' # PFT as 'temperate.coniferous' starting from 01-01-2002 to 31-12-2003 using the input met data with

@@ -19,7 +19,7 @@ Get details of PEcAn PFT from the database using PFT id.
 Hits the \verb{/api/pfts/\{pft_id\}} API endpoint.
 }
 \examples{
-server <- connect(url="http://localhost:8000", username="carya", password="illinois")
+server <- connect(url="http://pecan.localhost:80", username="carya", password="illinois")
 
 # Get details of the temperate.deciduous PFT (id = 41)
 res <- get.pft(server, pft_id=41)

@@ -12,7 +12,7 @@
 ##' @return A server object that can be passed into other functions for making requests to the PEcAn API
 ##' @export
 ##' @examples
-##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
+##' server <- connect(url="http://pecan.localhost:80", username="carya", password="illinois")
 
 connect <- function(url, username=NULL, password=NULL){
   res <- list(url=sub('^/|/$','',url), username=username, password=password)

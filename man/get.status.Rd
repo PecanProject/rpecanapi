@@ -17,7 +17,7 @@ Obtain general information about PEcAn & the details of the database host
 Hits the \verb{/api/status} API endpoint
 }
 \examples{
-server <- connect(url="http://localhost:8000", username="carya", password="illinois")
+server <- connect(url="http://pecan.localhost:80", username="carya", password="illinois")
 res <- get.status(server)
 }
 \author{

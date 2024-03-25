@@ -38,13 +38,13 @@ This vignette covers the following major sections:
 ## Initial Setup {#pecanapi-setup}
 
 This tutorial assumes you are running a Dockerized instance of PEcAn on your local machine (hostname `localhost`, port 8000).
-To check this, open a browser and try to access `http://localhost:8000`.
+To check this, open a browser and try to access `http://pecan.localhost:80`.
 If you are trying to access a remote instance of PEcAn, you will need to substitute the hostname and port accordingly.
 
 We first create a server object with the appropriate credentials for authentication.
 
 ```{r, eval = FALSE}
-server <- connect("http://localhost:8000", username = "carya", password = "illinois")
+server <- connect("http://pecan.localhost:80", username = "carya", password = "illinois")
 ```
 
 The rest of this tutorial assumes that you are using this same server object (`server`).
@@ -297,7 +297,7 @@ download.workflow.file(server, workflow_id = '99000000001', filename = "pecan.CO
 This downloads the `pecan.CONFIG.xml` file from the server for the mentioned workflow & saves it locally using the same file name (because the `save_as` parameter is set to default value).
 
 All of PEcAn's outputs as well as its database files (`dbfiles`) can also be accessed remotely via the THREDDS data server.
-You can explore these files by browsing to `localhost:8000/thredds/` in a browser (substituting hostname and port, accordingly).
+You can explore these files by browsing to `pecan.localhost:80/thredds/` in a browser (substituting hostname and port, accordingly).
 
 Similarly, one can also fetch basic informtion about runs belonging to a workflow along with details for a particlar workflow:
 

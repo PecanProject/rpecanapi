@@ -19,7 +19,7 @@ Obtain the details of a details of a specified PEcAn run.
 Hits the \verb{/api/run/\{id\}} API endpoint
 }
 \examples{
-server <- connect(url="http://localhost:8000", username="carya", password="illinois")
+server <- connect(url="http://pecan.localhost:80", username="carya", password="illinois")
 
 # Get details of run with id = '1002042201'
 res <- get.run(server, 1002042201)

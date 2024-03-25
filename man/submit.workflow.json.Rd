@@ -19,7 +19,7 @@ Submit a JSON file as a PEcAn workflow.
 Hits the \verb{POST /api/workflows/} API endpoint
 }
 \examples{
-server <- connect(url="http://localhost:8000", username="carya", password="illinois")
+server <- connect(url="http://pecan.localhost:80", username="carya", password="illinois")
 res <- submit.workflow.json(server, "api.sipnet.json")
 }
 \author{

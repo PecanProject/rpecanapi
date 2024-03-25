@@ -21,7 +21,7 @@ Columns: model  revision  met  site_id  pft  start_date  end_date  sensitivity  
 Each row corresponds to one workflow to be submitted
 }
 \examples{
-server <- connect(url="http://localhost:8000", username="carya", password="illinois")
+server <- connect(url="http://pecan.localhost:80", username="carya", password="illinois")
 res <- submit.workflows.csv(server, "default_tests.csv")
 }
 \author{

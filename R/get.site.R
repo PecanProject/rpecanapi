@@ -2,30 +2,29 @@
 ##' Hits the `/api/sites/{site_id}` API endpoint.
 ##' @name get.site
 ##' @title Get details of PEcAn Site from the database using site id
-##' @param server Server object obtained using the connect() function 
+##' @param server Server object obtained using the connect() function
 ##' @param site_id ID of the model to retrieve
 ##' @return Response obtained from the `/api/sites/{site_id}` endpoint
 ##' @author Tezan Sahu
 ##' @export
 ##' @examples
 ##' server <- connect(url="http://pecan.localhost:80", username="carya", password="illinois")
-##' 
+##'
 ##' # Get details of the WillowCreek(US-WCr) site (id = 676)
 ##' res <- get.site(server, site_id=676)
 
-get.site <- function(server, site_id){
+get.site <- function(server, site_id) {
   res <- NULL
   tryCatch(
     expr = {
       url <- paste0(server$url, "/api/sites/", site_id)
-      
-      if(! is.null(server$username) && ! is.null(server$password)){
+
+      if (!is.null(server$username) && !is.null(server$password)) {
         res <- httr::GET(
           url,
           httr::authenticate(server$username, server$password)
         )
-      }
-      else{
+      } else {
         res <- httr::GET(url)
       }
     },
@@ -33,21 +32,17 @@ get.site <- function(server, site_id){
       message("Sorry! Server not responding.")
     }
   )
-  
-  if(! is.null(res)) {
-    if(res$status_code == 200){
+
+  if (!is.null(res)) {
+    if (res$status_code == 200) {
       return(jsonlite::fromJSON(rawToChar(res$content)))
-    }
-    else if(res$status_code == 401){
+    } else if (res$status_code == 401) {
       stop("Invalid credentials")
-    }
-    else if(res$status_code == 404){
+    } else if (res$status_code == 404) {
       stop("Site not found")
-    }
-    else if(res$status_code == 500){
+    } else if (res$status_code == 500) {
       stop("Internal server error")
-    }
-    else{
+    } else {
       stop("Unidentified error")
     }
   }

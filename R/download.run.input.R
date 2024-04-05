@@ -11,7 +11,7 @@
 ##' @author Tezan Sahu
 ##' @export
 ##' @examples
-##' server <- connect(url="http://localhost:8000", username="carya", password="illinois")
+##' server <- connect(url="http://pecan.localhost:80", username="carya", password="illinois")
 ##' 
 ##' # Download the 'sipnet.clim' input for the run with id = '99000000282'
 ##' download.run.input(server, run_id=99000000282, filename='sipnet.clim', save_as='test.sipnet.clim')

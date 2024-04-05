@@ -19,7 +19,7 @@ Get details of PEcAn Model from the database using model id.
 Hits the \verb{/api/models/\{model_id\}} API endpoint.
 }
 \examples{
-server <- connect(url="http://localhost:8000", username="carya", password="illinois")
+server <- connect(url="http://pecan.localhost:80", username="carya", password="illinois")
 
 # Get details of the SIPNET ssr model (id = 1000000022)
 res <- get.model(server, model_id=1000000022)

@@ -19,7 +19,7 @@ Obtain the status of a particular PEcAn workflow by supplying
 its ID. Hits the \verb{/api/workflows/\{id\}/status} API endpoint
 }
 \examples{
-server <- connect(url="http://localhost:8000", username="carya", password="illinois")
+server <- connect(url="http://pecan.localhost:80", username="carya", password="illinois")
 
 # Get details of workflow with id = '1000009172'
 res <- get.workflow.status(server, workflow_id=1000009172)
